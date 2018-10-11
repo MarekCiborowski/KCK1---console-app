@@ -13,10 +13,12 @@ namespace DatabaseLayer.Models
         [Key]
         public int AccountSurveyID { get; set; }
         
-        [ForeignKey("Account")]
+        [ForeignKey("account")]
         public int AccountID { get; set; }
+        public Account account { get; set; }
 
-        [ForeignKey("SurveyID")]
+        [ForeignKey("survey")]
         public int SurveyID { get; set; }
+        public Survey survey { get; set; }
     }
 }

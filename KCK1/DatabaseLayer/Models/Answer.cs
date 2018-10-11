@@ -15,8 +15,9 @@ namespace DatabaseLayer.Models
         public int AnswerID { get; set; }
         public string AnswerValue { get; set; }
 
-        [ForeignKey("Question")]
+        [ForeignKey("question")]
         public int QuestionID { get; set; }
+        public Question question { get; set; }
        
     }
 }
