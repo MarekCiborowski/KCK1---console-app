@@ -18,6 +18,7 @@ namespace DatabaseLayer.Models
         [ForeignKey("question")]
         public int QuestionID { get; set; }
         public Question question { get; set; }
+        public int numberOfVotes { get; set; } = 0; //ilość głosów na tą odpowiedź, jakaś inkrementacja tej wartości przy głosowaniu 
        
     }
 }

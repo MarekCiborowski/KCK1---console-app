@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace DatabaseLayer.Models
 {
+    //Tabela zapisująca osoby które zagłosowały w danej ankiecie
     [Table("AccountSurvey")]
     public class AccountSurvey
     {
@@ -20,5 +21,6 @@ namespace DatabaseLayer.Models
         [ForeignKey("survey")]
         public int SurveyID { get; set; }
         public Survey survey { get; set; }
+        public bool isAuthor { get; set; } = false;
     }
 }

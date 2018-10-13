@@ -17,5 +17,7 @@ namespace DatabaseLayer.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public string Nickname { get; set; }
+       
+        public ICollection<AccountSurvey> AccountSurvey { get; set; }
     }
 }
