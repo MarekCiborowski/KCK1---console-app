@@ -14,8 +14,9 @@ namespace DatabaseLayer.Models
         [Key]
         public int QuestionID { get; set; }
         public string QuestionValue { set; get; }
-        public bool OptionOfAddingAnswers { get; set; }
-        public bool IsSingleChoice { get; set; }
+        [ForeignKey("category")]
+        public int CategoryID { get; set; }
+        public Category category { get; set; }
 
         [ForeignKey("survey")]
         public int SurveyID { get; set; }

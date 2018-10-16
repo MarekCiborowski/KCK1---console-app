@@ -64,8 +64,12 @@
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountSurvey.cs" />
     <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\FollowedUsers.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Survey.cs" />
+    <Compile Include="Models\UserSecurity.cs" />
+    <Compile Include="Models\Votes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

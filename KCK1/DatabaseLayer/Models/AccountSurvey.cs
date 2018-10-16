@@ -21,6 +21,9 @@ namespace DatabaseLayer.Models
         [ForeignKey("survey")]
         public int SurveyID { get; set; }
         public Survey survey { get; set; }
-        public bool isAuthor { get; set; } = false;
+        public bool IsAuthor { get; set; } = false;
+        
+
+        //autor nie głosuje w swojej ankiecie
     }
 }
