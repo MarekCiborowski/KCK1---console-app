@@ -66,6 +66,7 @@
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\FollowedUsers.cs" />
+    <Compile Include="Models\PersonData.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Survey.cs" />
     <Compile Include="Models\UserSecurity.cs" />
