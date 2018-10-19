@@ -12,15 +12,17 @@ namespace DatabaseLayer.Models
     public class Account
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AccountID { get; set; }
 
-        [ForeignKey("PersonData")]
-        public int PersonDataID { get; set; }
+        [Required]
+        public virtual PersonData personData { get; set; }
 
         public string Email { get; set; }
         public string Nickname { get; set; }
         
         public int Followers { get; set; } = 0; //to Roman wymyślił
+        [Required]
         public virtual UserSecurity UserSecurity { get; set; }
         public ICollection<AccountSurvey> AccountSurvey { get; set; }
         
