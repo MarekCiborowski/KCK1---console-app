@@ -12,8 +12,7 @@ namespace DatabaseLayer.Models
     {
         [Key, ForeignKey("account")]
         public int PersonDataID { get; set; }
-        [ForeignKey("account")]
-        public int AccountID { get; set; }
+
         public virtual Account account { get; set; }
 
         public string Address { get; set; }
@@ -21,8 +20,6 @@ namespace DatabaseLayer.Models
         public int Zipcode { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
-
-        public virtual Account account { get; set; }
 
     }
 }
