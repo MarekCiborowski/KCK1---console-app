@@ -23,7 +23,7 @@ namespace DatabaseLayer.Models
         
         public int Followers { get; set; } = 0; //to Roman wymyślił
         [Required]
-        public virtual UserSecurity UserSecurity { get; set; }
+        public virtual UserSecurity userSecurity { get; set; }
         public ICollection<AccountSurvey> AccountSurvey { get; set; }
         
         public ICollection<FollowedUsers> FollowedUsers { get; set; }
