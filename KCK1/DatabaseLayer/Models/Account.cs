@@ -14,9 +14,9 @@ namespace DatabaseLayer.Models
         [Key]
         public int AccountID { get; set; }
 
-        [ForeignKey("PersonData")]
-        public int PersonDataID { get; set; }
+        
 
+        public virtual PersonData personData { get; set; }
         public string Email { get; set; }
         public string Nickname { get; set; }
         

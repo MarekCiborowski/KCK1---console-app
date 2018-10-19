@@ -17,6 +17,12 @@ namespace DatabaseLayer
         public virtual DbSet<Answer> answers { get; set; }
         public virtual DbSet<Question> questions { get; set; }
         public virtual DbSet<Survey> surveys { get; set; }
+        public virtual DbSet<UserSecurity> userSecurity { get; set; }
+        public virtual DbSet<PersonData> personData { get; set; }
+        public virtual DbSet<Votes> votes { get; set; }
+        public virtual DbSet<FollowedUsers> followedUsers { get; set; }
+        public virtual DbSet<Category> category { get; set; }
+
 
 
     }

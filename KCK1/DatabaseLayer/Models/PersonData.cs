@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,9 @@ namespace DatabaseLayer.Models
     {
         [Key]
         public int PersonDataID { get; set; }
+        [ForeignKey("account")]
+        public int AccountID { get; set; }
+        public virtual Account account { get; set; }
 
         public string Address { get; set; }
         public string City { get; set; }

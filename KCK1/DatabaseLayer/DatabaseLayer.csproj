@@ -48,19 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseContext.cs" />
-    <Compile Include="Migrations\201810111849031_InitialCreate.cs" />
-    <Compile Include="Migrations\201810111849031_InitialCreate.Designer.cs">
-      <DependentUpon>201810111849031_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810130914008_Relations.cs" />
-    <Compile Include="Migrations\201810130914008_Relations.Designer.cs">
-      <DependentUpon>201810130914008_Relations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810130915223_Relations1.cs" />
-    <Compile Include="Migrations\201810130915223_Relations1.Designer.cs">
-      <DependentUpon>201810130915223_Relations1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountSurvey.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -76,17 +63,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810111849031_InitialCreate.resx">
-      <DependentUpon>201810111849031_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810130914008_Relations.resx">
-      <DependentUpon>201810130914008_Relations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810130915223_Relations1.resx">
-      <DependentUpon>201810130915223_Relations1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
