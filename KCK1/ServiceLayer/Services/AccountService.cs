@@ -33,9 +33,9 @@ namespace ServiceLayer.Services
             return accountR.GetAccount(id);
         }
 
-        public void AddAccount(Account account, PersonData personData, UserSecurity userSecurity)
+        public void AddAccount(Account account/*, PersonData personData, UserSecurity userSecurity*/)
         {
-            accountR.AddAccount(account, personData, userSecurity);
+            accountR.AddAccount(account/*, personData, userSecurity*/);
         }
 
         public void DeleteAccount(int? id)

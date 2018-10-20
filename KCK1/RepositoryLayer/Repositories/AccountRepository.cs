@@ -30,10 +30,10 @@ namespace RepositoryLayer.Repositories
         }
         
 
-        public void AddAccount(Account account, PersonData personData, UserSecurity userSecurity )
+        public void AddAccount(Account account/*, PersonData personData, UserSecurity userSecurity */)
         {
-            account.userSecurity = userSecurity;
-            account.personData = personData;
+            //account.userSecurity = userSecurity;
+            //account.personData = personData;
             db.accounts.Add(account);
             db.SaveChanges();
         }
@@ -53,6 +53,8 @@ namespace RepositoryLayer.Repositories
                 throw new ArgumentNullException("Null argument");
             Account account = db.accounts.Find(id);
 
+            db.personDatas.Remove(account.personData);
+            db.userSecuritys.Remove(account.userSecurity);
             db.accounts.Remove(account);
             db.SaveChanges();
         }
