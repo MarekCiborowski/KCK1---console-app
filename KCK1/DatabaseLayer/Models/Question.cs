@@ -20,6 +20,7 @@ namespace DatabaseLayer.Models
 
         [ForeignKey("survey")]
         public int surveyID { get; set; }
+        [Required]
         public Survey survey { get; set; }
         public ICollection<Answer> answer { get; set; }
     }

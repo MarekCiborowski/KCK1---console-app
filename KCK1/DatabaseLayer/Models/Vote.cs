@@ -14,11 +14,13 @@ namespace DatabaseLayer.Models
         public int voteID { get; set; }
         [ForeignKey("answer")]
         public int answerID { get; set; }
+        [Required]
         public Answer answer { get; set; }
 
         [ForeignKey("account")]
         //jeżeli ankieta anonimowa to null
         public int? accountID { get; set; } = null;
-        public Account account { get; set; }
+
+        public Account account { get; set; } //jak będzie null to wyswietlimy jako usuniete konto
     }
 }

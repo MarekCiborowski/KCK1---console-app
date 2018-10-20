@@ -12,6 +12,7 @@ namespace DatabaseLayer.Models
     {
         [Key, ForeignKey("account")]
         public int userSecurityID { get; set; }
+        [Required]
         public virtual Account account { get; set; }
 
         public string login { get; set; }

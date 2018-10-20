@@ -17,6 +17,7 @@ namespace DatabaseLayer.Models
 
         [ForeignKey("question")]
         public int questionID { get; set; }
+        [Required]
         public Question question { get; set; }
         public ICollection<Vote> vote { get; set; }
        

@@ -12,7 +12,7 @@ namespace DatabaseLayer.Models
     {
         [Key, ForeignKey("account")]
         public int personDataID { get; set; }
-
+        [Required]
         public virtual Account account { get; set; }
 
         public string address { get; set; }
