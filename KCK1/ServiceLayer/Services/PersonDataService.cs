@@ -12,24 +12,7 @@ namespace ServiceLayer.Services
     {
         private PersonDataRepository personDataR = new PersonDataRepository();
 
-        public PersonData CreatePersonData(
-            Account _account,
-            string _address,
-            string _city,
-            int _zipcode,
-            string _state,
-            string _country)
-        {
-            return new PersonData
-            {
-                account = _account,
-                address = _address,
-                city = _city,
-                zipcode = _zipcode,
-                state = _state,
-                country = _country,
-            };
-        }
+        
 
         public PersonData GetPersonData(int? id)
         {

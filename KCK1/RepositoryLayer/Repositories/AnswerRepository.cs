@@ -13,6 +13,20 @@ namespace RepositoryLayer.Repositories
     {
         private DatabaseContext db = new DatabaseContext();
 
+        public Answer CreateAnswer(
+            string _answerValue,
+            int _questionID,
+            Question _question,
+            ICollection<Vote> _vote)
+        {
+            return new Answer
+            {
+                answerValue = _answerValue,
+                questionID = _questionID,
+                question = _question,
+                vote = _vote,
+            };
+        }
         public Answer GetAnswer(int? id)
         {
             if (id == null)

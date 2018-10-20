@@ -13,6 +13,20 @@ namespace RepositoryLayer.Repositories
     {
         private DatabaseContext db = new DatabaseContext();
 
+        public Survey CreateSurvey(
+            string _title,
+            string _description,
+            ICollection<Question> _question,
+            ICollection<AccountSurvey> _accountSurvey)
+        {
+            return new Survey
+            {
+                title = _title,
+                description = _description,
+                question = _question,
+                accountSurvey = _accountSurvey
+            };
+        }
         public Survey GetSurvey(int? id)
         {
             if (id == null)

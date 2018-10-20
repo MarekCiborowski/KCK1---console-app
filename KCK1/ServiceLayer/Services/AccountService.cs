@@ -13,20 +13,7 @@ namespace ServiceLayer.Services
     {
         private AccountRepository accountR = new AccountRepository();
 
-        public Account CreateAccount(
-            PersonData _persondata, 
-            string _email, 
-            string _nickname, 
-            UserSecurity _usersecurity)
-        {
-            return new Account
-            {
-                personData = _persondata,
-                email = _email,
-                nickname = _nickname,
-                userSecurity = _usersecurity
-            };
-        }
+        
 
         public Account GetAccount(int? id)
         {

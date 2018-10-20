@@ -21,11 +21,12 @@ namespace DatabaseLayer.Models
         public string email { get; set; }
         public string nickname { get; set; }
         
-        public int followers { get; set; } = 0; //to Roman wymyślił
+        public int followers { get; set; } = 0; 
         [Required]
         public virtual UserSecurity userSecurity { get; set; }
         public ICollection<AccountSurvey> accountSurvey { get; set; }
         
         public ICollection<FollowedUsers> followedUsers { get; set; }
+        public ICollection<Vote> votes { get; set; } //oddane przez daną osobę głosy
     }
 }

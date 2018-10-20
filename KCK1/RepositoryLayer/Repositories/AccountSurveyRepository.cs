@@ -12,6 +12,23 @@ namespace RepositoryLayer.Repositories
     {
         private DatabaseContext db = new DatabaseContext();
 
+        public AccountSurvey CreateAccountSurvey(
+           int _accountID,
+           Account _account,
+           int _surveyID,
+           Survey _survey,
+           bool _isAuthor)
+        {
+            return new AccountSurvey
+            {
+                accountID = _accountID,
+                account = _account,
+                surveyID = _surveyID,
+                survey = _survey,
+                isAuthor = _isAuthor
+            };
+        }
+
         public AccountSurvey GetAccountSurvey(int? id)
         {
             if (id == null)

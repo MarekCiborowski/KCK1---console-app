@@ -76,9 +76,9 @@
       <Project>{addaf72e-52ee-4d71-836b-7194475d413f}</Project>
       <Name>DatabaseLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj">
-      <Project>{43d613a9-516a-4e1c-90d4-4dae60141b25}</Project>
-      <Name>ServiceLayer</Name>
+    <ProjectReference Include="..\RepositoryLayer\RepositoryLayer.csproj">
+      <Project>{524e98bb-bfd7-4c63-a702-4acfe4d788e8}</Project>
+      <Name>RepositoryLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

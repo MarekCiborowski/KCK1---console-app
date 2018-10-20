@@ -11,20 +11,7 @@ namespace ServiceLayer.Services
     {
         private SurveyRepository surveyR = new SurveyRepository();
 
-        public Survey CreateSurvey(
-            string _title,
-            string _description,
-            ICollection<Question> _question,
-            ICollection<AccountSurvey> _accountSurvey)
-        {
-            return new Survey
-            {
-                title = _title,
-                description = _description,
-                question = _question,
-                accountSurvey = _accountSurvey
-            };
-        }
+        
 
         public Survey GetAccount(int? id)
         {
