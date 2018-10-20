@@ -26,7 +26,8 @@ namespace DatabaseLayer.Models
         public virtual UserSecurity userSecurity { get; set; }
         public ICollection<AccountSurvey> accountSurvey { get; set; }
         
-        public ICollection<FollowedUsers> followedUsers { get; set; }
+        public ICollection<Account> followedUsers { get; set; }
+        public ICollection<Account> followingUsers { get; set; }
         public ICollection<Vote> votes { get; set; } //oddane przez daną osobę głosy
     }
 }

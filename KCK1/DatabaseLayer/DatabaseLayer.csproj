@@ -71,12 +71,19 @@
     <Compile Include="Migrations\201810201723517_importanto.Designer.cs">
       <DependentUpon>201810201723517_importanto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810201835113_followers.cs" />
+    <Compile Include="Migrations\201810201835113_followers.Designer.cs">
+      <DependentUpon>201810201835113_followers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810201836192_final_migration.cs" />
+    <Compile Include="Migrations\201810201836192_final_migration.Designer.cs">
+      <DependentUpon>201810201836192_final_migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountSurvey.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\FollowedUsers.cs" />
     <Compile Include="Models\PersonData.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Survey.cs" />
@@ -94,6 +101,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810201723517_importanto.resx">
       <DependentUpon>201810201723517_importanto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810201835113_followers.resx">
+      <DependentUpon>201810201835113_followers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810201836192_final_migration.resx">
+      <DependentUpon>201810201836192_final_migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

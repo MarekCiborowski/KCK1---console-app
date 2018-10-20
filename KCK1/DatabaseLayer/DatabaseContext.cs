@@ -20,8 +20,16 @@ namespace DatabaseLayer
         public virtual DbSet<UserSecurity> userSecuritys { get; set; }
         public virtual DbSet<PersonData> personDatas { get; set; }
         public virtual DbSet<Vote> votes { get; set; }
-        public virtual DbSet<FollowedUsers> followedUsers { get; set; }
+        
         public virtual DbSet<Category> categorys { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Account>()
+                .HasMany(x => x.followedUsers).WithMany(x => x.followingUsers)
+                .Map(x => x.ToTable("Followers")
+                    .MapLeftKey("UserId")
+                    .MapRightKey("FollowerId"));
+        }
 
 
 
