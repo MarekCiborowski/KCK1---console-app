@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseLayer
 {
-    class DatabaseContext : DbContext
+    public class DatabaseContext : DbContext
     {
         public DatabaseContext() : base("name=SurveysDatabase") { }
 
