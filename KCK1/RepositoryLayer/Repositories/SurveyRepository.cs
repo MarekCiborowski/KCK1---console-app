@@ -56,5 +56,14 @@ namespace RepositoryLayer.Repositories
             db.surveys.Remove(survey);
             db.SaveChanges();
         }
+
+        public bool IsAnonymous(int? id)
+        {
+            if (id == null)
+                throw new ArgumentException("Null argument");
+            Survey survey = db.surveys.Find(id);
+
+            return survey.isAnonymous;
+        }
     }
 }
