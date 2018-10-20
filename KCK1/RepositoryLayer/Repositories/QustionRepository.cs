@@ -29,7 +29,7 @@ namespace RepositoryLayer.Repositories
 
         public Question EditQuestion(Question editedQuestion)
         {
-            Question question = db.answers.Find(editedQuestion.QuestionID);
+            Question question = db.questions.Find(editedQuestion.QuestionID);
             question.QuestionValue = editedQuestion.QuestionValue;
             question.CategoryID = editedQuestion.CategoryID;
             question.category = editedQuestion.category;
@@ -41,8 +41,8 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            Question answer = db.answers.Find(id);
-            db.answers.Remove(answer);
+            Question question = db.questions.Find(id);
+            db.questions.Remove(question);
             db.SaveChanges();
         }
     }
