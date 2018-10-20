@@ -10,9 +10,9 @@ namespace DatabaseLayer.Models
 {
     public class Followed
     {
-        [Key, ForeignKey("Follower")]
+        [Key, Column(Order = 1), ForeignKey("Follower")]
         public int FollowerUserId { get; set; }
-        [Key, ForeignKey("Following")]
+        [Key, Column(Order = 2), ForeignKey("Following")]
         public int FollowUserId { get; set; }
 
         
