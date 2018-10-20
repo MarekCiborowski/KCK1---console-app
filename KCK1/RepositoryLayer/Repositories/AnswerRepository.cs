@@ -2,6 +2,7 @@
 using DatabaseLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,32 +13,30 @@ namespace RepositoryLayer.Repositories
     {
         private DatabaseContext db = new DatabaseContext();
 
-        public Question GetAnswer(int? id)
+        public Answer GetAnswer(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
             return db.answers.FirstOrDefault(a => a.AnswerID == id);
         }
 
-        public void AddAnswer(Question answer)
+        public void AddAnswer(Answer answer)
         {
             db.answers.Add(answer);
             db.SaveChanges();
         }
 
-        public Question EditAnswer(Question editedAnswer)
+        public void EditAnswer(Question editedAnswer)
         {
-            Question answer = db.answers.Find(editedAnswer.AnswerID);
-            answer.AnswerValue = editedAnswer.AnswerValue;
+            db.Entry(editedAnswer).State = EntityState.Modified;
             db.SaveChanges();
-            return answer;
         }
 
         public void RemoveAnswer(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            Question answer = db.answers.Find(id);
+            Answer answer = db.answers.Find(id);
             db.answers.Remove(answer);
             db.SaveChanges();
         }

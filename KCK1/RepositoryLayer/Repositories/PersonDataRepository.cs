@@ -2,6 +2,7 @@
 using DatabaseLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,16 +26,10 @@ namespace RepositoryLayer.Repositories
             db.SaveChanges();
         }
 
-        public PersonData EditPersonData(PersonData editedPersonData)
+        public void EditPersonData(PersonData editedPersonData)
         {
-            PersonData personData = db.personData.Find(editedPersonData.PersonDataID);
-            personData.Address = editedPersonData.Address;
-            personData.City = editedPersonData.City;
-            personData.Zipcode = editedPersonData.Zipcode;
-            personData.State = editedPersonData.State;
-            personData.Country = editedPersonData.Country;
+            db.Entry(editedPersonData).State = EntityState.Modified;
             db.SaveChanges();
-            return personData;
         }
 
         public void RemovePersonData(int? id)

@@ -2,6 +2,7 @@
 using DatabaseLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,15 +26,10 @@ namespace RepositoryLayer.Repositories
             db.SaveChanges();
         }
 
-        public Survey EditSurvey(Survey editedSurvey)
+        public void EditSurvey(Survey editedSurvey)
         {
-            Survey survey = db.surveys.Find(editedSurvey.SurveyID);
-            survey.Title = editedSurvey.Title;
-            survey.Description = editedSurvey.Description;
-            survey.Question = editedSurvey.Question;
-            
+            db.Entry(editedSurvey).State = EntityState.Modified;
             db.SaveChanges();
-            return survey;
         }
 
         
@@ -42,18 +38,6 @@ namespace RepositoryLayer.Repositories
             if (id == null)
                 throw new ArgumentNullException("Null argument");
             Survey survey = db.surveys.Find(id);
-
-            foreach (Question question in db.questions)
-            {
-                if (question.QuestionID == id)
-                    RemoveQuestion(id);
-            }
-
-            foreach (AccountSurvey accountSurvey in survey.AccountSurvey)
-            {
-                AccountSurveyRepository asr = new AccountSurveyRepository();
-                asr.RemoveAccountSurvey(accountSurvey.AccountSurveyID);
-            }
 
             db.surveys.Remove(survey);
             db.SaveChanges();

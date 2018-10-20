@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,14 +26,12 @@ namespace RepositoryLayer.Repositories
             db.SaveChanges();
         }
 
-        public Account EditAccount(Account editedAccount)
+        public void EditAccount(Account editedAccount)
         {
-            Account account = db.accounts.Find(editedAccount.AccountID);
-            account.Email = editedAccount.Email;
-            account.Nickname = editedAccount.Nickname;
-            account.userSecurity = editedAccount.userSecurity;
+            
+            db.Entry(editedAccount).State = EntityState.Modified;
             db.SaveChanges();
-            return account;
+            
         }
 
         
@@ -41,25 +40,6 @@ namespace RepositoryLayer.Repositories
             if (id == null)
                 throw new ArgumentNullException("Null argument");
             Account account = db.accounts.Find(id);
-
-            RemovePersonData(id);
-
-            RemoveUserSecurity(id);
-
-            foreach (AccountSurvey accountSurvey in account.AccountSurvey)
-            {
-                AccountSurveyRepository asr = new AccountSurveyRepository();
-                asr.RemoveAccountSurvey(accountSurvey.AccountSurveyID);
-            }
-
-            foreach (FollowedUsers followedUsers in db.followedUsers)
-            {
-                if (followedUsers.FollowedUsersID == id)
-                    RemoveFollowedUsers(id);
-            }
-
-
-
 
             db.accounts.Remove(account);
             db.SaveChanges();

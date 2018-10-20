@@ -2,13 +2,14 @@
 using DatabaseLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RepositoryLayer.Repositories
 {
-    public class QustionRepository
+    public class QuestionRepository
     {
         private DatabaseContext db = new DatabaseContext();
 
@@ -27,22 +28,18 @@ namespace RepositoryLayer.Repositories
             db.SaveChanges();
         }
 
-        public Question EditQuestion(Question editedQuestion)
+        public void EditQuestion(Question editedQuestion)
         {
-            Question question = db.answers.Find(editedQuestion.QuestionID);
-            question.QuestionValue = editedQuestion.QuestionValue;
-            question.CategoryID = editedQuestion.CategoryID;
-            question.category = editedQuestion.category;
+            db.Entry(editedQuestion).State = EntityState.Modified;
             db.SaveChanges();
-            return question;
         }
 
-        public void RemoveAnswer(int? id)
+        public void RemoveQuestion(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            Question answer = db.answers.Find(id);
-            db.answers.Remove(answer);
+            Question question = db.questions.Find(id);
+            db.questions.Remove(question);
             db.SaveChanges();
         }
     }
