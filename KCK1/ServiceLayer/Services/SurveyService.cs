@@ -22,7 +22,6 @@ namespace ServiceLayer.Services
                 title = _title,
                 description = _description,
                 question = _question,
-                //o co chodzi?
                 accountSurvey = _accountSurvey
             };
         }
