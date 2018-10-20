@@ -13,7 +13,7 @@ namespace ServiceLayer.Services
         private PersonDataRepository personDataR = new PersonDataRepository();
 
         public PersonData CreatePersonData(
-            Survey _account,
+            Account _account,
             string _address,
             string _city,
             int _zipcode,

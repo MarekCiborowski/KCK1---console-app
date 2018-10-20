@@ -1,8 +1,12 @@
-﻿using System;
+﻿using ServiceLayer.Services;
+using DatabaseLayer.Models;
+using DatabaseLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Surveys
 {
@@ -10,6 +14,24 @@ namespace Surveys
     {
         static void Main(string[] args)
         {
+            AccountService accountService = new AccountService();
+
+            //PersonData personData = new PersonData();
+            //personData.address = "address";
+            //personData.city = "city";
+            //personData.country = "country";
+            //personData.state = "state";
+            //personData.zipcode = 48;
+
+            //UserSecurity userSecurity = new UserSecurity();
+            //userSecurity.login = "login";
+            //userSecurity.password = "password";
+
+            //Account account = accountService.CreateAccount(personData, "kuc@gmail.com", "kuc", userSecurity);
+            //accountService.AddAccount(account);
+            accountService.DeleteAccount(1);
+            
+
         }
     }
 }

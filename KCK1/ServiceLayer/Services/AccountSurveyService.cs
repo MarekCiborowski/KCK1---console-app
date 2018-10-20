@@ -14,7 +14,7 @@ namespace ServiceLayer.Services
 
         public AccountSurvey CreateAccountSurvey(
             int _accountID,
-            Survey _account,
+            Account _account,
             int _surveyID,
             Survey _survey,
             bool _isAuthor)
