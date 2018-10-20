@@ -54,5 +54,33 @@ namespace RepositoryLayer.Repositories
             db.answers.Remove(answer);
             db.SaveChanges();
         }
+
+        // Returns tuple with 2 defined values:
+        // value1: All the votes,
+        // value2: Voters[if survey isn't anonymous, then it returns null]
+        public Tuple<int, List<Account>> GetAllVotes(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException("Null argument");
+            Answer answer = db.answers.Find(id);
+            Question question = db.questions.Find(answer.questionID);
+            Survey survey = db.surveys.Find(question.surveyID);
+            SurveyRepository surveyRepository = new SurveyRepository();
+            ICollection<Vote> votes = answer.vote;
+            if (surveyRepository.IsAnonymous(survey.surveyID))
+            {
+                List<Account> votersAccounts = new List<Account>();
+                foreach (Vote item in votes)
+                {
+                    Account account = db.accounts.Find(item.accountID);
+                    votersAccounts.Add(account);
+                }
+                return new Tuple<int, List<Account>>(votes.Count, votersAccounts);
+            }
+            else
+            {
+                return new Tuple<int, List<Account>>(votes.Count, null);
+            }
+        }
     }
 }
