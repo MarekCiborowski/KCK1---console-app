@@ -14,13 +14,13 @@ namespace RepositoryLayer.Repositories
     {
         private DatabaseContext db = new DatabaseContext();
 
-        public Survey GetAccount(int? id)
+        public Account GetAccount(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
             return db.accounts.FirstOrDefault(a => a.accountID == id);
         }
-        public Survey GetAccount(string login, string password)
+        public Account GetAccount(string login, string password)
         {
             string hashedPassword = hashPassword(password);
             UserSecurity userSecurity = db.userSecuritys.Include(t => t.account).FirstOrDefault(t => t.login == login && t.password == hashedPassword);
@@ -30,7 +30,7 @@ namespace RepositoryLayer.Repositories
         }
         
 
-        public void AddAccount(Survey account, PersonData personData, UserSecurity userSecurity )
+        public void AddAccount(Account account, PersonData personData, UserSecurity userSecurity )
         {
             account.userSecurity = userSecurity;
             account.personData = personData;
@@ -38,7 +38,7 @@ namespace RepositoryLayer.Repositories
             db.SaveChanges();
         }
 
-        public void EditAccount(Survey editedAccount)
+        public void EditAccount(Account editedAccount)
         {
             
             db.Entry(editedAccount).State = EntityState.Modified;
@@ -51,7 +51,7 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            Survey account = db.accounts.Find(id);
+            Account account = db.accounts.Find(id);
 
             db.accounts.Remove(account);
             db.SaveChanges();
@@ -61,7 +61,7 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            Survey account = db.accounts.Find(id);
+            Account account = db.accounts.Find(id);
             return account.followers;
         }
         private string hashPassword(string password)
