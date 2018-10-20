@@ -13,13 +13,13 @@ namespace ServiceLayer.Services
     {
         private AccountRepository accountR = new AccountRepository();
 
-        public Account CreateAccount(
+        public Survey CreateAccount(
             PersonData _persondata, 
             string _email, 
             string _nickname, 
             UserSecurity _usersecurity)
         {
-            return new Account
+            return new Survey
             {
                 personData = _persondata,
                 email = _email,
@@ -28,12 +28,12 @@ namespace ServiceLayer.Services
             };
         }
 
-        public Account GetAccount(int? id)
+        public Survey GetAccount(int? id)
         {
             return accountR.GetAccount(id);
         }
 
-        public void AddAccount(Account account, PersonData personData, UserSecurity userSecurity)
+        public void AddAccount(Survey account, PersonData personData, UserSecurity userSecurity)
         {
             accountR.AddAccount(account, personData, userSecurity);
         }
@@ -43,7 +43,7 @@ namespace ServiceLayer.Services
             accountR.RemoveAccount(id);
         }
 
-        public void EditAccount(Account account)
+        public void EditAccount(Survey account)
         {
             accountR.EditAccount(account);
         }

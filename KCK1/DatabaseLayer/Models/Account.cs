@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace DatabaseLayer.Models
 {
     [Table("Account")]
-    public class Account
+    public class Survey
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

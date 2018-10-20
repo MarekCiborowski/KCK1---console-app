@@ -13,7 +13,7 @@ namespace DatabaseLayer.Models
         [Key, ForeignKey("account")]
         public int personDataID { get; set; }
 
-        public virtual Account account { get; set; }
+        public virtual Survey account { get; set; }
 
         public string address { get; set; }
         public string city { get; set; }

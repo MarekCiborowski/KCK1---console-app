@@ -26,17 +26,22 @@ namespace ServiceLayer.Services
             };
         }
 
+        public Answer GetAnswer(int? id)
+        {
+            return answerR.GetAnswer(id);
+        }
+
         public void AddAnswer(Answer answer)
         {
             answerR.AddAnswer(answer);
         }
 
-        public void DeleteAccount(int? id)
+        public void DeleteAnswer(int? id)
         {
             answerR.RemoveAnswer(id);
         }
 
-        public void EditAccount(Answer answer)
+        public void EditAnswer(Answer answer)
         {
             answerR.EditAnswer(answer);
         }

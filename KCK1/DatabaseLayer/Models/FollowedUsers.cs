@@ -14,7 +14,7 @@ namespace DatabaseLayer.Models
         public int followedUsersID { get; set; }
         [ForeignKey("followedUser")]
         public int followedUserID { get; set; }
-        public Account followedUser { get; set; }
+        public Survey followedUser { get; set; }
         
     }
 }

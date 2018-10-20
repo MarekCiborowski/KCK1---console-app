@@ -19,6 +19,6 @@ namespace DatabaseLayer.Models
         [ForeignKey("account")]
         //jeżeli ankieta anonimowa to null
         public int? accountID { get; set; } = null;
-        public Account account { get; set; }
+        public Survey account { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace DatabaseLayer.Models
         
         [ForeignKey("account")]
         public int accountID { get; set; }
-        public Account account { get; set; }
+        public Survey account { get; set; }
 
         [ForeignKey("survey")]
         public int surveyID { get; set; }

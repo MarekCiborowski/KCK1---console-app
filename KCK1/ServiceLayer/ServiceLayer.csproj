@@ -53,6 +53,9 @@
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\AccountSurveyService.cs" />
     <Compile Include="Services\AnswerService.cs" />
+    <Compile Include="Services\PersonDataService.cs" />
+    <Compile Include="Services\QuestionService.cs" />
+    <Compile Include="Services\SurveyService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -13,14 +13,18 @@ namespace ServiceLayer.Services
         private AccountSurveyRepository accountSurveyR = new AccountSurveyRepository();
 
         public AccountSurvey CreateAccountSurvey(
-            int _accountID, 
+            int _accountID,
+            Survey _account,
             int _surveyID,
+            Survey _survey,
             bool _isAuthor)
         {
             return new AccountSurvey
             {
                 accountID = _accountID,
+                account = _account,
                 surveyID = _surveyID,
+                survey = _survey,
                 isAuthor = _isAuthor
             };
         }
