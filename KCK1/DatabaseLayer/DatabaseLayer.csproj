@@ -50,16 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseContext.cs" />
-    <Compile Include="Migrations\201810191555595_initialCreate.cs" />
-    <Compile Include="Migrations\201810191555595_initialCreate.Designer.cs">
-      <DependentUpon>201810191555595_initialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountSurvey.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\FollowedUsers.cs" />
     <Compile Include="Models\PersonData.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Survey.cs" />
@@ -70,11 +65,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810191555595_initialCreate.resx">
-      <DependentUpon>201810191555595_initialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />

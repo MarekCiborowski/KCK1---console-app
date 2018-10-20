@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace DatabaseLayer.Models
     [Table("Account")]
     public class Account
     {
+        
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AccountID { get; set; }
@@ -21,11 +24,12 @@ namespace DatabaseLayer.Models
         public string Email { get; set; }
         public string Nickname { get; set; }
         
-        public int Followers { get; set; } = 0; //to Roman wymyślił
+        
         [Required]
         public virtual UserSecurity userSecurity { get; set; }
         public ICollection<AccountSurvey> AccountSurvey { get; set; }
         
-        public ICollection<FollowedUsers> FollowedUsers { get; set; }
+        public ICollection<Account> FollowedUsers { get; set; }
+        public ICollection<Account> FollowingUsers { get; set; }
     }
 }

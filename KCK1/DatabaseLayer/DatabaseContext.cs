@@ -12,6 +12,14 @@ namespace DatabaseLayer
     {
         public DatabaseContext() : base("name=SurveysDatabase") { }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Account>()
+            .HasMany(x => x.FollowedUsers).WithMany(x => x.FollowingUsers)
+            .Map(x => x.ToTable("Followers")
+            .MapLeftKey("UserId")
+            .MapRightKey("FollowerId"));
+        }
         public virtual DbSet<Account> accounts { get; set; }
         public virtual DbSet<AccountSurvey> accountsSurveys { get; set; }
         public virtual DbSet<Answer> answers { get; set; }
@@ -20,7 +28,7 @@ namespace DatabaseLayer
         public virtual DbSet<UserSecurity> userSecurity { get; set; }
         public virtual DbSet<PersonData> personData { get; set; }
         public virtual DbSet<Votes> votes { get; set; }
-        public virtual DbSet<FollowedUsers> followedUsers { get; set; }
+
         public virtual DbSet<Category> category { get; set; }
 
 

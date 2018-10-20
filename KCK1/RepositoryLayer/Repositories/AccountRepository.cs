@@ -52,7 +52,7 @@ namespace RepositoryLayer.Repositories
                 asr.RemoveAccountSurvey(accountSurvey.AccountSurveyID);
             }
 
-            foreach (FollowedUsers followedUsers in db.followedUsers)
+            foreach (Followers followedUsers in db.followedUsers)
             {
                 if (followedUsers.FollowedUsersID == id)
                     RemoveFollowedUsers(id);
