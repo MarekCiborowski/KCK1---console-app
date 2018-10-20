@@ -12,12 +12,12 @@ namespace DatabaseLayer.Models
     public class Survey
     {
         [Key]
-        public int SurveyID { get; set; }
-        public string Title { get; set; }
+        public int surveyID { get; set; }
+        public string title { get; set; }
         
-        public string Description { get; set; }
+        public string description { get; set; }
 
-        public ICollection<Question> Question { get; set; }
-        public ICollection<AccountSurvey> AccountSurvey { get; set; } //Osoby które zagłosowały w danej ankiecie
+        public ICollection<Question> question { get; set; }
+        public ICollection<AccountSurvey> accountSurvey { get; set; } //Osoby które zagłosowały w danej ankiecie
     }
 }

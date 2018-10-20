@@ -8,20 +8,17 @@ using System.Threading.Tasks;
 
 namespace DatabaseLayer.Models
 {
-    public class Votes
+    public class Vote
     {
         [Key]
-        public int VotesID { get; set; }
+        public int voteID { get; set; }
         [ForeignKey("answer")]
-        public int AnswerID { get; set; }
+        public int answerID { get; set; }
         public Answer answer { get; set; }
 
         [ForeignKey("account")]
         //jeżeli ankieta anonimowa to null
-        public int? AccountID { get; set; } = null;
+        public int? accountID { get; set; } = null;
         public Account account { get; set; }
-
-
-
     }
 }

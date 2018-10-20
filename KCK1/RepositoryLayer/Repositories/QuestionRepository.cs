@@ -17,9 +17,7 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-
-            
-            return db.questions.Include(t => t.Answer).Include(t => t.category).FirstOrDefault(q => q.QuestionID == id);
+            return db.questions.Include(t => t.answer).Include(t => t.category).FirstOrDefault(q => q.questionID == id);
         }
 
         public void AddQuestion(Question question)

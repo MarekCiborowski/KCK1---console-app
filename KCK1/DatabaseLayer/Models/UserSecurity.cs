@@ -10,11 +10,13 @@ namespace DatabaseLayer.Models
 {
     public class UserSecurity
     {
-        [Key, ForeignKey("Account")]
-        public int UserSecurityID { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
+        [Key, ForeignKey("account")]
+        public int userSecurityID { get; set; }
+        public virtual Account account { get; set; }
 
-        public virtual Account Account { get; set; }
+        public string login { get; set; }
+        public string password { get; set; }
+
+        
     }
 }

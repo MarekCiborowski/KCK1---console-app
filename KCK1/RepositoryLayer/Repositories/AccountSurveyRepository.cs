@@ -16,7 +16,7 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            return db.accountsSurveys.FirstOrDefault(a => a.AccountID == id);
+            return db.accountsSurveys.FirstOrDefault(a => a.accountID == id);
         }
 
         public void AddAccountSurvey(AccountSurvey accountSurvey)

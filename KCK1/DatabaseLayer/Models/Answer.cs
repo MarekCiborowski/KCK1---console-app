@@ -12,13 +12,13 @@ namespace DatabaseLayer.Models
     public class Answer
     {
         [Key]
-        public int AnswerID { get; set; }
-        public string AnswerValue { get; set; }
+        public int answerID { get; set; }
+        public string answerValue { get; set; }
 
         [ForeignKey("question")]
-        public int QuestionID { get; set; }
+        public int questionID { get; set; }
         public Question question { get; set; }
-        public ICollection<Votes> Votes { get; set; }
+        public ICollection<Vote> vote { get; set; }
        
     }
 }

@@ -11,15 +11,15 @@ namespace DatabaseLayer.Models
     public class PersonData
     {
         [Key, ForeignKey("account")]
-        public int PersonDataID { get; set; }
+        public int personDataID { get; set; }
 
         public virtual Account account { get; set; }
 
-        public string Address { get; set; }
-        public string City { get; set; }
-        public int Zipcode { get; set; }
-        public string State { get; set; }
-        public string Country { get; set; }
+        public string address { get; set; }
+        public string city { get; set; }
+        public int zipcode { get; set; }
+        public string state { get; set; }
+        public string country { get; set; }
 
     }
 }

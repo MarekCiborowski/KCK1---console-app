@@ -10,13 +10,13 @@ namespace DatabaseLayer.Models
     public class Category
     {
         [Key]
-        public int CategoryID { get; set; }
-        public bool CanAddOwnAnswer { get; set; }
-        public bool IsSingleChoice { get; set; }
+        public int categoryID { get; set; }
+        public bool canAddOwnAnswer { get; set; }
+        public bool isSingleChoice { get; set; }
 
         //jeżeli true, to w tabeli Votes będzie zapisane kto głosował
-        public bool IsAnonymous { get; set; } 
+        public bool isAnonymous { get; set; } 
         
-        public ICollection<Question> Question { get; set; }
+        public ICollection<Question> question { get; set; }
     }
 }

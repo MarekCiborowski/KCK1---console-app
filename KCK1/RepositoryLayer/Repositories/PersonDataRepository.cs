@@ -17,12 +17,12 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            return db.personData.FirstOrDefault(p => p.PersonDataID == id);
+            return db.personDatas.FirstOrDefault(p => p.personDataID == id);
         }
 
         public void AddPersonData(PersonData personData)
         {
-            db.personData.Add(personData);
+            db.personDatas.Add(personData);
             db.SaveChanges();
         }
 
@@ -36,8 +36,8 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            PersonData personData = db.personData.Find(id);
-            db.personData.Remove(personData);
+            PersonData personData = db.personDatas.Find(id);
+            db.personDatas.Remove(personData);
             db.SaveChanges();
         }
     }

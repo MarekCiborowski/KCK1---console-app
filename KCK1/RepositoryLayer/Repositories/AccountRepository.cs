@@ -18,15 +18,15 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            return db.accounts.FirstOrDefault(a => a.AccountID == id);
+            return db.accounts.FirstOrDefault(a => a.accountID == id);
         }
         public Account GetAccount(string login, string password)
         {
             string hashedPassword = hashPassword(password);
-            UserSecurity userSecurity = db.userSecurity.Include(t => t.Account).FirstOrDefault(t => t.Login == login && t.Password == hashedPassword);
+            UserSecurity userSecurity = db.userSecuritys.Include(t => t.account).FirstOrDefault(t => t.login == login && t.password == hashedPassword);
             if (userSecurity == null)
                 throw new ArgumentNullException("Wrong password or login");
-            return db.accounts.Find(userSecurity.Account);
+            return db.accounts.Find(userSecurity.account);
         }
         
 
@@ -62,7 +62,7 @@ namespace RepositoryLayer.Repositories
             if (id == null)
                 throw new ArgumentNullException("Null argument");
             Account account = db.accounts.Find(id);
-            return account.Followers;
+            return account.followers;
         }
         private string hashPassword(string password)
         {

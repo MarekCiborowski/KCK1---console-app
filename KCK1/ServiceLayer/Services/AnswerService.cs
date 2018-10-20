@@ -15,7 +15,7 @@ namespace ServiceLayer.Services
             string answerValue, 
             int questionID, 
             Question _question, 
-            ICollection<Votes> votes)
+            ICollection<Vote> votes)
         {
             return new Answer
             {

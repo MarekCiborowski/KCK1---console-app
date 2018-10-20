@@ -12,15 +12,15 @@ namespace DatabaseLayer.Models
     public class Question
     {
         [Key]
-        public int QuestionID { get; set; }
-        public string QuestionValue { set; get; }
+        public int questionID { get; set; }
+        public string questionValue { set; get; }
         [ForeignKey("category")]
-        public int CategoryID { get; set; }
+        public int categoryID { get; set; }
         public Category category { get; set; }
 
         [ForeignKey("survey")]
-        public int SurveyID { get; set; }
+        public int surveyID { get; set; }
         public Survey survey { get; set; }
-        public ICollection<Answer> Answer { get; set; }
+        public ICollection<Answer> answer { get; set; }
     }
 }

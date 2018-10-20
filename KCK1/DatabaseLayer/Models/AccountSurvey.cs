@@ -12,16 +12,16 @@ namespace DatabaseLayer.Models
     public class AccountSurvey
     {
         [Key]
-        public int AccountSurveyID { get; set; }
+        public int accountSurveyID { get; set; }
         
         [ForeignKey("account")]
-        public int AccountID { get; set; }
+        public int accountID { get; set; }
         public Account account { get; set; }
 
         [ForeignKey("survey")]
-        public int SurveyID { get; set; }
+        public int surveyID { get; set; }
         public Survey survey { get; set; }
-        public bool IsAuthor { get; set; } = false;
+        public bool isAuthor { get; set; } = false;
         
 
         //autor nie głosuje w swojej ankiecie
