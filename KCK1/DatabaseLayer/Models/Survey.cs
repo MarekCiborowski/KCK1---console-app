@@ -16,6 +16,7 @@ namespace DatabaseLayer.Models
         public string title { get; set; }
         
         public string description { get; set; }
+        public bool isAnonymous { get; set; }
 
         public ICollection<Question> question { get; set; }
         public ICollection<AccountSurvey> accountSurvey { get; set; } //Osoby które zagłosowały w danej ankiecie

@@ -15,7 +15,7 @@ namespace DatabaseLayer.Models
         public bool isSingleChoice { get; set; }
 
         //jeżeli true, to w tabeli Votes będzie zapisane kto głosował
-        public bool isAnonymous { get; set; } 
+        
         
         public ICollection<Question> question { get; set; }
     }

@@ -67,6 +67,10 @@
     <Compile Include="Migrations\201810201639076_initial.Designer.cs">
       <DependentUpon>201810201639076_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810201723517_importanto.cs" />
+    <Compile Include="Migrations\201810201723517_importanto.Designer.cs">
+      <DependentUpon>201810201723517_importanto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountSurvey.cs" />
@@ -87,6 +91,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201810201639076_initial.resx">
       <DependentUpon>201810201639076_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810201723517_importanto.resx">
+      <DependentUpon>201810201723517_importanto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
