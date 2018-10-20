@@ -1,4 +1,4 @@
-﻿using ServiceLayer.Services;
+﻿using RepositoryLayer.Repositories;
 using DatabaseLayer.Models;
 using DatabaseLayer;
 using System;
@@ -14,7 +14,7 @@ namespace Surveys
     {
         static void Main(string[] args)
         {
-            AccountService accountService = new AccountService();
+            AccountRepository accountRepository = new AccountRepository();
 
             //PersonData personData = new PersonData();
             //personData.address = "address";
@@ -27,9 +27,9 @@ namespace Surveys
             //userSecurity.login = "login";
             //userSecurity.password = "password";
 
-            //Account account = accountService.CreateAccount(personData, "kuc@gmail.com", "kuc", userSecurity);
-            //accountService.AddAccount(account);
-            accountService.DeleteAccount(1);
+            //Account account = accountRepository.CreateAccount(personData, "kuc@gmail.com", "kuc", userSecurity);
+            //accountSRepository.AddAccount(account);
+            accountRepository.RemoveAccount(1);
             
 
         }
