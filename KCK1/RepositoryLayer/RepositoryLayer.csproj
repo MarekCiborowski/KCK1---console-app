@@ -49,14 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountRepository.cs" />
-    <Compile Include="AccountSurveyRepository.cs" />
-    <Compile Include="AnswerRepository.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="PersonDataRepository.cs" />
+    <Compile Include="Repositories\AccountRepository.cs" />
+    <Compile Include="Repositories\AccountSurveyRepository.cs" />
+    <Compile Include="Repositories\AnswerRepository.cs" />
+    <Compile Include="Repositories\PersonDataRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QustionRepository.cs" />
-    <Compile Include="SurveyRepository.cs" />
+    <Compile Include="Repositories\QustionRepository.cs" />
+    <Compile Include="Repositories\SurveyRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
