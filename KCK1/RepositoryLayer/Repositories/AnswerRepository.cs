@@ -26,7 +26,7 @@ namespace RepositoryLayer.Repositories
             db.SaveChanges();
         }
 
-        public void EditAnswer(Question editedAnswer)
+        public void EditAnswer(Answer editedAnswer)
         {
             db.Entry(editedAnswer).State = EntityState.Modified;
             db.SaveChanges();
