@@ -17,7 +17,7 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            return db.surveys.FirstOrDefault(s => s.SurveyID == id);
+            return db.surveys.Include(q => q.Question).FirstOrDefault(s => s.SurveyID == id);
         }
 
         public void AddSurvey(Survey survey)

@@ -18,8 +18,8 @@ namespace RepositoryLayer.Repositories
             if (id == null)
                 throw new ArgumentNullException("Null argument");
 
-            //to chyba przez wielkość liter te podkreślenie robi
-            return db.questions.FirstOrDefault(q => q.QuestionID == id);
+            
+            return db.questions.Include(t => t.Answer).Include(t => t.category).FirstOrDefault(q => q.QuestionID == id);
         }
 
         public void AddQuestion(Question question)
