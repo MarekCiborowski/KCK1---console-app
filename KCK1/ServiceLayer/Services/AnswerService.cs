@@ -12,17 +12,17 @@ namespace ServiceLayer.Services
         private AnswerRepository answerR = new AnswerRepository();
 
         public Answer CreateAnswer(
-            string answerValue, 
-            int questionID, 
+            string _answerValue, 
+            int _questionID, 
             Question _question, 
-            ICollection<Vote> votes)
+            ICollection<Vote> _vote)
         {
             return new Answer
             {
-                AnswerValue = answerValue,
-                QuestionID = questionID,
+                answerValue = _answerValue,
+                questionID = _questionID,
                 question = _question,
-                Votes = votes,
+                vote = _vote,
             };
         }
 

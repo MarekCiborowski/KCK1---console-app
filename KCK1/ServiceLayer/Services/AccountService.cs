@@ -14,17 +14,17 @@ namespace ServiceLayer.Services
         private AccountRepository accountR = new AccountRepository();
 
         public Account CreateAccount(
-            PersonData persondata, 
-            string email, 
-            string nickname, 
-            UserSecurity usersecurity)
+            PersonData _persondata, 
+            string _email, 
+            string _nickname, 
+            UserSecurity _usersecurity)
         {
             return new Account
             {
-                personData = persondata,
-                Email = email,
-                Nickname = nickname,
-                userSecurity = usersecurity
+                personData = _persondata,
+                email = _email,
+                nickname = _nickname,
+                userSecurity = _usersecurity
             };
         }
 
