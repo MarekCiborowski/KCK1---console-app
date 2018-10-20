@@ -12,7 +12,7 @@ namespace DatabaseLayer
     {
         public DatabaseContext() : base("name=SurveysDatabase") { }
 
-        public virtual DbSet<Survey> accounts { get; set; }
+        public virtual DbSet<Account> accounts { get; set; }
         public virtual DbSet<AccountSurvey> accountsSurveys { get; set; }
         public virtual DbSet<Answer> answers { get; set; }
         public virtual DbSet<Question> questions { get; set; }
