@@ -65,5 +65,15 @@ namespace RepositoryLayer.Repositories
 
             return survey.isAnonymous;
         }
+
+        public List<Question> GetQuestions(int? id)
+        {
+            if (id == null)
+                throw new ArgumentException("Null argument");
+
+            Survey survey = db.surveys.Find(id);
+
+            return survey.question.ToList();
+        }
     }
 }

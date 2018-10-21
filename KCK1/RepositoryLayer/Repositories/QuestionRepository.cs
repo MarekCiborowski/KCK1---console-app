@@ -57,5 +57,14 @@ namespace RepositoryLayer.Repositories
             db.questions.Remove(question);
             db.SaveChanges();
         }
+
+        public List<Answer> GetAnswers(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException("Null argument");
+            Question question = db.questions.Find(id);
+
+            return question.answer.ToList();
+        }
     }
 }
