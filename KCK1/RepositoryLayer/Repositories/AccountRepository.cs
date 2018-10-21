@@ -104,5 +104,97 @@ namespace RepositoryLayer.Repositories
             // Zwracanie zahaszowanego stringa
             return sBuilder.ToString();
         }
+
+        public List<Account> GetFollowedAccounts(int? id)
+        {
+            if(id == null)
+                throw new ArgumentNullException("Null argument");
+
+            Account account = db.accounts.Find(id);
+
+            return account.followedUsers.ToList();
+        }
+
+        // Returns all the surveys that this particular account created/took part in.
+        // Returns null if none are present.
+        public List<Survey> GetFollowedAccountSurveys(int? idFollowedAccount)
+        {
+            if(idFollowedAccount == null)
+                throw new ArgumentNullException("Null argument");
+
+            Account account = db.accounts.Find(idFollowedAccount);
+            AccountSurvey accountSurvey = db.accountsSurveys.Find();
+
+
+            List<Survey> surveys = new List<Survey>();
+            foreach (AccountSurvey accSurvey in account.accountSurvey)
+            {
+                Survey s = db.surveys.Find(accSurvey.surveyID);
+                if(s != null)
+                    surveys.Add(s);
+            }
+
+            if (!surveys.Any())
+                return null;
+            else
+                return surveys;
+        }
+
+        // Returns all the survey that particular account is an author of.
+        // Null is returned if none are present.
+        public List<Survey> GetAccountAuthorSurveys(int? id)
+        {
+
+            if (id == null)
+                throw new ArgumentNullException("Null argument");
+
+            Account account = db.accounts.Find(id);
+            AccountSurvey accountSurvey = db.accountsSurveys.Find();
+
+
+            List<Survey> surveys = new List<Survey>();
+            foreach (AccountSurvey accSurvey in account.accountSurvey)
+            {
+                if (accSurvey.isAuthor)
+                {
+                    Survey s = db.surveys.Find(accSurvey.surveyID);
+                    if (s != null)
+                        surveys.Add(s);
+                }
+            }
+
+            if (!surveys.Any())
+                return null;
+            else
+                return surveys;
+        }
+
+        // Returns all the filled surveys that particular account has.
+        // Null if none are present.
+        public List<Survey> GetAccountFilledSurveys(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException("Null argument");
+
+            Account account = db.accounts.Find(id);
+            AccountSurvey accountSurvey = db.accountsSurveys.Find();
+
+
+            List<Survey> surveys = new List<Survey>();
+            foreach (AccountSurvey accSurvey in account.accountSurvey)
+            {
+                if (!accSurvey.isAuthor)
+                {
+                    Survey s = db.surveys.Find(accSurvey.surveyID);
+                    if (s != null)
+                        surveys.Add(s);
+                }
+            }
+
+            if (!surveys.Any())
+                return null;
+            else
+                return surveys;
+        }
     }
 }
