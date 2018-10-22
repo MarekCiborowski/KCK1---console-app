@@ -67,13 +67,12 @@ namespace RepositoryLayer.Repositories
             return question.answer.ToList();
         }
 
-        public Category CreateQuestionCategory(bool canAddOwnAnswer, bool isSingleChoice)
+        public Category GetQuestionCategory(bool canAddOwnAnswer, bool isSingleChoice)
         {
-            Category category = new Category();
-
-            category.canAddOwnAnswer = canAddOwnAnswer;
-            category.isSingleChoice = isSingleChoice;
-
+            Category category = db.categories.FirstOrDefault(t => t.isSingleChoice == isSingleChoice
+            && t.canAddOwnAnswer == canAddOwnAnswer);
+            if (category == null)
+                throw new ArgumentNullException("Category is null");
             return category;
         }
     }

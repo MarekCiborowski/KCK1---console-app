@@ -17,11 +17,11 @@ namespace DatabaseLayer
         public virtual DbSet<Answer> answers { get; set; }
         public virtual DbSet<Question> questions { get; set; }
         public virtual DbSet<Survey> surveys { get; set; }
-        public virtual DbSet<UserSecurity> userSecuritys { get; set; }
+        public virtual DbSet<UserSecurity> userSecurities { get; set; }
         public virtual DbSet<PersonData> personDatas { get; set; }
         public virtual DbSet<Vote> votes { get; set; }
         
-        public virtual DbSet<Category> categorys { get; set; }
+        public virtual DbSet<Category> categories { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>()
