@@ -196,5 +196,24 @@ namespace RepositoryLayer.Repositories
             else
                 return surveys;
         }
+
+        public bool DidFilledSurvey(int? accountID, int? surveyID)
+        {
+            if(accountID == null || surveyID == null)
+                throw new ArgumentNullException("Null argument");
+
+            Account account = db.accounts.Find(accountID);
+
+            Survey survey = db.surveys.Find(surveyID);
+            List<AccountSurvey> accountSurvey = survey.accountSurvey.ToList();
+
+            foreach (AccountSurvey accSurv in accountSurvey)
+            {
+                if (accSurv.accountID == account.accountID && !accSurv.isAuthor)
+                    return true;
+            }
+
+            return false;
+        }
     }
 }

@@ -66,5 +66,15 @@ namespace RepositoryLayer.Repositories
 
             return question.answer.ToList();
         }
+
+        public Category CreateQuestionCategory(bool canAddOwnAnswer, bool isSingleChoice)
+        {
+            Category category = new Category();
+
+            category.canAddOwnAnswer = canAddOwnAnswer;
+            category.isSingleChoice = isSingleChoice;
+
+            return category;
+        }
     }
 }
