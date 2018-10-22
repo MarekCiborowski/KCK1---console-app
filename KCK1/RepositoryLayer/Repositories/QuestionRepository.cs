@@ -62,7 +62,7 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            Question question = db.questions.Find(id);
+            Question question = db.questions.Include(t => t.answer).FirstOrDefault(t => t.questionID == id);
 
             return question.answer.ToList();
         }

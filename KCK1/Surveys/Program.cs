@@ -1,4 +1,4 @@
-﻿using ServiceLayer.Services;
+﻿
 using DatabaseLayer.Models;
 using DatabaseLayer;
 using System;
@@ -14,7 +14,7 @@ namespace Surveys
     {
         static void Main(string[] args)
         {
-            AccountService accountService = new AccountService();
+            
 
             //PersonData personData = new PersonData();
             //personData.address = "address";
@@ -29,7 +29,7 @@ namespace Surveys
 
             //Account account = accountService.CreateAccount(personData, "kuc@gmail.com", "kuc", userSecurity);
             //accountService.AddAccount(account);
-            accountService.DeleteAccount(1);
+            
             
 
         }

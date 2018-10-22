@@ -37,7 +37,7 @@ namespace RepositoryLayer.Repositories
         public Account GetAccount(string login, string password)
         {
             string hashedPassword = hashPassword(password);
-            UserSecurity userSecurity = db.userSecuritys.Include(t => t.account).FirstOrDefault(t => t.login == login && t.password == hashedPassword);
+            UserSecurity userSecurity = db.userSecurities.Include(t => t.account).FirstOrDefault(t => t.login == login && t.password == hashedPassword);
             if (userSecurity == null)
                 throw new ArgumentNullException("Wrong password or login");
             return db.accounts.Find(userSecurity.account);
@@ -67,8 +67,7 @@ namespace RepositoryLayer.Repositories
                 throw new ArgumentNullException("Null argument");
             Account account = db.accounts.Find(id);
 
-            db.personDatas.Remove(account.personData);
-            db.userSecuritys.Remove(account.userSecurity);
+           
             db.accounts.Remove(account);
             db.SaveChanges();
         }
@@ -110,11 +109,13 @@ namespace RepositoryLayer.Repositories
             if(id == null)
                 throw new ArgumentNullException("Null argument");
 
-            Account account = db.accounts.Find(id);
+            Account account = db.accounts.Include(t => t.followedUsers).FirstOrDefault(t => t.accountID==id);
 
             return account.followedUsers.ToList();
         }
 
+        
+       
         // Returns all the surveys that this particular account created/took part in.
         // Returns null if none are present.
         public List<Survey> GetFollowedAccountSurveys(int? idFollowedAccount)
@@ -122,22 +123,12 @@ namespace RepositoryLayer.Repositories
             if(idFollowedAccount == null)
                 throw new ArgumentNullException("Null argument");
 
-            Account account = db.accounts.Find(idFollowedAccount);
-            AccountSurvey accountSurvey = db.accountsSurveys.Find();
+            List<Survey> surveys = db.surveys.Where(a => db.accountsSurveys.Where(b =>
+            GetFollowedAccounts(idFollowedAccount).Select(c =>
+            c.accountID).Contains(b.accountID) && b.isAuthor).Select(d =>
+            d.surveyID).Contains(a.surveyID)).ToList();
 
-
-            List<Survey> surveys = new List<Survey>();
-            foreach (AccountSurvey accSurvey in account.accountSurvey)
-            {
-                Survey s = db.surveys.Find(accSurvey.surveyID);
-                if(s != null)
-                    surveys.Add(s);
-            }
-
-            if (!surveys.Any())
-                return null;
-            else
-                return surveys;
+            return surveys;
         }
 
         // Returns all the survey that particular account is an author of.
@@ -148,25 +139,11 @@ namespace RepositoryLayer.Repositories
             if (id == null)
                 throw new ArgumentNullException("Null argument");
 
-            Account account = db.accounts.Find(id);
-            AccountSurvey accountSurvey = db.accountsSurveys.Find();
+            List<Survey> surveys = db.surveys.Where(a => db.accountsSurveys.Where(b =>
+            b.accountID == id && b.isAuthor).Select(d =>
+            d.surveyID).Contains(a.surveyID)).ToList();
 
-
-            List<Survey> surveys = new List<Survey>();
-            foreach (AccountSurvey accSurvey in account.accountSurvey)
-            {
-                if (accSurvey.isAuthor)
-                {
-                    Survey s = db.surveys.Find(accSurvey.surveyID);
-                    if (s != null)
-                        surveys.Add(s);
-                }
-            }
-
-            if (!surveys.Any())
-                return null;
-            else
-                return surveys;
+            return surveys;
         }
 
         // Returns all the filled surveys that particular account has.
@@ -176,25 +153,11 @@ namespace RepositoryLayer.Repositories
             if (id == null)
                 throw new ArgumentNullException("Null argument");
 
-            Account account = db.accounts.Find(id);
-            AccountSurvey accountSurvey = db.accountsSurveys.Find();
+            List<Survey> surveys = db.surveys.Where(a => db.accountsSurveys.Where(b =>
+            b.accountID == id && !b.isAuthor).Select(d =>
+            d.surveyID).Contains(a.surveyID)).ToList();
 
-
-            List<Survey> surveys = new List<Survey>();
-            foreach (AccountSurvey accSurvey in account.accountSurvey)
-            {
-                if (!accSurvey.isAuthor)
-                {
-                    Survey s = db.surveys.Find(accSurvey.surveyID);
-                    if (s != null)
-                        surveys.Add(s);
-                }
-            }
-
-            if (!surveys.Any())
-                return null;
-            else
-                return surveys;
+            return surveys;
         }
 
         public bool DidFilledSurvey(int? accountID, int? surveyID)
@@ -202,18 +165,12 @@ namespace RepositoryLayer.Repositories
             if(accountID == null || surveyID == null)
                 throw new ArgumentNullException("Null argument");
 
-            Account account = db.accounts.Find(accountID);
+            AccountSurvey accountSurvey = db.accountsSurveys.FirstOrDefault(t =>
+            t.accountID == accountID && t.surveyID == surveyID);
+            if (accountSurvey == null)
+                return false;
+            return accountSurvey.isAuthor;
 
-            Survey survey = db.surveys.Find(surveyID);
-            List<AccountSurvey> accountSurvey = survey.accountSurvey.ToList();
-
-            foreach (AccountSurvey accSurv in accountSurvey)
-            {
-                if (accSurv.accountID == account.accountID && !accSurv.isAuthor)
-                    return true;
-            }
-
-            return false;
         }
     }
 }

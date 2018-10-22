@@ -58,12 +58,12 @@ namespace RepositoryLayer.Repositories
         // Returns tuple with 2 defined values:
         // value1: All the votes,
         // value2: Voters[if survey isn't anonymous, then it returns null]
-        public Tuple<int, List<Account>> GetAllVotes(int? id)
+        public Tuple<int, List<Account>> GetAllVotes(int? idAnswer)
         {
-            if (id == null)
+            if (idAnswer == null)
                 throw new ArgumentNullException("Null argument");
 
-            Answer answer = db.answers.Find(id);
+            Answer answer = db.answers.Include(t => t.vote).FirstOrDefault(t => t.answerID == idAnswer);
             Question question = db.questions.Find(answer.questionID);
             Survey survey = db.surveys.Find(question.surveyID);
 
@@ -73,12 +73,9 @@ namespace RepositoryLayer.Repositories
 
             if (surveyRepository.IsAnonymous(survey.surveyID))
             {
-                List<Account> votersAccounts = new List<Account>();
-                foreach (Vote item in votes)
-                {
-                    Account account = db.accounts.Find(item.accountID);
-                    votersAccounts.Add(account);
-                }
+                List<Account> votersAccounts = db.accounts.Where
+                    (t => votes.Select(b => b.accountID).Contains(t.accountID)).ToList();
+
                 return new Tuple<int, List<Account>>(votes.Count, votersAccounts);
             }
             else

@@ -71,7 +71,7 @@ namespace RepositoryLayer.Repositories
             if (id == null)
                 throw new ArgumentException("Null argument");
 
-            Survey survey = db.surveys.Find(id);
+            Survey survey = db.surveys.Include(t => t.question).FirstOrDefault(t=> t.surveyID==id);
 
             return survey.question.ToList();
         }
