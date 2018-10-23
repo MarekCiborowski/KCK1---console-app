@@ -16,7 +16,7 @@ namespace Surveys
         static void cr() { Console.ReadKey(); }
         static void Main(string[] args)
         {
-
+            AccountRepository accountRepository = new AccountRepository();
 
             //PersonData personData = new PersonData();
             //personData.address = "address";
@@ -31,23 +31,24 @@ namespace Surveys
 
 
 
-            AccountRepository accountRepository = new AccountRepository();
+
             //Account account = accountRepository.CreateAccount(personData, "kuc@gmail.com", "kuc", userSecurity);
 
             //PersonData personData1 = new PersonData();
-            //personData.address = "address";
-            //personData.city = "city";
-            //personData.country = "country";
-            //personData.state = "state";
-            //personData.zipcode = 48;
+            //personData1.address = "address";
+            //personData1.city = "city";
+            //personData1.country = "country";
+            //personData1.state = "state";
+            //personData1.zipcode = 48;
 
             //UserSecurity userSecurity1 = new UserSecurity();
-            //userSecurity.login = "login";
-            //userSecurity.password = "password";
+            //userSecurity1.login = "login";
+            //userSecurity1.password = "password";
 
             //Account account1 = accountRepository.CreateAccount(personData1, "kuc1@gmail.com", "kuc1", userSecurity1);
 
             //int accountId = accountRepository.AddAccount(account);
+
             //int account1Id = accountRepository.AddAccount(account1);
 
             //accountRepository.AddFollower(accountId, account1Id);
