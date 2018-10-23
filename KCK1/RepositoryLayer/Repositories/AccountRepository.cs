@@ -44,12 +44,14 @@ namespace RepositoryLayer.Repositories
         }
         
 
-        public void AddAccount(Account account/*, PersonData personData, UserSecurity userSecurity */)
+        public int AddAccount(Account account/*, PersonData personData, UserSecurity userSecurity */)
         {
             //account.userSecurity = userSecurity;
             //account.personData = personData;
-            db.accounts.Add(account);
+            Account createdAccount= db.accounts.Add(account);
             db.SaveChanges();
+            return createdAccount.accountID;
+            
         }
 
         public void EditAccount(Account editedAccount)
@@ -60,13 +62,29 @@ namespace RepositoryLayer.Repositories
             
         }
 
+        public void AddFollower(int followerId, int followedId)
+        {
+            Account followed = db.accounts.Include(t => t.followingUsers).
+                FirstOrDefault(t => t.accountID == followedId);
+            Account follower = db.accounts.Include(t => t.followedUsers).
+                FirstOrDefault(t => t.accountID == followerId);
+
+            followed.followingUsers.Add(follower); 
+            follower.followedUsers.Add(followed);
+
+            EditAccount(followed);
+            EditAccount(follower);
+            
+        }
+
         
         public void RemoveAccount(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
             Account account = db.accounts.Find(id);
-
+            Console.WriteLine(account.email);
+            
            
             db.accounts.Remove(account);
             db.SaveChanges();
@@ -76,8 +94,9 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            Account account = db.accounts.Find(id);
-            return account.followers;
+             return db.accounts.Include(t => t.followingUsers).
+                FirstOrDefault(t => t.accountID == id).followingUsers.Count;
+            
         }
         private string hashPassword(string password)
         {

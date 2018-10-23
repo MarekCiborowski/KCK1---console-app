@@ -29,6 +29,8 @@ namespace DatabaseLayer
                 .Map(x => x.ToTable("Followers")
                     .MapLeftKey("UserId")
                     .MapRightKey("FollowerId"));
+
+            
         }
 
 

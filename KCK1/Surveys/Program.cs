@@ -6,15 +6,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using RepositoryLayer.Repositories;
 
 namespace Surveys
 {
     class Program
     {
+        static void cc() { Console.Clear(); }
+        static void cr() { Console.ReadKey(); }
         static void Main(string[] args)
         {
-            
+
 
             //PersonData personData = new PersonData();
             //personData.address = "address";
@@ -27,10 +29,35 @@ namespace Surveys
             //userSecurity.login = "login";
             //userSecurity.password = "password";
 
-            //Account account = accountService.CreateAccount(personData, "kuc@gmail.com", "kuc", userSecurity);
-            //accountService.AddAccount(account);
-            
-            
+
+
+            AccountRepository accountRepository = new AccountRepository();
+            //Account account = accountRepository.CreateAccount(personData, "kuc@gmail.com", "kuc", userSecurity);
+
+            //PersonData personData1 = new PersonData();
+            //personData.address = "address";
+            //personData.city = "city";
+            //personData.country = "country";
+            //personData.state = "state";
+            //personData.zipcode = 48;
+
+            //UserSecurity userSecurity1 = new UserSecurity();
+            //userSecurity.login = "login";
+            //userSecurity.password = "password";
+
+            //Account account1 = accountRepository.CreateAccount(personData1, "kuc1@gmail.com", "kuc1", userSecurity1);
+
+            //int accountId = accountRepository.AddAccount(account);
+            //int account1Id = accountRepository.AddAccount(account1);
+
+            //accountRepository.AddFollower(accountId, account1Id);
+
+            accountRepository.RemoveAccount(1);
+
+
+
+
+
 
         }
     }
