@@ -82,8 +82,13 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            Account account = db.accounts.Find(id);
-            Console.WriteLine(account.email);
+            Account account = db.accounts.Include(t => t.followedUsers).
+                Include(t => t.followingUsers).FirstOrDefault(t => t.accountID == id);
+            account.followedUsers.Clear();
+            account.followingUsers.Clear();
+            EditAccount(account);
+
+            
 
             //db.personDatas.Remove(account.personData);
             //db.userSecurities.Remove(account.userSecurity);

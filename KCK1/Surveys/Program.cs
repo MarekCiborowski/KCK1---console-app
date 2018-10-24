@@ -53,7 +53,7 @@ namespace Surveys
 
             //accountRepository.AddFollower(accountId, account1Id);
 
-            accountRepository.RemoveAccount(1);
+            accountRepository.RemoveAccount(6);
 
 
 
