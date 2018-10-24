@@ -25,10 +25,24 @@ namespace DatabaseLayer
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>()
-                .HasMany(x => x.followedUsers).WithMany(x => x.followingUsers)
-                .Map(x => x.ToTable("Followers")
-                    .MapLeftKey("UserId")
-                    .MapRightKey("FollowerId"));
+                 .HasMany(x => x.followedUsers).WithMany(x => x.followingUsers)
+                 .Map(x => x.ToTable("Followers")
+                     .MapLeftKey("UserId")
+                     .MapRightKey("FollowerId"));
+
+            modelBuilder.Entity<PersonData>()
+                .HasRequired(p => p.account)
+                .WithOptional(p => p.personData)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<UserSecurity>()
+                .HasRequired(u => u.account)
+                .WithOptional(u => u.userSecurity)
+                .WillCascadeOnDelete(true);
+
+            //modelBuilder.Conventions.Add<OneToOneConstraintIntroductionConvention>();
+            //modelBuilder.Conventions.Add<OneToManyCascadeDeleteConvention>();
+            //modelBuilder.Conventions.Add<ManyToManyCascadeDeleteConvention>();
         }
 
 

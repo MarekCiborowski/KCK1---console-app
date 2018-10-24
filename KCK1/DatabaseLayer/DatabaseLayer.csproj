@@ -83,6 +83,10 @@
     <Compile Include="Migrations\201810231310355_removedNumberOfFollowers.Designer.cs">
       <DependentUpon>201810231310355_removedNumberOfFollowers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810231751494_cascade_userSecurity_personData.cs" />
+    <Compile Include="Migrations\201810231751494_cascade_userSecurity_personData.Designer.cs">
+      <DependentUpon>201810231751494_cascade_userSecurity_personData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountSurvey.cs" />
@@ -114,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810231310355_removedNumberOfFollowers.resx">
       <DependentUpon>201810231310355_removedNumberOfFollowers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810231751494_cascade_userSecurity_personData.resx">
+      <DependentUpon>201810231751494_cascade_userSecurity_personData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

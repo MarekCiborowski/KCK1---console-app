@@ -85,25 +85,9 @@ namespace RepositoryLayer.Repositories
             Account account = db.accounts.Find(id);
             Console.WriteLine(account.email);
 
-            db.personDatas.Remove(account.personData);
-            db.userSecurities.Remove(account.userSecurity);
+            //db.personDatas.Remove(account.personData);
+            //db.userSecurities.Remove(account.userSecurity);
             db.accounts.Remove(account);
-
-            //List<Account> accounts = db.accounts.Where(t => t.accountID != 0).ToList();
-
-            //List<Account> followed = db.accounts.Include(t => t.followingUsers).Where(t => t.accountID == id).ToList();
-            //   //FirstOrDefault(t => t.accountID == id);
-            //List<Account> follower = db.accounts.Include(t => t.followedUsers).Where(t => t.accountID == id).ToList();
-            // //  FirstOrDefault(t => t.accountID == id);
-
-            //followed.followingUsers.Remove(follower);
-            //follower.followedUsers.Add(followed);
-
-            //EditAccount(followed);
-            //EditAccount(follower);
-
-
-            //db.Entry(account).State = EntityState.Deleted;
             db.SaveChanges();
         }
         
