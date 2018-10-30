@@ -77,6 +77,21 @@ namespace RepositoryLayer.Repositories
             
         }
 
+        public void RemoveFollower(int followerId, int followedId)
+        {
+            Account followed = db.accounts.Include(t => t.followingUsers).
+                FirstOrDefault(t => t.accountID == followedId);
+            Account follower = db.accounts.Include(t => t.followedUsers).
+                FirstOrDefault(t => t.accountID == followerId);
+
+            followed.followingUsers.Remove(follower);
+            follower.followedUsers.Remove(followed);
+
+            EditAccount(followed);
+            EditAccount(follower);
+
+        }
+
         
         public void RemoveAccount(int? id)
         {

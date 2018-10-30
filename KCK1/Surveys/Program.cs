@@ -7,14 +7,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RepositoryLayer.Repositories;
+using Terminal.Gui;
 
 namespace Surveys
 {
     class Program
     {
+        private Account loggedAccount;
         static void cc() { Console.Clear(); }
         static void cr() { Console.ReadKey(); }
+        
         static void Main(string[] args)
+        {
+            Application.Init();
+            var menu = new MenuBar(new MenuBarItem[] {
+            new MenuBarItem ("_File", new MenuItem [] {
+                new MenuItem ("_Quit", "", () => {
+                    Application.RequestStop ();
+                })
+            }),
+        });
+
+            var win = new Window("Hello")
+            {
+                X = 0,
+                Y = 1,
+                Width = Dim.Fill(),
+                Height = Dim.Fill() - 1
+            };
+
+            // Add both menu and win in a single call
+            Application.Top.Add(menu, win);
+            Application.Run();
+
+        }
+
+        static void SomeTest()
         {
             AccountRepository accountRepository = new AccountRepository();
 
@@ -54,12 +82,6 @@ namespace Surveys
             //accountRepository.AddFollower(accountId, account1Id);
 
             accountRepository.RemoveAccount(6);
-
-
-
-
-
-
         }
     }
 }
