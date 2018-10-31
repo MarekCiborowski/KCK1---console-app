@@ -82,6 +82,7 @@
     <Compile Include="MenuOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ArtAscii.cs" />
+    <Compile Include="Views\CreateAccount.cs" />
     <Compile Include="Views\Program.cs" />
     <Compile Include="Views\SignInView.cs" />
   </ItemGroup>

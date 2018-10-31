@@ -19,7 +19,7 @@ namespace Surveys
         public void OptionFunction()
         {
             Console.Clear();
-            Configuration.MainMenu(Options.GetOptions());
+            CreateAccount.Create();
         }
 
         public string GetName()
