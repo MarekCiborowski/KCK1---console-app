@@ -108,6 +108,10 @@
     <Compile Include="Migrations\201810231751494_cascade_userSecurity_personData.Designer.cs">
       <DependentUpon>201810231751494_cascade_userSecurity_personData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810312109399_DziwkiMigracjeKaskady.cs" />
+    <Compile Include="Migrations\201810312109399_DziwkiMigracjeKaskady.Designer.cs">
+      <DependentUpon>201810312109399_DziwkiMigracjeKaskady.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountSurvey.cs" />
@@ -142,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810231751494_cascade_userSecurity_personData.resx">
       <DependentUpon>201810231751494_cascade_userSecurity_personData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810312109399_DziwkiMigracjeKaskady.resx">
+      <DependentUpon>201810312109399_DziwkiMigracjeKaskady.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -17,7 +17,7 @@ namespace DatabaseLayer.Models
 
         public string address { get; set; }
         public string city { get; set; }
-        public int zipcode { get; set; }
+        public string zipcode { get; set; }
         public string state { get; set; }
         public string country { get; set; }
 
