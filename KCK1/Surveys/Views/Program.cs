@@ -11,13 +11,16 @@ using RepositoryLayer.Repositories;
 
 namespace Surveys.Views
 {
-    public class SignIn
+    public class Program
     {
         public static void Start()
         {
             setConsoleSize();
 
+            Console.WriteLine(getMainTitleString());
+            Console.WriteLine("Press any button to continue");
 
+            Console.ReadKey();
         }
 
         public static void setConsoleSize()
