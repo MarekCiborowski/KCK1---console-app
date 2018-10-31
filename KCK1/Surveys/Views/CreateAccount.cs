@@ -59,6 +59,19 @@ namespace Surveys.Views
             string email = "";
             email = Console.ReadLine();
 
+            bool var = IsValidEmail(email);
+
+            if(!var)
+                while (!var)
+                {
+                    Configuration.setConsoleSize();
+                    Console.WriteLine(ArtAscii.GetMainTitleString());
+                    Console.SetCursorPosition(30, 26);
+                    Console.Write("Enter again your email: ");
+                    email = Console.ReadLine();
+                    var = IsValidEmail(email);
+                }
+
             Console.SetCursorPosition(30, 27);
             Console.Write("Address: ");
             string address = "";
@@ -75,16 +88,16 @@ namespace Surveys.Views
             string zipcode = Console.ReadLine();
 
             int valueInt = 0;
-            bool isNumeric = int.TryParse("123", out valueInt);
+            bool isNumeric = int.TryParse(zipcode, out valueInt);
             if (!isNumeric)
                 while (!isNumeric)
                 {
                     Configuration.setConsoleSize();
                     Console.WriteLine(ArtAscii.GetMainTitleString());
                     Console.SetCursorPosition(30, 29);
-                    Console.Write("Enter again zipcode: ");
+                    Console.Write("Enter again your zipcode: ");
                     zipcode = Console.ReadLine();
-                    isNumeric = int.TryParse("123", out valueInt);
+                    isNumeric = int.TryParse(zipcode, out valueInt);
                 }
 
             Console.SetCursorPosition(30, 30);
@@ -114,6 +127,19 @@ namespace Surveys.Views
             accountRepo.AddAccount(account);
 
             Program.Start();
+        }
+
+        private static bool IsValidEmail(string email)
+        {
+            try
+            {
+                var check = new System.Net.Mail.MailAddress(email);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
