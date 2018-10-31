@@ -29,7 +29,7 @@ namespace Surveys.Views
 
             Console.ReadKey();
 
-            SignView.Menu();
+            SignInView.Menu();
         }    
     }
 }

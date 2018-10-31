@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Surveys.Views
 {
-    public class SignView
+    public class SignInView
     {
         public static void Menu()
         {
