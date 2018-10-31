@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,8 @@ namespace DatabaseLayer
                 .HasRequired(u => u.account)
                 .WithOptional(u => u.userSecurity)
                 .WillCascadeOnDelete(true);
+
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
             //modelBuilder.Conventions.Add<OneToOneConstraintIntroductionConvention>();
             //modelBuilder.Conventions.Add<OneToManyCascadeDeleteConvention>();
