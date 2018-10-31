@@ -29,7 +29,6 @@ namespace Surveys.Views
             do
             {
                 key = Console.ReadKey(true);
-                // Backspace Should Not Work
                 if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
                 {
                     password += key.KeyChar;
