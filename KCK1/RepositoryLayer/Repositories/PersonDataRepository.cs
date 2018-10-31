@@ -17,7 +17,7 @@ namespace RepositoryLayer.Repositories
             
             string _address,
             string _city,
-            int _zipcode,
+            string _zipcode,
             string _state,
             string _country)
         {

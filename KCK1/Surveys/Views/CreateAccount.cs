@@ -68,6 +68,15 @@ namespace Surveys.Views
             Console.Write("Email: ");
             string email = "";
             email = Console.ReadLine();
+            if (!accountRepo.IsEmailFree(email))
+                while (!accountRepo.IsEmailFree(email))
+                {
+                    Configuration.setConsoleSize();
+                    Console.WriteLine(ArtAscii.GetMainTitleString());
+                    Console.SetCursorPosition(30, 23);
+                    Console.Write("This email is busy. Please try another: ");
+                    email = Console.ReadLine();
+                }
 
             bool var = IsValidEmail(email);
 
