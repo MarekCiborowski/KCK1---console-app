@@ -11,7 +11,6 @@ namespace Surveys.Views
 {
     public class CreateAccount
     {
-        private AccountRepository accountRepository;
         public static void Create()
         {
             AccountRepository accountRepo = new AccountRepository();
@@ -26,6 +25,15 @@ namespace Surveys.Views
             Console.Write("Login: ");
             string login = "";
             login = Console.ReadLine();
+            if(!accountRepo.IsLoginFree(login))
+                while(!accountRepo.IsLoginFree(login))
+                {
+                    Configuration.setConsoleSize();
+                    Console.WriteLine(ArtAscii.GetMainTitleString());
+                    Console.SetCursorPosition(30, 23);
+                    Console.Write("This login is busy. Please try another: ");
+                    login = Console.ReadLine();
+                }
 
             Console.SetCursorPosition(30, 24);
             Console.Write("Password: ");
