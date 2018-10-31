@@ -28,6 +28,18 @@ namespace RepositoryLayer.Repositories
                 userSecurity = _usersecurity
             };
         }
+        public UserSecurity CreateUserSecurity(
+            string _login,
+            string _password)
+        {
+            return new UserSecurity
+            {
+                login = _login,
+                password = hashPassword(_password)
+
+            };
+        }
+
         public Account GetAccount(int? id)
         {
             if (id == null)

@@ -14,7 +14,7 @@ namespace RepositoryLayer.Repositories
         private DatabaseContext db = new DatabaseContext();
 
         public PersonData CreatePersonData(
-            Account _account,
+            
             string _address,
             string _city,
             int _zipcode,
@@ -23,7 +23,7 @@ namespace RepositoryLayer.Repositories
         {
             return new PersonData
             {
-                account = _account,
+                
                 address = _address,
                 city = _city,
                 zipcode = _zipcode,
