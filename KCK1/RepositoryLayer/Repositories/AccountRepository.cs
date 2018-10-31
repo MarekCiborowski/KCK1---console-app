@@ -232,5 +232,13 @@ namespace RepositoryLayer.Repositories
                 return true;
             return false;
         }
+
+        public bool IsEmailFree(string email)
+        {
+            Account account = db.accounts.FirstOrDefault(t => t.email == email);
+            if (account == null)
+                return true;
+            return false;
+        }
     }
 }
