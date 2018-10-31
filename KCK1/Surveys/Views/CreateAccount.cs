@@ -13,6 +13,8 @@ namespace Surveys.Views
     {
         public static void Create()
         {
+
+            AccountRepository accountRepo = new AccountRepository();
             ConsoleKeyInfo key;
             Configuration.setConsoleSize();
 
@@ -22,6 +24,15 @@ namespace Surveys.Views
             Console.Write("Login: ");
             string login = "";
             login = Console.ReadLine();
+            if(!accountRepo.IsLoginFree(login))
+                while(!accountRepo.IsLoginFree(login))
+                {
+                    Configuration.setConsoleSize();
+                    Console.WriteLine(ArtAscii.GetMainTitleString());
+                    Console.SetCursorPosition(30, 23);
+                    Console.Write("This login is busy. Please try another: ");
+                    login = Console.ReadLine();
+                }
 
             Console.SetCursorPosition(30, 24);
             Console.Write("Password: ");
@@ -107,7 +118,7 @@ namespace Surveys.Views
             userSecurity.login = login;
             userSecurity.password = password;
 
-            AccountRepository accountRepo = new AccountRepository();
+            
             Account account = accountRepo.CreateAccount(personData, email, nickname, userSecurity);
 
             accountRepo.AddAccount(account);

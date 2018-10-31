@@ -212,5 +212,13 @@ namespace RepositoryLayer.Repositories
             return accountSurvey.isAuthor;
 
         }
+
+        public bool IsLoginFree(string login)
+        {
+            UserSecurity userSecurity = db.userSecurities.Include(t => t.account).FirstOrDefault(t => t.login == login);
+            if (userSecurity == null)
+                return true;
+            return false;
+        }
     }
 }
