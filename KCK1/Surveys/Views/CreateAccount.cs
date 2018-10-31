@@ -83,21 +83,8 @@ namespace Surveys.Views
 
             Console.SetCursorPosition(30, 29);
             Console.Write("Zipcode: ");
-
-            string zipcode = Console.ReadLine();
-
-            int valueInt = 0;
-            bool isNumeric = int.TryParse(zipcode, out valueInt);
-            if (!isNumeric)
-                while (!isNumeric)
-                {
-                    Configuration.setConsoleSize();
-                    Console.WriteLine(ArtAscii.GetMainTitleString());
-                    Console.SetCursorPosition(30, 29);
-                    Console.Write("Enter again your zipcode: ");
-                    zipcode = Console.ReadLine();
-                    isNumeric = int.TryParse(zipcode, out valueInt);
-                }
+            string zipcode = "";
+            zipcode = Console.ReadLine();
 
             Console.SetCursorPosition(30, 30);
             Console.Write("State: ");
@@ -114,7 +101,7 @@ namespace Surveys.Views
             personData.city = city;
             personData.country = country;
             personData.state = state;
-            personData.zipcode = valueInt;
+            personData.zipcode = zipcode;
 
             UserSecurity userSecurity = new UserSecurity();
             userSecurity.login = login;
