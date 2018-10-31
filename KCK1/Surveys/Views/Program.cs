@@ -19,6 +19,7 @@ namespace Surveys.Views
             Start();
 
         }
+
         public static void Start()
         {
             Configuration.setConsoleSize();

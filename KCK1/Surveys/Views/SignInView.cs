@@ -46,6 +46,9 @@ namespace Surveys.Views
                     }
                 }
             } while (true);
+
+            Program.Start();
+
         }
     }
 }
