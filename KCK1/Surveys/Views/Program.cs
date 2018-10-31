@@ -7,6 +7,7 @@ using System.Drawing;
 using DatabaseLayer;
 using DatabaseLayer.Models;
 using RepositoryLayer.Repositories;
+using Console = Colorful.Console;
 
 namespace Surveys.Views
 {
@@ -22,13 +23,13 @@ namespace Surveys.Views
         {
             Configuration.setConsoleSize();
 
-            Console.WriteLine(ArtAscii.getMainTitleString());
+            Console.WriteLine(ArtAscii.GetMainTitleString());
             Console.SetCursorPosition(Console.WindowWidth / 3, 10);
             Console.WriteLine("Press any button to continue");
 
             Console.ReadKey();
 
-            SignInView.Menu();
+            Configuration.MainMenu(Options.GetOptions());
         }
     }
 }

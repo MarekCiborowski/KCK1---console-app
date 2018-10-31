@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Console = Colorful.Console;
 
 namespace Surveys.Views
 {
     public class SignInView
     {
-        public static void Menu()
+        public static void SignIn()
         {
             Configuration.setConsoleSize();
 
-            Console.WriteLine(ArtAscii.getMainTitleString());
+            Console.WriteLine(ArtAscii.GetMainTitleString());
 
             Console.SetCursorPosition(30, 23);
             Console.Write("Login: ");

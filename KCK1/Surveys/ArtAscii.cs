@@ -8,7 +8,7 @@ namespace Surveys
 {
     public class ArtAscii
     {
-        public static string getMainTitleString()
+        public static string GetMainTitleString()
         {
             string survey = @"
                  _________    ___    ____    ________    ___       __   _________    _________  
