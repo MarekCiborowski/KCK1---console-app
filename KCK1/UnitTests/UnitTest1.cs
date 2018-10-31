@@ -30,8 +30,9 @@ namespace UnitTests
         public void IsEverythingAllright()
         {
             UserSecurity userSecurity = accountRepository.CreateUserSecurity("login", "password");
-            PersonData personData = personDataRepository.CreatePersonData("adres", "miasto", 19100, "state", "country");
+            PersonData personData = personDataRepository.CreatePersonData("adres", "miasto", "19-100", "state", "country");
             Account account = accountRepository.CreateAccount(personData, "email", "nick", userSecurity);
+
            
         }
     }
