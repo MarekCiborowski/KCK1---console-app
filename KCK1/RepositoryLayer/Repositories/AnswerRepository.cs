@@ -14,17 +14,12 @@ namespace RepositoryLayer.Repositories
         private DatabaseContext db = new DatabaseContext();
 
         public Answer CreateAnswer(
-            string _answerValue,
-            int _questionID,
-            Question _question,
-            ICollection<Vote> _vote)
+            string _answerValue           
+            )
         {
             return new Answer
             {
-                answerValue = _answerValue,
-                questionID = _questionID,
-                question = _question,
-                vote = _vote,
+                answerValue = _answerValue, 
             };
         }
         public Answer GetAnswer(int? id)
@@ -34,9 +29,13 @@ namespace RepositoryLayer.Repositories
             return db.answers.Include(t => t.vote).FirstOrDefault(a => a.answerID == id);
         }
 
-        public void AddAnswer(Answer answer)
+        public void AddAnswerToQuestion(Answer answer, int? questionID)
         {
-            db.answers.Add(answer);
+            if (questionID == null)
+                throw new ArgumentNullException("Null argument");
+            Question question = db.questions.Include(t =>t.answer).FirstOrDefault(t => t.questionID==questionID);
+            question.answer.Add(answer);
+            db.Entry(question).State = EntityState.Modified;
             db.SaveChanges();
         }
 

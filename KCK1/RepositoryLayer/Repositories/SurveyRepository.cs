@@ -16,15 +16,15 @@ namespace RepositoryLayer.Repositories
         public Survey CreateSurvey(
             string _title,
             string _description,
-            ICollection<Question> _question,
-            ICollection<AccountSurvey> _accountSurvey)
+            ICollection<Question> _question
+            )
         {
             return new Survey
             {
                 title = _title,
                 description = _description,
                 question = _question,
-                accountSurvey = _accountSurvey
+                
             };
         }
         public Survey GetSurvey(int? id)
@@ -34,9 +34,16 @@ namespace RepositoryLayer.Repositories
             return db.surveys.Include(q => q.question).FirstOrDefault(s => s.surveyID == id);
         }
 
-        public void AddSurvey(Survey survey)
+        public void AddSurvey(Survey survey, Account Author)
         {
-            db.surveys.Add(survey);
+            AccountSurvey accountSurvey = new AccountSurvey
+            {
+                account = Author,
+                isAuthor = true,
+                survey = survey
+            };
+            db.accountsSurveys.Add(accountSurvey);
+            
             db.SaveChanges();
         }
 
