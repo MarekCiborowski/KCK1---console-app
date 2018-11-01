@@ -31,7 +31,6 @@ namespace Surveys
         {
             return "";
         }
-
     }
 
     public class MenuSignIn : MenuOptions
@@ -51,7 +50,6 @@ namespace Surveys
         {
             return "";
         }
-
     }
 
     public class MenuExit : MenuOptions
@@ -70,7 +68,6 @@ namespace Surveys
         {
             return "";
         }
-
     }
 
     public class MenuChangePassword : MenuOptions
@@ -96,7 +93,6 @@ namespace Surveys
         {
             return "";
         }
-
     }
 
     public class MenuLogout : MenuOptions
@@ -116,8 +112,183 @@ namespace Surveys
         {
             return "";
         }
-
     }
+
+    public class MenuCreateSurvey : MenuOptions
+    {
+        private Account account;
+        public MenuCreateSurvey(Account _account)
+        {
+            account = _account;
+        }
+
+        public void OptionFunction()
+        {
+            Console.Clear();
+            CreateSurvey.Create(account);
+        }
+
+        public string GetName()
+        {
+            return "      Create Survey      ";
+        }
+
+        public string GetDescription()
+        {
+            return "";
+        }
+    }
+
+    public class MenuShowFollowed : MenuOptions
+    {
+        private Account account;
+        public MenuShowFollowed(Account _account)
+        {
+            account = _account;
+        }
+
+        public void OptionFunction()
+        {
+            Console.Clear();
+            ShowFollowed.Show(account);
+        }
+
+        public string GetName()
+        {
+            return "    Show Followed Users    ";
+        }
+
+        public string GetDescription()
+        {
+            return "";
+        }
+    }
+
+    public class MenuShowFollowing : MenuOptions
+    {
+        private Account account;
+        public MenuShowFollowing(Account _account)
+        {
+            account = _account;
+        }
+
+        public void OptionFunction()
+        {
+            Console.Clear();
+            ShowFollowing.Show(account);
+        }
+
+        public string GetName()
+        {
+            return "    Show Following Users     ";
+        }
+
+        public string GetDescription()
+        {
+            return "";
+        }
+    }
+
+    public class MenuShowMySurveys : MenuOptions
+    {
+        private Account account;
+        public MenuShowMySurveys(Account _account)
+        {
+            account = _account;
+        }
+
+        public void OptionFunction()
+        {
+            Console.Clear();
+            ShowMySurveys.Show(account);
+        }
+
+        public string GetName()
+        {
+            return "    Show My Surveys     ";
+        }
+
+        public string GetDescription()
+        {
+            return "";
+        }
+    }
+
+    public class MenuShowCompletedSurveys : MenuOptions
+    {
+        private Account account;
+        public MenuShowCompletedSurveys(Account _account)
+        {
+            account = _account;
+        }
+
+        public void OptionFunction()
+        {
+            Console.Clear();
+            ShowCompletedSurveys.Show(account);
+        }
+
+        public string GetName()
+        {
+            return "  Show Completed Surveys  ";
+        }
+
+        public string GetDescription()
+        {
+            return "";
+        }
+    }
+
+    public class MenuShowAllSurveys : MenuOptions
+    {
+        private Account account;
+        public MenuShowAllSurveys(Account _account)
+        {
+            account = _account;
+        }
+
+        public void OptionFunction()
+        {
+            Console.Clear();
+            ShowAllSurveys.Show(account);
+        }
+
+        public string GetName()
+        {
+            return "    Show All Surveys    ";
+        }
+
+        public string GetDescription()
+        {
+            return "";
+        }
+    }
+
+    public class MenuShowAllPeople : MenuOptions
+    {
+        private Account account;
+        public MenuShowAllPeople(Account _account)
+        {
+            account = _account;
+        }
+
+        public void OptionFunction()
+        {
+            Console.Clear();
+            ShowAllPeople.Show(account);
+        }
+
+        public string GetName()
+        {
+            return "    Show All People    ";
+        }
+
+        public string GetDescription()
+        {
+            return "";
+        }
+    }
+
     public static class Options
     {
         public static List<MenuOptions> GetMainOptions()
@@ -133,9 +304,22 @@ namespace Surveys
         public static List<MenuOptions> GetOptionsAfterSignIn(Account account)
         {
             List<MenuOptions> options = new List<MenuOptions>();
-            MenuChangePassword menuChangePassword = new MenuChangePassword(account);
-            options.Add(menuChangePassword);
+            options.Add(new MenuChangePassword(account));
+
             options.Add(new MenuLogout());
+
+            options.Add(new MenuCreateSurvey(account));
+            
+            options.Add(new MenuShowFollowed(account));
+
+            options.Add(new MenuShowMySurveys(account));
+
+            options.Add(new MenuShowCompletedSurveys(account));
+
+            options.Add(new MenuShowAllSurveys(account));
+
+            options.Add(new MenuShowAllPeople(account));
+
             options.Add(new MenuExit());
             return options;
         }
