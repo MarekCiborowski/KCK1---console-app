@@ -137,7 +137,7 @@ namespace Surveys
                         listOptions[i].OptionFunction();
                         break;
                     case ConsoleKey.Escape:
-                        MainMenu(Options.GetOptions());
+                        MainMenu(Options.GetMainOptions());
                         break;
                 }
             }

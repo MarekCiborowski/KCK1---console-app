@@ -30,7 +30,7 @@ namespace Surveys.Views
 
             Console.ReadKey();
 
-            Configuration.MainMenu(Options.GetOptions());
+            Configuration.MainMenu(Options.GetMainOptions());
         }
 
         public static void Start(string news)
@@ -45,7 +45,7 @@ namespace Surveys.Views
 
             Console.ReadKey();
 
-            Configuration.MainMenu(Options.GetOptions());
+            Configuration.MainMenu(Options.GetMainOptions());
         }
     }
 }

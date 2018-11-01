@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Surveys.Views;
-
+using DatabaseLayer.Models;
 namespace Surveys
 {
     public interface MenuOptions
@@ -73,17 +73,73 @@ namespace Surveys
 
     }
 
+    public class MenuChangePassword : MenuOptions
+    {
+        private Account account;
+        public MenuChangePassword(Account _account)
+        {
+            account = _account;
+        }
+
+        public void OptionFunction()
+        {
+            Console.Clear();
+            ChangePassword.Change(account);
+        }
+
+        public string GetName()
+        {
+            return "     Change Password     ";
+        }
+
+        public string GetDescription()
+        {
+            return "";
+        }
+
+    }
+
+    public class MenuLogout : MenuOptions
+    {
+        public void OptionFunction()
+        {
+            Console.Clear();
+            Program.Start("Logout successful");
+        }
+
+        public string GetName()
+        {
+            return "        Logout         ";
+        }
+
+        public string GetDescription()
+        {
+            return "";
+        }
+
+    }
     public static class Options
     {
-        public static List<MenuOptions> GetOptions()
+        public static List<MenuOptions> GetMainOptions()
         {
             List<MenuOptions> options = new List<MenuOptions>();
             options.Add(new MenuCreateAccount());
             options.Add(new MenuSignIn());
             options.Add(new MenuExit());
-            //options.Add(new MainMenu_ExitGame());
 
             return options;
         }
+
+        public static List<MenuOptions> GetOptionsAfterSignIn(Account account)
+        {
+            List<MenuOptions> options = new List<MenuOptions>();
+            MenuChangePassword menuChangePassword = new MenuChangePassword(account);
+            options.Add(menuChangePassword);
+            options.Add(new MenuLogout());
+            options.Add(new MenuExit());
+            return options;
+        }
+
+
     }
 }
