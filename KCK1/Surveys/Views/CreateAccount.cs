@@ -14,6 +14,7 @@ namespace Surveys.Views
         public static void Create()
         {
             AccountRepository accountRepo = new AccountRepository();
+            UserSecurityRepository userSecurityRepository = new UserSecurityRepository();
             PersonDataRepository personDataRepo = new PersonDataRepository();
             int positionX = 30, positionY = 15;
             ConsoleKeyInfo key;
@@ -123,7 +124,7 @@ namespace Surveys.Views
             country = Console.ReadLine();
 
             PersonData personData = personDataRepo.CreatePersonData(address, city, zipcode, state, country);              
-            UserSecurity userSecurity = accountRepo.CreateUserSecurity(login,password);                      
+            UserSecurity userSecurity = userSecurityRepository.CreateUserSecurity(login, password);                      
             Account account = accountRepo.CreateAccount(personData, email, nickname, userSecurity);
             accountRepo.AddAccount(account);
 

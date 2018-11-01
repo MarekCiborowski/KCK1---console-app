@@ -94,6 +94,7 @@
     <Compile Include="Views\ChangePassword.cs" />
     <Compile Include="Views\CreateAccount.cs" />
     <Compile Include="Views\Program.cs" />
+    <Compile Include="Views\ShowFollowed.cs" />
     <Compile Include="Views\SignInView.cs" />
   </ItemGroup>
   <ItemGroup>

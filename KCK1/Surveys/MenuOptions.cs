@@ -125,7 +125,7 @@ namespace Surveys
         public void OptionFunction()
         {
             Console.Clear();
-            CreateSurvey.Create(account);
+            //CreateSurvey.Create(account);
         }
 
         public string GetName()
@@ -175,7 +175,7 @@ namespace Surveys
         public void OptionFunction()
         {
             Console.Clear();
-            ShowFollowing.Show(account);
+            //ShowFollowing.Show(account);
         }
 
         public string GetName()
@@ -200,7 +200,7 @@ namespace Surveys
         public void OptionFunction()
         {
             Console.Clear();
-            ShowMySurveys.Show(account);
+            //ShowMySurveys.Show(account);
         }
 
         public string GetName()
@@ -225,7 +225,7 @@ namespace Surveys
         public void OptionFunction()
         {
             Console.Clear();
-            ShowCompletedSurveys.Show(account);
+           // ShowCompletedSurveys.Show(account);
         }
 
         public string GetName()
@@ -250,7 +250,7 @@ namespace Surveys
         public void OptionFunction()
         {
             Console.Clear();
-            ShowAllSurveys.Show(account);
+          //  ShowAllSurveys.Show(account);
         }
 
         public string GetName()
@@ -275,7 +275,7 @@ namespace Surveys
         public void OptionFunction()
         {
             Console.Clear();
-            ShowAllPeople.Show(account);
+          //  ShowAllPeople.Show(account);
         }
 
         public string GetName()
