@@ -238,11 +238,11 @@ namespace RepositoryLayer.Repositories
 
         public bool IsFollowed(int followerId, int followedId)
         {
-            List<Account> account = GetFollowedAccounts(followedId);
+            List<Account> account = GetFollowedAccounts(followerId);
 
             for(int i = 0; i < account.Count; i++)
             {
-                if (account[i].accountID == followerId)
+                if (account[i].accountID == followedId)
                     return true;
             }
             return false;

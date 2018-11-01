@@ -176,7 +176,7 @@ namespace Surveys
         public void OptionFunction()
         {
             Console.Clear();
-            //ShowFollowing.Show(account);
+            ShowFollowing.Show(account);
         }
 
         public string GetName()
