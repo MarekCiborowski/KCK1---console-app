@@ -27,15 +27,16 @@ namespace Surveys.Views
             List<Account> accounts = accountRepo.GetAccountsToList();
 
             ConsoleKey key;
-            int i;
+            int i = 0;
             Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
             Configuration.CurrentConsoleLineClear(positionX);
 
-            for (i = 0; i < 3; i++)
+            while(accounts.Count > i)
             {
                 if (i == 1) Console.ForegroundColor = Color.Red;
                 else Console.ForegroundColor = Color.White;
                 Console.Write("      " + accounts[i].nickname + "      ");
+                i++;
             }
             i = 1;
             Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
@@ -57,7 +58,7 @@ namespace Surveys.Views
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
                         Configuration.CurrentConsoleLineClear(positionX);
 
-                        for (int j = 2; j >= 0; j--)
+                        for (int j = accounts.Count - 1; j >= 0; j--)
                         {
                             if (j == 1)
                                 Console.ForegroundColor = Color.Red;
@@ -88,14 +89,16 @@ namespace Surveys.Views
                     case ConsoleKey.RightArrow:
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
                         Configuration.CurrentConsoleLineClear(positionX);
-                        for (int j = 0; j < 3; j++)
+                        for (int j = 0; j < accounts.Count; j++)
                         {
+                            if (i < 0)
+                                i = -i;
                             if (j == 1)
                                 Console.ForegroundColor = Color.Red;
                             else
                                 Console.ForegroundColor = Color.White;
-
-                            Console.Write("      " + accounts[(i + j) % quantityOfOptions].nickname + "      ");
+                            int value = (i + j) % quantityOfOptions;
+                            Console.Write("      " + accounts[value].nickname + "      ");
                         }
                         i = (i + 1) % quantityOfOptions;
 
