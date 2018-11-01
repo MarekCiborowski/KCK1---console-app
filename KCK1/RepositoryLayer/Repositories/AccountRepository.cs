@@ -161,7 +161,15 @@ namespace RepositoryLayer.Repositories
             return account.followedUsers.ToList();
         }
 
+        public List<Account> GetFollowingAccounts(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException("Null argument");
 
+            Account account = db.accounts.Include(t => t.followingUsers).FirstOrDefault(t => t.accountID == id);
+
+            return account.followingUsers.ToList();
+        }
 
         // Returns all the surveys that this particular account created/took part in.
         // Returns null if none are present.
