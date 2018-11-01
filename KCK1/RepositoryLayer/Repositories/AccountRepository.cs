@@ -35,6 +35,12 @@ namespace RepositoryLayer.Repositories
                 throw new ArgumentNullException("Null argument");
             return db.accounts.FirstOrDefault(a => a.accountID == id);
         }
+
+        public List<Account> GetAccountsToList()
+        {
+            return db.accounts.ToList();
+        }
+
         public Account GetAccount(string login, string password)
         {
             string hashedPassword = hashPassword(password);

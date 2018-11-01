@@ -22,7 +22,7 @@ namespace Surveys.Views
 
         public static void Start()
         {
-            Configuration.setConsoleSize();
+            Configuration.SetConsoleSize();
 
             Console.WriteLine(ArtAscii.GetMainTitleString());
             Console.SetCursorPosition(Console.WindowWidth / 3, 10);
@@ -35,7 +35,7 @@ namespace Surveys.Views
 
         public static void Start(string news)
         {
-            Configuration.setConsoleSize();
+            Configuration.SetConsoleSize();
 
             Console.WriteLine(ArtAscii.GetMainTitleString());
             Console.SetCursorPosition(Console.WindowWidth / 3, 10);

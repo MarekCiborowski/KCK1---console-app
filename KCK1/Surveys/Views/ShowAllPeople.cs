@@ -9,28 +9,31 @@ using RepositoryLayer.Repositories;
 
 namespace Surveys.Views
 {
-    public class ShowFollowed
+    public class ShowAllPeople
     {
         public static void Show(Account account)
         {
             Configuration.SetConsoleSize();
-
             Console.WriteLine(ArtAscii.GetMainTitleString());
+
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
 
             AccountRepository accountRepo = new AccountRepository();
 
-            List<Account> followed = accountRepo.GetFollowedAccounts(account.accountID);
+            List<Account> accounts = accountRepo.GetAccountsToList();
             //while (true)
             //{
             //    key = ConsoleKey.B;
             //    if (Console.KeyAvailable)
             //        key = Console.ReadKey(true).Key;
-                foreach (Account a in followed)
+            foreach (Account a in accounts)
             {
-                Console.WriteLine(a.nickname);
+                Console.WriteLine(a.nickname + " " + a.personData.country);
+                Console.SetCursorPosition(positionX, positionY);
+                positionY++;
             }
         }
+       
     }
 }

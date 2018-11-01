@@ -18,7 +18,7 @@ namespace Surveys.Views
             PersonDataRepository personDataRepo = new PersonDataRepository();
             int positionX = 30, positionY = 15;
             ConsoleKeyInfo key;
-            Configuration.setConsoleSize();
+            Configuration.SetConsoleSize();
 
             Console.WriteLine(ArtAscii.GetMainTitleString());
 

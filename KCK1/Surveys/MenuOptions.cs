@@ -276,7 +276,7 @@ namespace Surveys
         public void OptionFunction()
         {
             Console.Clear();
-          //  ShowAllPeople.Show(account);
+            ShowAllPeople.Show(account);
         }
 
         public string GetName()

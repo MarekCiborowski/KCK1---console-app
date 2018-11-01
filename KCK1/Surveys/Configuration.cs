@@ -11,7 +11,7 @@ namespace Surveys
     public class Configuration
     {
 
-        public static void setConsoleSize()
+        public static void SetConsoleSize()
         {
             int heightOfWindow = 30;
             int widthOfWindow = 130;
@@ -25,7 +25,7 @@ namespace Surveys
             Console.Clear();
             Console.Title = "Survey";
 
-            setConsoleSize();
+            SetConsoleSize();
         }
 
         //do czyszczenia linii
@@ -48,7 +48,7 @@ namespace Surveys
 
         public static void MainMenu(List<MenuOptions> listOptions)
         {
-            setConsoleSize();
+            SetConsoleSize();
 
             Console.WriteLine(ArtAscii.GetMainTitleString());
 

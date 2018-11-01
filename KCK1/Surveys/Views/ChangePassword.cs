@@ -13,7 +13,7 @@ namespace Surveys.Views
     {
         public static void Change(Account account)
         {
-            Configuration.setConsoleSize();
+            Configuration.SetConsoleSize();
 
             Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;

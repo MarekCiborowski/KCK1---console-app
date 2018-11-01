@@ -12,7 +12,7 @@ namespace Surveys.Views
     {
         public static void Start(Account account)
         {
-            Configuration.setConsoleSize();
+            Configuration.SetConsoleSize();
 
             Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
@@ -26,7 +26,7 @@ namespace Surveys.Views
 
         public static void ComeBack(Account account, string news)
         {
-            Configuration.setConsoleSize();
+            Configuration.SetConsoleSize();
 
             Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
