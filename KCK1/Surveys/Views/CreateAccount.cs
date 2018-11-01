@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Console = Colorful.Console;
 using RepositoryLayer.Repositories;
 using DatabaseLayer.Models;
-using Surveys;
 
 namespace Surveys.Views
 {
