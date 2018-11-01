@@ -32,5 +32,20 @@ namespace Surveys.Views
 
             Configuration.MainMenu(Options.GetOptions());
         }
+
+        public static void Start(string news)
+        {
+            Configuration.setConsoleSize();
+
+            Console.WriteLine(ArtAscii.GetMainTitleString());
+            Console.SetCursorPosition(Console.WindowWidth / 3, 10);
+            Console.WriteLine(news);
+            Console.SetCursorPosition(Console.WindowWidth / 3, 12);
+            Console.WriteLine("Press any button to continue");
+
+            Console.ReadKey();
+
+            Configuration.MainMenu(Options.GetOptions());
+        }
     }
 }

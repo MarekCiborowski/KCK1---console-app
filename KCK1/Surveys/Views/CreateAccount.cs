@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Console = Colorful.Console;
 using RepositoryLayer.Repositories;
 using DatabaseLayer.Models;
+using Surveys;
 
 namespace Surveys.Views
 {
@@ -15,27 +16,27 @@ namespace Surveys.Views
         {
             AccountRepository accountRepo = new AccountRepository();
             PersonDataRepository personDataRepo = new PersonDataRepository();
-
+            int positionX = 30, positionY = 15;
             ConsoleKeyInfo key;
             Configuration.setConsoleSize();
 
             Console.WriteLine(ArtAscii.GetMainTitleString());
 
-            Console.SetCursorPosition(30, 23);
+            Console.SetCursorPosition(positionX, positionY);
             Console.Write("Login: ");
             string login = "";
             login = Console.ReadLine();
             if(!accountRepo.IsLoginFree(login))
                 while(!accountRepo.IsLoginFree(login))
                 {
-                    Configuration.setConsoleSize();
-                    Console.WriteLine(ArtAscii.GetMainTitleString());
-                    Console.SetCursorPosition(30, 23);
+                    Configuration.CurrentConsoleLineClear(positionX);
+                    positionY++;
                     Console.Write("This login is busy. Please try another: ");
                     login = Console.ReadLine();
                 }
-
-            Console.SetCursorPosition(30, 24);
+            positionY++;
+            Console.SetCursorPosition(positionX, positionY);
+            positionY++;
             Console.Write("Password: ");
             string password = "";
             do
@@ -60,21 +61,22 @@ namespace Surveys.Views
                 }
             } while (true);
 
-            Console.SetCursorPosition(30, 25);
+            Console.SetCursorPosition(positionX, positionY);
+            positionY++;
             Console.Write("Nick: ");
             string nickname = "";
             nickname = Console.ReadLine();
 
-            Console.SetCursorPosition(30, 26);
+            Console.SetCursorPosition(positionX, positionY);
+            positionY++;
             Console.Write("Email: ");
             string email = "";
             email = Console.ReadLine();
             if (!accountRepo.IsEmailFree(email))
                 while (!accountRepo.IsEmailFree(email))
                 {
-                    Configuration.setConsoleSize();
-                    Console.WriteLine(ArtAscii.GetMainTitleString());
-                    Console.SetCursorPosition(30, 23);
+                    Console.SetCursorPosition(positionX, positionY);
+                    positionY++;
                     Console.Write("This email is busy. Please try another: ");
                     email = Console.ReadLine();
                 }
@@ -84,50 +86,49 @@ namespace Surveys.Views
             if(!var)
                 while (!var)
                 {
-                    Configuration.setConsoleSize();
-                    Console.WriteLine(ArtAscii.GetMainTitleString());
-                    Console.SetCursorPosition(30, 26);
+                    Console.SetCursorPosition(positionX, positionY);
+                    positionY++;
                     Console.Write("Enter again your email: ");
                     email = Console.ReadLine();
                     var = IsValidEmail(email);
                 }
 
-            Console.SetCursorPosition(30, 27);
+            Console.SetCursorPosition(positionX, positionY);
+            positionY++;
             Console.Write("Address: ");
             string address = "";
             address = Console.ReadLine();
 
-            Console.SetCursorPosition(30, 28);
+            Console.SetCursorPosition(positionX, positionY);
+            positionY++;
             Console.Write("City: ");
             string city = "";
             city = Console.ReadLine();
 
-            Console.SetCursorPosition(30, 29);
+            Console.SetCursorPosition(positionX, positionY);
+            positionY++;
             Console.Write("Zipcode: ");
             string zipcode = "";
             zipcode = Console.ReadLine();
 
-            Console.SetCursorPosition(30, 30);
+            Console.SetCursorPosition(positionX, positionY);
+            positionY++;
             Console.Write("State: ");
             string state = "";
             state = Console.ReadLine();
 
-            Console.SetCursorPosition(30, 31);
+            Console.SetCursorPosition(positionX, positionY);
+            positionY++;
             Console.Write("Country: ");
             string country = "";
             country = Console.ReadLine();
 
-            PersonData personData = personDataRepo.CreatePersonData(address, city, zipcode, state, country);
-                
-
-            UserSecurity userSecurity = accountRepo.CreateUserSecurity(login,password);
-            
-            
+            PersonData personData = personDataRepo.CreatePersonData(address, city, zipcode, state, country);              
+            UserSecurity userSecurity = accountRepo.CreateUserSecurity(login,password);                      
             Account account = accountRepo.CreateAccount(personData, email, nickname, userSecurity);
-
             accountRepo.AddAccount(account);
 
-            Program.Start();
+            Program.Start("Account was created.");
         }
 
         private static bool IsValidEmail(string email)
