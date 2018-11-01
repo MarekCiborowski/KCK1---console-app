@@ -51,8 +51,8 @@ namespace RepositoryLayer.Repositories
             string hashedPassword = hashPassword(password);
             UserSecurity userSecurity = db.userSecurities.Include(t => t.account).FirstOrDefault(t => t.login == login && t.password == hashedPassword);
             if (userSecurity == null)
-                throw new ArgumentNullException("Wrong password or login");
-            return db.accounts.Find(userSecurity.account);
+                return null;//throw new ArgumentNullException("Wrong password or login");
+            return db.accounts.Find(userSecurity.account.accountID);
         }
         
 

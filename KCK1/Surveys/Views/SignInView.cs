@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Console = Colorful.Console;
+using DatabaseLayer.Models;
+using DatabaseLayer;
+using RepositoryLayer.Repositories;
 
 namespace Surveys.Views
 {
@@ -14,14 +17,15 @@ namespace Surveys.Views
             Configuration.setConsoleSize();
 
             Console.WriteLine(ArtAscii.GetMainTitleString());
-
-            Console.SetCursorPosition(30, 23);
+            int positionX = 30, positionY = 15;
+            Console.SetCursorPosition(positionX, positionY);
+            positionY++;
             Console.Write("Login: ");
 
             string login;
             login = Console.ReadLine();
 
-            Console.SetCursorPosition(30, 24);
+            Console.SetCursorPosition(positionX, positionY);
             Console.Write("Password: ");
             string password = "";
             do
@@ -47,7 +51,13 @@ namespace Surveys.Views
                 }
             } while (true);
 
-            Program.Start();
+            AccountRepository accountRepo = new AccountRepository();
+            Account account = null;
+            account = accountRepo.GetAccount(login, password);
+            if (account == null)
+                Program.Start("Wrong login or password, try again.");
+                
+            AfterSignIn.Start(account);
 
         }
     }

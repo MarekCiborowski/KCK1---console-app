@@ -75,7 +75,6 @@ namespace Surveys
 
     public static class Options
     {
-
         public static List<MenuOptions> GetOptions()
         {
             List<MenuOptions> options = new List<MenuOptions>();

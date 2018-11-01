@@ -26,7 +26,7 @@ namespace Surveys.Views
 
             Console.WriteLine(ArtAscii.GetMainTitleString());
             Console.SetCursorPosition(Console.WindowWidth / 3, 10);
-            Console.WriteLine("Press any button to continue");
+            Console.WriteLine("Press any button to continue.");
 
             Console.ReadKey();
 
