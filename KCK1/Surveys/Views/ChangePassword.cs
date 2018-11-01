@@ -19,15 +19,60 @@ namespace Surveys.Views
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
             Console.Write("New password: ");
-            positionY++;
-            string newPassword = "";
-            newPassword = Console.ReadLine();
+
+            string password = "";
+            do
+            {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                // Backspace Should Not Work
+                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                {
+                    password += key.KeyChar;
+                    Console.Write("*");
+                }
+                else
+                {
+                    if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+                    {
+                        password = password.Substring(0, (password.Length - 1));
+                        Console.Write("\b \b");
+                    }
+                    else if (key.Key == ConsoleKey.Enter)
+                    {
+                        break;
+                    }
+                }
+            } while (true);
+
+
+            positionY++;           
             Console.SetCursorPosition(positionX, positionY);
             Console.Write("Repeat password: ");
             string repeat = "";
-            repeat = Console.ReadLine();
+            do
+            {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                // Backspace Should Not Work
+                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                {
+                    repeat += key.KeyChar;
+                    Console.Write("*");
+                }
+                else
+                {
+                    if (key.Key == ConsoleKey.Backspace && repeat.Length > 0)
+                    {
+                        repeat = repeat.Substring(0, (repeat.Length - 1));
+                        Console.Write("\b \b");
+                    }
+                    else if (key.Key == ConsoleKey.Enter)
+                    {
+                        break;
+                    }
+                }
+            } while (true);
 
-            if(newPassword == repeat)
+            if (password == repeat)
             {
                 UserSecurityRepository userSecurityRepo = new UserSecurityRepository();
                 UserSecurity userSecurity = userSecurityRepo.GetSecurity(account.personData.personDataID);
