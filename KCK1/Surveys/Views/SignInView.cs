@@ -19,12 +19,11 @@ namespace Surveys.Views
             Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
-            positionY++;
             Console.Write("Login: ");
-
             string login;
             login = Console.ReadLine();
 
+            positionY++;
             Console.SetCursorPosition(positionX, positionY);
             Console.Write("Password: ");
             string password = "";

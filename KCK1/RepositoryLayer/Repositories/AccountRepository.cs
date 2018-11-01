@@ -49,24 +49,24 @@ namespace RepositoryLayer.Repositories
                 return null;//throw new ArgumentNullException("Wrong password or login");
             return db.accounts.Find(userSecurity.account.accountID);
         }
-        
+
 
         public int AddAccount(Account account/*, PersonData personData, UserSecurity userSecurity */)
         {
             //account.userSecurity = userSecurity;
             //account.personData = personData;
-            Account createdAccount= db.accounts.Add(account);
+            Account createdAccount = db.accounts.Add(account);
             db.SaveChanges();
             return createdAccount.accountID;
-            
+
         }
 
         public void EditAccount(Account editedAccount)
         {
-            
+
             db.Entry(editedAccount).State = EntityState.Modified;
             db.SaveChanges();
-            
+
         }
 
         public void AddFollower(int followerId, int followedId)
@@ -76,12 +76,12 @@ namespace RepositoryLayer.Repositories
             Account follower = db.accounts.Include(t => t.followedUsers).
                 FirstOrDefault(t => t.accountID == followerId);
 
-            followed.followingUsers.Add(follower); 
+            followed.followingUsers.Add(follower);
             follower.followedUsers.Add(followed);
 
             EditAccount(followed);
             EditAccount(follower);
-            
+
         }
 
         public void RemoveFollower(int followerId, int followedId)
@@ -99,7 +99,7 @@ namespace RepositoryLayer.Repositories
 
         }
 
-        
+
         public void RemoveAccount(int? id)
         {
             if (id == null)
@@ -110,21 +110,21 @@ namespace RepositoryLayer.Repositories
             account.followingUsers.Clear();
             EditAccount(account);
 
-            
+
 
             //db.personDatas.Remove(account.personData);
             //db.userSecurities.Remove(account.userSecurity);
             db.accounts.Remove(account);
             db.SaveChanges();
         }
-        
+
         public int GetQuantityOfFollowersByID(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-             return db.accounts.Include(t => t.followingUsers).
-                FirstOrDefault(t => t.accountID == id).followingUsers.Count;
-            
+            return db.accounts.Include(t => t.followingUsers).
+               FirstOrDefault(t => t.accountID == id).followingUsers.Count;
+
         }
         private string hashPassword(string password)
         {
@@ -153,21 +153,21 @@ namespace RepositoryLayer.Repositories
 
         public List<Account> GetFollowedAccounts(int? id)
         {
-            if(id == null)
+            if (id == null)
                 throw new ArgumentNullException("Null argument");
 
-            Account account = db.accounts.Include(t => t.followedUsers).FirstOrDefault(t => t.accountID==id);
+            Account account = db.accounts.Include(t => t.followedUsers).FirstOrDefault(t => t.accountID == id);
 
             return account.followedUsers.ToList();
         }
 
-        
-       
+
+
         // Returns all the surveys that this particular account created/took part in.
         // Returns null if none are present.
         public List<Survey> GetFollowedAccountSurveys(int? idFollowedAccount)
         {
-            if(idFollowedAccount == null)
+            if (idFollowedAccount == null)
                 throw new ArgumentNullException("Null argument");
 
             List<Survey> surveys = db.surveys.Where(a => db.accountsSurveys.Where(b =>
@@ -209,7 +209,7 @@ namespace RepositoryLayer.Repositories
 
         public bool DidFilledSurvey(int? accountID, int? surveyID)
         {
-            if(accountID == null || surveyID == null)
+            if (accountID == null || surveyID == null)
                 throw new ArgumentNullException("Null argument");
 
             AccountSurvey accountSurvey = db.accountsSurveys.FirstOrDefault(t =>
@@ -233,6 +233,18 @@ namespace RepositoryLayer.Repositories
             Account account = db.accounts.FirstOrDefault(t => t.email == email);
             if (account == null)
                 return true;
+            return false;
+        }
+
+        public bool IsFollowed(int followerId, int followedId)
+        {
+            List<Account> account = GetFollowedAccounts(followedId);
+
+            for(int i = 0; i < account.Count; i++)
+            {
+                if (account[i].accountID == followerId)
+                    return true;
+            }
             return false;
         }
     }
