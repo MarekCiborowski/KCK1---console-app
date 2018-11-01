@@ -53,26 +53,23 @@ namespace Surveys
             Console.WriteLine(ArtAscii.GetMainTitleString());
 
             ConsoleKey key;
-            int i = 0;
-            int positionX = 30;
+            int i;
+            int positionX = 10;
             Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
             CurrentConsoleLineClear(positionX);
 
             for (i = 0; i < 3; i++)
             {
-                if (i == 1)
-                    Console.ForegroundColor = Color.Red;
-                else
-                    Console.ForegroundColor = Color.White;
-                if(listOptions[i] != null)
-                    Console.Write(listOptions[i].GetName());
+                if (i == 1) Console.ForegroundColor = Color.Red;
+                else Console.ForegroundColor = Color.White;
+                Console.Write(listOptions[i].GetName());
             }
             i = 1;
             Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
             CurrentConsoleLineClear(positionX);
-           // Console.ForegroundColor = Color.DarkMagenta;
-           // Console.Write(listOptions[1].GetDescription());
-           // Console.ForegroundColor = Color.White;
+            Console.ForegroundColor = Color.DarkMagenta;
+            Console.Write(listOptions[1].GetDescription());
+            Console.ForegroundColor = Color.White;
             int quantityOfOptions = listOptions.Count;
 
             while (true)
@@ -94,16 +91,24 @@ namespace Surveys
                             else
                                 Console.ForegroundColor = Color.White;
 
-                            int z = -(i - j) % quantityOfOptions;
-                            Console.Write(listOptions[z].GetName());
+                            int z = (i - j) % quantityOfOptions;
+                            if (z == (-1))
+                                Console.Write(listOptions[quantityOfOptions - 1].GetName());
+                            else if (z == (-2))
+                            {
+                                Console.Write(listOptions[quantityOfOptions - 2].GetName());
+                                i = quantityOfOptions;
+                            }
+                            else
+                                Console.Write(listOptions[z].GetName());
                         }
                         i = (i - 1) % quantityOfOptions;
 
-                        //Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
-                        //CurrentConsoleLineClear(positionX);
-                        //Console.ForegroundColor = Color.DarkMagenta;
-                        //Console.Write(listOptions[i].GetDescription());
-                        //Console.ForegroundColor = Color.White;
+                        Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
+                        CurrentConsoleLineClear(positionX);
+                        Console.ForegroundColor = Color.DarkMagenta;
+                        Console.Write(listOptions[i].GetDescription());
+                        Console.ForegroundColor = Color.White;
 
                         break;
 

@@ -24,7 +24,7 @@ namespace Surveys
 
         public string GetName()
         {
-            return "     Create Account    ";
+            return "         Create Account        ";
         }
 
         public string GetDescription()
@@ -43,7 +43,7 @@ namespace Surveys
 
         public string GetName()
         {
-            return "        Sign In        ";
+            return "            Sign In            ";
         }
 
         public string GetDescription()
@@ -61,7 +61,7 @@ namespace Surveys
 
         public string GetName()
         {
-            return "         Exit         ";
+            return "              Exit             ";
         }
 
         public string GetDescription()
@@ -86,7 +86,7 @@ namespace Surveys
 
         public string GetName()
         {
-            return "     Change Password     ";
+            return "        Change Password        ";
         }
 
         public string GetDescription()
@@ -105,7 +105,7 @@ namespace Surveys
 
         public string GetName()
         {
-            return "        Logout         ";
+            return "             Logout            ";
         }
 
         public string GetDescription()
@@ -130,7 +130,8 @@ namespace Surveys
 
         public string GetName()
         {
-            return "      Create Survey      ";
+            return "         Create Survey         ";
+
         }
 
         public string GetDescription()
@@ -155,7 +156,7 @@ namespace Surveys
 
         public string GetName()
         {
-            return "    Show Followed Users    ";
+            return "      Show Followed Users      ";
         }
 
         public string GetDescription()
@@ -180,7 +181,7 @@ namespace Surveys
 
         public string GetName()
         {
-            return "    Show Following Users     ";
+            return "     Show Following Users      ";
         }
 
         public string GetDescription()
@@ -205,7 +206,7 @@ namespace Surveys
 
         public string GetName()
         {
-            return "    Show My Surveys     ";
+            return "        Show My Surveys        ";
         }
 
         public string GetDescription()
@@ -230,7 +231,7 @@ namespace Surveys
 
         public string GetName()
         {
-            return "  Show Completed Surveys  ";
+            return "     Show Completed Surveys    ";
         }
 
         public string GetDescription()
@@ -255,7 +256,7 @@ namespace Surveys
 
         public string GetName()
         {
-            return "    Show All Surveys    ";
+            return "        Show All Surveys       ";
         }
 
         public string GetDescription()
@@ -280,7 +281,7 @@ namespace Surveys
 
         public string GetName()
         {
-            return "    Show All People    ";
+            return "        Show All People        ";
         }
 
         public string GetDescription()
