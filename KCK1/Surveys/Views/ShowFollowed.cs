@@ -34,6 +34,8 @@ namespace Surveys.Views
 
             while(followed.Count > i)
             {
+                if(followed.Count == 1)
+                    Console.ForegroundColor = Color.Red;
                 if (i == 1) Console.ForegroundColor = Color.Red;
                 else Console.ForegroundColor = Color.White;
                 Console.Write("      " + followed[i].nickname + "      ");
@@ -61,6 +63,8 @@ namespace Surveys.Views
 
                         for (int j = followed.Count-1; j >= 0; j--)
                         {
+                            if(followed.Count == 1)
+                                Console.ForegroundColor = Color.Red;
                             if (j == 1)
                                 Console.ForegroundColor = Color.Red;
                             else
@@ -77,7 +81,8 @@ namespace Surveys.Views
                             else
                                 Console.Write("      " + followed[z].nickname + "      ");
                         }
-                        i = (i - 1) % quantityOfOptions;
+                        if(quantityOfOptions != 0)
+                            i = (i - 1) % quantityOfOptions;
 
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
                         Configuration.CurrentConsoleLineClear(positionX);
@@ -92,6 +97,8 @@ namespace Surveys.Views
                         Configuration.CurrentConsoleLineClear(positionX);
                         for (int j = 0; j < followed.Count; j++)
                         {
+                            if(followed.Count == 1)
+                                Console.ForegroundColor = Color.Red;
                             if (j == 1)
                                 Console.ForegroundColor = Color.Red;
                             else
@@ -99,7 +106,8 @@ namespace Surveys.Views
 
                             Console.Write("      " + followed[(i + j) % quantityOfOptions].nickname + "      ");
                         }
-                        i = (i + 1) % quantityOfOptions;
+                        if(quantityOfOptions != 0)
+                            i = (i + 1) % quantityOfOptions;
 
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
                         Configuration.CurrentConsoleLineClear(positionX);

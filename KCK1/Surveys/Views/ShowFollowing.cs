@@ -34,6 +34,8 @@ namespace Surveys.Views
 
             while (following.Count > i)
             {
+                if(following.Count == 1)
+                    Console.ForegroundColor = Color.Red;
                 if (i == 1) Console.ForegroundColor = Color.Red;
                 else Console.ForegroundColor = Color.White;
                 Console.Write("      " + following[i].nickname + "      ");
@@ -61,6 +63,8 @@ namespace Surveys.Views
 
                         for (int j = following.Count - 1; j >= 0; j--)
                         {
+                            if(following.Count == 1)
+                                Console.ForegroundColor = Color.Red;
                             if (j == 1)
                                 Console.ForegroundColor = Color.Red;
                             else
@@ -92,6 +96,8 @@ namespace Surveys.Views
                         Configuration.CurrentConsoleLineClear(positionX);
                         for (int j = 0; j < following.Count; j++)
                         {
+                            if(following.Count == 1)
+                                Console.ForegroundColor = Color.Red;
                             if (j == 1)
                                 Console.ForegroundColor = Color.Red;
                             else
