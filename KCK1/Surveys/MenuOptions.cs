@@ -312,6 +312,8 @@ namespace Surveys
             
             options.Add(new MenuShowFollowed(account));
 
+            options.Add(new MenuShowFollowing(account));
+
             options.Add(new MenuShowMySurveys(account));
 
             options.Add(new MenuShowCompletedSurveys(account));
