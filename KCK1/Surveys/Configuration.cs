@@ -5,11 +5,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Console = Colorful.Console;
+using Surveys.Views;
+using DatabaseLayer.Models;
 
 namespace Surveys
 {
     public class Configuration
     {
+        public static void ChangeOption(bool isLeftPressed, int positionX, int positionY)
+        {
+            string[] desicion = { "      Yes      ", "      No      " };
+            if (isLeftPressed)
+            {
+                Console.SetCursorPosition(positionX, positionY);
+                Console.ForegroundColor = Color.White;
+                Console.Write(desicion[0]);
+
+                Console.ForegroundColor = Color.Red;
+                Console.Write(desicion[1]);
+            }
+            else
+            {
+                Console.SetCursorPosition(positionX, positionY);
+                Console.ForegroundColor = Color.Red;
+                Console.Write(desicion[0]);
+
+                Console.ForegroundColor = Color.White;
+                Console.Write(desicion[1]);
+            }
+        }
 
         public static void SetConsoleSize()
         {

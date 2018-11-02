@@ -41,40 +41,148 @@ namespace Surveys.Views
             Console.WriteLine("Anonymous Survey (As author you can see, who voted for the answer, show only nicknames)?");
             positionY++;
             Console.SetCursorPosition(positionX, positionY);
-            Console.Write("y/n: ");
-            string isAnonymous = "";
-            isAnonymous = Console.ReadLine();
+            //Console.Write("y/n: ");
+            //string isAnonymous = "";
+            //isAnonymous = Console.ReadLine();
+
+            bool ifLeftPressed = true;
+            Configuration.ChangeOption(false, positionX, positionY);
+            bool exitWhile = true;
+            bool anonymous = false;
+            while (exitWhile)
+            {
+                ConsoleKey choice;
+                if (Console.KeyAvailable)
+                {
+                    choice = Console.ReadKey(true).Key;
+                    switch (choice)
+                    {
+                        case ConsoleKey.LeftArrow:
+                            if (!ifLeftPressed)
+                            {
+                                Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                ifLeftPressed = !ifLeftPressed;
+                            }
+                            break;
+                        case ConsoleKey.RightArrow:
+                            if (ifLeftPressed)
+                            {
+                                Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                ifLeftPressed = !ifLeftPressed;
+                            }
+                            break;
+                        case ConsoleKey.Enter:
+                            Console.ForegroundColor = Color.White;
+                            exitWhile = false;
+                            if (ifLeftPressed)
+                                anonymous = true;
+                            break;
+                    }
+                }
+            }
+
             positionY++;
             Console.SetCursorPosition(positionX, positionY);
-            bool anonymous = false;
-            if (isAnonymous == "y")
-                anonymous = true;
             
             ICollection<Question> questions = new List<Question>();
-            
+            bool addOwnAnswer = false, singleChoice = false;
+            bool anotherExit = true;
             do
             {
                 Console.WriteLine("Can user add his/her own answer to question?");
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
-                Console.Write("y/n: ");
-                string canAddOwnAnswer = "";
-                canAddOwnAnswer = Console.ReadLine();
+                //Console.Write("y/n: ");
+                //string canAddOwnAnswer = "";
+                //canAddOwnAnswer = Console.ReadLine();
+
+                ifLeftPressed = true;
+                Configuration.ChangeOption(false, positionX, positionY);
+                exitWhile = true;
+
+                while (exitWhile)
+                {
+                    ConsoleKey choice;
+                    if (Console.KeyAvailable)
+                    {
+                        choice = Console.ReadKey(true).Key;
+                        switch (choice)
+                        {
+                            case ConsoleKey.LeftArrow:
+                                if (!ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.RightArrow:
+                                if (ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.Enter:
+                                Console.ForegroundColor = Color.White;
+                                exitWhile = false;
+                                if (ifLeftPressed)
+                                    addOwnAnswer = true;
+                                break;
+                        }
+                    }
+                }
+                exitWhile = true;
 
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
                 Console.WriteLine("Is that question with a single choice?");
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
-                Console.Write("y/n: ");
-                string isSingleChoice = "";
-                isSingleChoice = Console.ReadLine();
+                //Console.Write("y/n: ");
+                //string isSingleChoice = "";
+                //isSingleChoice = Console.ReadLine();
 
-                bool addOwnAnswer = false, singleChoice = false;
-                if (canAddOwnAnswer == "y")
-                    addOwnAnswer = true;
-                if (isSingleChoice == "y")
-                    singleChoice = true;
+                ifLeftPressed = true;
+                Configuration.ChangeOption(false, positionX, positionY);
+                exitWhile = true;
+
+                while (exitWhile)
+                {
+                    ConsoleKey choice;
+                    if (Console.KeyAvailable)
+                    {
+                        choice = Console.ReadKey(true).Key;
+                        switch (choice)
+                        {
+                            case ConsoleKey.LeftArrow:
+                                if (!ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.RightArrow:
+                                if (ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.Enter:
+                                Console.ForegroundColor = Color.White;
+                                exitWhile = false;
+                                if (ifLeftPressed)
+                                    singleChoice = true;
+                                break;
+                        }
+                    }
+                }
+
+                //bool addOwnAnswer = false, singleChoice = false;
+                //if (canAddOwnAnswer == "y")
+                //    addOwnAnswer = true;
+                //if (isSingleChoice == "y")
+                //    singleChoice = true;
 
                 int categoryID = questionRepository.GetQuestionCategory(addOwnAnswer, singleChoice);
 
@@ -89,6 +197,7 @@ namespace Surveys.Views
                 Console.SetCursorPosition(positionX, positionY);
                 int i = 1;
                 ICollection<Answer> answers = new List<Answer>();
+                
                 do
                 {
                     Console.Write("Answer nr " + i + ": ");
@@ -100,32 +209,105 @@ namespace Surveys.Views
                     Console.SetCursorPosition(positionX, positionY);
                     if (i >= 2)
                     {
-                        Console.Write("Stop adding answers? y/n: ");
-                        string stop = "";
-                        stop = Console.ReadLine();
+                        Console.WriteLine("Stop adding answers?");
                         positionY++;
                         Console.SetCursorPosition(positionX, positionY);
-                        if (stop == "y")
+                        ifLeftPressed = true;
+                        Configuration.ChangeOption(false, positionX, positionY);
+                        exitWhile = true;
+
+                        while (exitWhile)
                         {
-                            positionY++;
-                            Console.SetCursorPosition(positionX, positionY);
-                            break;
-                        }                           
+                            ConsoleKey choice;
+                            if (Console.KeyAvailable)
+                            {
+                                choice = Console.ReadKey(true).Key;
+                                switch (choice)
+                                {
+                                    case ConsoleKey.LeftArrow:
+                                        if (!ifLeftPressed)
+                                        {
+                                            Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                            ifLeftPressed = !ifLeftPressed;
+                                        }
+                                        break;
+                                    case ConsoleKey.RightArrow:
+                                        if (ifLeftPressed)
+                                        {
+                                            Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                            ifLeftPressed = !ifLeftPressed;
+                                        }
+                                        break;
+                                    case ConsoleKey.Enter:
+                                        Console.ForegroundColor = Color.White;
+                                        exitWhile = false;
+                                        if (ifLeftPressed)
+                                            anotherExit = false;
+                                        else
+                                        {
+                                            positionY++;
+                                            Console.SetCursorPosition(positionX, positionY);
+                                        }
+                                        break;
+                                }
+                            }
+                        }
                     }
-                   
+
                     i++;
-                } while (true);
+                } while (anotherExit);
+                anotherExit = true;
                 Question question = questionRepository.CreateQuestion(questionValue, addOwnAnswer, singleChoice, answers);
                 questions.Add(question);
-                Console.Write("Do you want to finish create survey? y/n: ");
-                string finish = "";
-                finish = Console.ReadLine();
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
-                if (finish == "y")
-                    break;
+                Console.WriteLine("Do you want to finish create survey?");
 
-            } while (true);
+                positionY++;
+                Console.SetCursorPosition(positionX, positionY);
+
+                ifLeftPressed = true;
+                Configuration.ChangeOption(false, positionX, positionY);
+                exitWhile = true;
+                while (exitWhile)
+                {
+                    ConsoleKey choice;
+                    if (Console.KeyAvailable)
+                    {
+                        choice = Console.ReadKey(true).Key;
+                        switch (choice)
+                        {
+                            case ConsoleKey.LeftArrow:
+                                if (!ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.RightArrow:
+                                if (ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.Enter:
+                                Console.ForegroundColor = Color.White;
+                                exitWhile = false;
+                                if (ifLeftPressed)
+                                    anotherExit = false;
+                                else
+                                {
+                                    positionY++;
+                                    Console.SetCursorPosition(positionX, positionY);
+                                }
+                                break;
+                        }
+                    }
+                }
+                positionY++;
+                Console.SetCursorPosition(positionX, positionY);
+            } while (anotherExit);
 
             Survey survey = surveyRepository.CreateSurvey(title, description, anonymous, questions);
             surveyRepository.AddSurvey(survey, account);

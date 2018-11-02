@@ -19,6 +19,12 @@ namespace Surveys.Views
             Console.ForegroundColor = Color.White;
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
+
+            Console.Write("Show Result, press any button to do something");
+
+            Console.ReadKey();
+
+            AfterSignIn.ComeBack(account, "You back from Result.");
         }
     }
 }

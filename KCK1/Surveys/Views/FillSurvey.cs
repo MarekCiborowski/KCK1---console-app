@@ -50,11 +50,50 @@ namespace Surveys.Views
             positionY++;
             Console.SetCursorPosition(positionX, positionY);
 
-            string decision = Console.ReadLine();
-            if(decision != "y")
-                AfterSignIn.Start(account);
+            //string decision = Console.ReadLine();
+            //if(decision != "y")
+            //    AfterSignIn.Start(account);
 
-            
+
+            bool ifLeftPressed = true;
+            Configuration.ChangeOption(false, positionX, positionY);
+            bool exitWhile = true;
+            while (exitWhile)
+            {
+                ConsoleKey choice;
+                if (Console.KeyAvailable)
+                {
+                    choice = Console.ReadKey(true).Key;
+                    switch (choice)
+                    {
+                        case ConsoleKey.LeftArrow:
+                            if (!ifLeftPressed)
+                            {
+                                Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                ifLeftPressed = !ifLeftPressed;
+                            }
+                            break;
+                        case ConsoleKey.RightArrow:
+                            if (ifLeftPressed)
+                            {
+                                Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                ifLeftPressed = !ifLeftPressed;
+                            }
+                            break;
+                        case ConsoleKey.Escape:
+                            AfterSignIn.ComeBack(account, "You back to menu");
+                            break;
+                        case ConsoleKey.Enter:
+                            Console.ForegroundColor = Color.White;
+                            if (ifLeftPressed)
+                                exitWhile = false;
+                            else
+                                AfterSignIn.ComeBack(account, "You back to menu");
+                            break;
+                    }
+                }
+            }
+
 
             Configuration.SetConsoleSize();
 

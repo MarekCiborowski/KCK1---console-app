@@ -51,30 +51,100 @@ namespace Surveys.Views
 
             else if (!accountRepository.IsFollowed(account.accountID, accountToShow.accountID) )
             {
-                Console.Write("Do you want to follow " + accountToShow.nickname + "? Write y (yes) or n (no) ");
-                string answer = "";
-                answer = Console.ReadLine();
-                if (answer == "y")
+                Console.WriteLine("Do you want to follow " + accountToShow.nickname + "?");
+                positionY++;
+                Console.SetCursorPosition(positionX, positionY);
+                bool ifLeftPressed = true;
+                Configuration.ChangeOption(false, positionX, positionY);
+                bool exitWhile = true;
+                while (exitWhile)
                 {
-                    accountRepository.AddFollower(account.accountID, accountToShow.accountID);
-                    AfterSignIn.ComeBack(account, accountToShow.nickname + " was followed");
+                    ConsoleKey choice;
+                    if (Console.KeyAvailable)
+                    {
+                        choice = Console.ReadKey(true).Key;
+                        switch (choice)
+                        {
+                            case ConsoleKey.LeftArrow:
+                                if (!ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.RightArrow:
+                                if (ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.Enter:
+                                Console.ForegroundColor = Color.White;
+                                exitWhile = false;
+                                if (ifLeftPressed)
+                                {
+                                    accountRepository.AddFollower(account.accountID, accountToShow.accountID);
+                                    AfterSignIn.ComeBack(account, accountToShow.nickname + " was followed");
+                                }
+                                    
+                                else
+                                {
+                                    AfterSignIn.ComeBack(account, "You back to menu");
+                                }
+                                break;
+                        }
+                    }
                 }
-                else
-                    ShowAllPeople.Show(account);
             }                
 
             else
             {
-                Console.Write("Do you want to unfollow " + accountToShow.nickname + "? Write y (yes) or n (no) ");
-                string answer = "";
-                answer = Console.ReadLine();
-                if (answer == "y")
+                Console.WriteLine("Do you want to unfollow " + accountToShow.nickname + "?");
+                positionY++;
+                Console.SetCursorPosition(positionX, positionY);
+                bool ifLeftPressed = true;
+                Configuration.ChangeOption(false, positionX, positionY);
+                bool exitWhile = true;
+                while (exitWhile)
                 {
-                    accountRepository.RemoveFollower(account.accountID, accountToShow.accountID);
-                    AfterSignIn.ComeBack(account, accountToShow.nickname + " was unfollowed");
+                    ConsoleKey choice;
+                    if (Console.KeyAvailable)
+                    {
+                        choice = Console.ReadKey(true).Key;
+                        switch (choice)
+                        {
+                            case ConsoleKey.LeftArrow:
+                                if (!ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.RightArrow:
+                                if (ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.Enter:
+                                Console.ForegroundColor = Color.White;
+                                exitWhile = false;
+                                if (ifLeftPressed)
+                                {
+                                    accountRepository.RemoveFollower(account.accountID, accountToShow.accountID);
+                                    AfterSignIn.ComeBack(account, accountToShow.nickname + " was unfollowed");
+                                }
+
+                                else
+                                {
+                                    AfterSignIn.ComeBack(account, "You back to menu");
+                                }
+                                break;
+                        }
+                    }
                 }
-                else
-                    ShowAllPeople.Show(account);
             }
                 
 

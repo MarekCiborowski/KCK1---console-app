@@ -30,17 +30,48 @@ namespace Surveys.Views
             Console.WriteLine("Description:     " + survey.description);
             positionY++;
             Console.SetCursorPosition(positionX, positionY);
-            string desicion = "";
+            bool ifLeftPressed = true;
             if (account.accountID == author.accountID)
             {
                 Console.WriteLine("You are an author of this survey. Do you want see results?");
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
-                Console.Write("y/n: ");
-                desicion = Console.ReadLine();
-                if(desicion == "y")
-                    ShowResult.Show(account, survey);
-                AfterSignIn.ComeBack(account, "You back to menu");
+                Configuration.ChangeOption(false, positionX, positionY);           
+                while (true)
+                {
+                    ConsoleKey choice;
+                    if (Console.KeyAvailable)
+                    {
+                        choice = Console.ReadKey(true).Key;
+                        switch (choice)
+                        {
+                            case ConsoleKey.LeftArrow:
+                                if (!ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.RightArrow:
+                                if (ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.Escape:
+                                AfterSignIn.ComeBack(account, "You back to menu");
+                                break;
+                            case ConsoleKey.Enter:
+                                Console.ForegroundColor = Color.White;
+                                if (ifLeftPressed)
+                                    ShowResult.Show(account, survey);
+                                else
+                                    AfterSignIn.ComeBack(account, "You back to menu");
+                                break;
+                        }
+                    }
+                }
             }
             Console.WriteLine("Author:          " + author.nickname);
             positionY++;
@@ -49,13 +80,43 @@ namespace Surveys.Views
             Console.WriteLine("Do you want to fill this survey?");
             positionY++;
             Console.SetCursorPosition(positionX, positionY);
-            Console.Write("y/n: ");
-            desicion = Console.ReadLine();
-            if (desicion == "y")
-                FillSurvey.Fill(account, survey);
-            AfterSignIn.ComeBack(account, "You back to menu");
 
-
+            Configuration.ChangeOption(false, positionX, positionY);
+            while (true)
+            {
+                ConsoleKey choice;
+                if (Console.KeyAvailable)
+                {
+                    choice = Console.ReadKey(true).Key;
+                    switch (choice)
+                    {
+                        case ConsoleKey.LeftArrow:
+                            if (!ifLeftPressed)
+                            {
+                                Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                ifLeftPressed = !ifLeftPressed;
+                            }
+                            break;
+                        case ConsoleKey.RightArrow:
+                            if (ifLeftPressed)
+                            {
+                                Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                ifLeftPressed = !ifLeftPressed;
+                            }
+                            break;
+                        case ConsoleKey.Escape:
+                            AfterSignIn.ComeBack(account, "You back to menu");
+                            break;
+                        case ConsoleKey.Enter:
+                            Console.ForegroundColor = Color.White;
+                            if (ifLeftPressed)
+                                FillSurvey.Fill(account, survey);
+                            else
+                                AfterSignIn.ComeBack(account, "You back to menu");
+                            break;
+                    }
+                }
+            }
         }
     }
 }
