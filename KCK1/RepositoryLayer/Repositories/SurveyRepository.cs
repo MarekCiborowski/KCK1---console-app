@@ -32,7 +32,7 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            return db.surveys.Include(q => q.question).FirstOrDefault(s => s.surveyID == id);
+            return db.surveys.FirstOrDefault(s => s.surveyID == id);
         }
 
         public void AddSurvey(Survey survey, Account Author)
@@ -56,6 +56,19 @@ namespace RepositoryLayer.Repositories
             db.Entry(editedSurvey).State = EntityState.Modified;
             db.SaveChanges();
         }
+
+        public Account GetAuthor(int? SurveyId)
+        {
+            if (SurveyId == null)
+                throw new ArgumentNullException("Null argument");
+
+            Account account = db.accounts.FirstOrDefault(a =>
+            a.accountID == db.accountsSurveys.FirstOrDefault(b =>
+            b.surveyID == SurveyId && b.isAuthor).accountID);
+
+            return account;
+        }
+            
 
         
         public void RemoveSurvey(int? id)
