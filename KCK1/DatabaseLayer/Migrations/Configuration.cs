@@ -19,15 +19,15 @@ namespace DatabaseLayer.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-            Category cat1 = new Category() { isSingleChoice = false, canAddOwnAnswer = false };
-            Category cat2 = new Category() { isSingleChoice = false, canAddOwnAnswer = true };
-            Category cat3 = new Category() { isSingleChoice = true, canAddOwnAnswer = false };
-            Category cat4 = new Category() { isSingleChoice = true, canAddOwnAnswer = true };
-
-            context.categories.AddOrUpdate(cat1);
-            context.categories.AddOrUpdate(cat2);
-            context.categories.AddOrUpdate(cat3);
-            context.categories.AddOrUpdate(cat4);
+            Category[] category = new Category[] {
+                new Category() { isSingleChoice = false, canAddOwnAnswer = false },
+                new Category() { isSingleChoice = false, canAddOwnAnswer = true },
+                new Category() { isSingleChoice = true, canAddOwnAnswer = false },
+                new Category() { isSingleChoice = true, canAddOwnAnswer = true }
+            };
+            foreach(Category cat in category)
+                context.categories.AddOrUpdate(t => new { t.canAddOwnAnswer, t.isSingleChoice }, cat);
+            
 
 
         }
