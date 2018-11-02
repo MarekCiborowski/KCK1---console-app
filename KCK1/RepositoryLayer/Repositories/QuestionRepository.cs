@@ -21,7 +21,7 @@ namespace RepositoryLayer.Repositories
             return new Question
             {
                 questionValue = _questionValue,
-                category = GetQuestionCategory(_canAddOwnAnwer, _isSingleChoice),
+                categoryID = GetQuestionCategory(_canAddOwnAnwer, _isSingleChoice),
                 answer = _answer
             };
         }
@@ -62,13 +62,13 @@ namespace RepositoryLayer.Repositories
             return question.answer.ToList();
         }
 
-        public Category GetQuestionCategory(bool canAddOwnAnswer, bool isSingleChoice)
+        public int GetQuestionCategory(bool canAddOwnAnswer, bool isSingleChoice)
         {
             Category category = db.categories.FirstOrDefault(t => t.isSingleChoice == isSingleChoice
             && t.canAddOwnAnswer == canAddOwnAnswer);
             if (category == null)
                 throw new ArgumentNullException("Category is null");
-            return category;
+            return category.categoryID;
         }
     }
 }

@@ -37,11 +37,14 @@ namespace RepositoryLayer.Repositories
 
         public void AddSurvey(Survey survey, Account Author)
         {
+           
+            db.surveys.Add(survey);
+            db.SaveChanges();
             AccountSurvey accountSurvey = new AccountSurvey
             {
-                account = Author,
+                accountID = Author.accountID,
                 isAuthor = true,
-                survey = survey
+                surveyID = survey.surveyID
             };
             db.accountsSurveys.Add(accountSurvey);
             

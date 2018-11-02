@@ -74,7 +74,7 @@ namespace Surveys.Views
                 if (isSingleChoice == "y")
                     singleChoice = true;
 
-                Category category = questionRepository.GetQuestionCategory(addOwnAnswer, singleChoice);
+                int categoryID = questionRepository.GetQuestionCategory(addOwnAnswer, singleChoice);
 
                 positionY += 2;
                 Console.SetCursorPosition(positionX, positionY);
