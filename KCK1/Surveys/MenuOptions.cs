@@ -201,7 +201,7 @@ namespace Surveys
         public void OptionFunction()
         {
             Console.Clear();
-            //ShowMySurveys.Show(account);
+            ShowMySurveys.Show(account);
         }
 
         public string GetName()
