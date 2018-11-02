@@ -112,6 +112,10 @@
     <Compile Include="Migrations\201810312109399_DziwkiMigracjeKaskady.Designer.cs">
       <DependentUpon>201810312109399_DziwkiMigracjeKaskady.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811021536450_validationProblems.cs" />
+    <Compile Include="Migrations\201811021536450_validationProblems.Designer.cs">
+      <DependentUpon>201811021536450_validationProblems.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountSurvey.cs" />
@@ -149,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810312109399_DziwkiMigracjeKaskady.resx">
       <DependentUpon>201810312109399_DziwkiMigracjeKaskady.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811021536450_validationProblems.resx">
+      <DependentUpon>201811021536450_validationProblems.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

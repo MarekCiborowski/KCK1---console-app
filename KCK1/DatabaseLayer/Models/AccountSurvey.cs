@@ -16,12 +16,12 @@ namespace DatabaseLayer.Models
         
         [ForeignKey("account")]
         public int accountID { get; set; }
-        [Required]
+        
         public Account account { get; set; }
 
         [ForeignKey("survey")]
         public int surveyID { get; set; }
-        [Required]
+        
         public Survey survey { get; set; }
         public bool isAuthor { get; set; } = false;
         

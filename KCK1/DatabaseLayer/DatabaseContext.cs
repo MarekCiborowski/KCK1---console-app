@@ -41,6 +41,18 @@ namespace DatabaseLayer
                 .WithOptional(u => u.userSecurity)
                 .WillCascadeOnDelete(true);
 
+            modelBuilder.Entity<Account>().
+                HasMany(p => p.accountSurvey).
+                WithRequired(t => t.account).
+                HasForeignKey(t => t.accountID);
+
+            modelBuilder.Entity<Survey>().
+                HasMany(p => p.accountSurvey).
+                WithRequired(t => t.survey).
+                HasForeignKey(t => t.surveyID);
+
+                
+
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
             //modelBuilder.Conventions.Add<OneToOneConstraintIntroductionConvention>();
