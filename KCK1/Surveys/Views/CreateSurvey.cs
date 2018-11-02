@@ -127,8 +127,9 @@ namespace Surveys.Views
 
             Survey survey = surveyRepository.CreateSurvey(title, description, anonymous, questions);
             surveyRepository.AddSurvey(survey, account);
+            FillSurvey.Fill(account, survey);
 
-            AfterSignIn.ComeBack(account, "Survey was created!");
+            //AfterSignIn.ComeBack(account, "Survey was created!");
         }
 
     }

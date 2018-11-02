@@ -70,5 +70,13 @@ namespace RepositoryLayer.Repositories
                 throw new ArgumentNullException("Category is null");
             return category.categoryID;
         }
+
+        public Category GetQuestionCategory(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException("Null argument");
+            return db.questions.Include(t => t.category).FirstOrDefault(t => t.questionID == id).category;
+
+        }
     }
 }
