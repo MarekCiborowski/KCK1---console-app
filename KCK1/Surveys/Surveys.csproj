@@ -93,6 +93,7 @@
     <Compile Include="Views\AfterSignIn.cs" />
     <Compile Include="Views\ChangePassword.cs" />
     <Compile Include="Views\CreateAccount.cs" />
+    <Compile Include="Views\CreateSurvey.cs" />
     <Compile Include="Views\PersonView.cs" />
     <Compile Include="Views\Program.cs" />
     <Compile Include="Views\ShowAllPeople.cs" />

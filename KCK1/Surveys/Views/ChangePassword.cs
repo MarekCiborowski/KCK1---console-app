@@ -74,10 +74,10 @@ namespace Surveys.Views
 
             if (password == repeat)
             {
-                UserSecurityRepository userSecurityRepo = new UserSecurityRepository();
-                UserSecurity userSecurity = userSecurityRepo.GetSecurity(account.personData.personDataID);
+                UserSecurityRepository userSecurityRepository = new UserSecurityRepository();
+                UserSecurity userSecurity = userSecurityRepository.GetSecurity(account.personData.personDataID);
                 userSecurity.password = repeat;
-                userSecurityRepo.EditUserSecurity(userSecurity);
+                userSecurityRepository.EditUserSecurity(userSecurity);
 
                 AfterSignIn.ComeBack(account, "Password was changed.");
             }

@@ -21,8 +21,8 @@ namespace Surveys.Views
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
 
-            AccountRepository accountRepo = new AccountRepository();
-            List<Account> followed = accountRepo.GetFollowedAccounts(account.accountID);
+            AccountRepository accountRepository = new AccountRepository();
+            List<Account> followed = accountRepository.GetFollowedAccounts(account.accountID);
 
             Console.WriteLine("Quantity of Followers: " + followed.Count);
             positionY += 2;

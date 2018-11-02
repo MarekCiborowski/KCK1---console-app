@@ -21,8 +21,8 @@ namespace Surveys.Views
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
 
-            AccountRepository accountRepo = new AccountRepository();
-            List<Account> following = accountRepo.GetFollowingAccounts(account.accountID);
+            AccountRepository accountRepository = new AccountRepository();
+            List<Account> following = accountRepository.GetFollowingAccounts(account.accountID);
 
             Console.WriteLine("Quantity of Followers: " + following.Count);
             positionY += 2;
@@ -81,7 +81,8 @@ namespace Surveys.Views
                             else
                                 Console.Write("      " + following[z].nickname + "      ");
                         }
-                        i = (i - 1) % quantityOfOptions;
+                        if(quantityOfOptions != 0)
+                            i = (i - 1) % quantityOfOptions;
 
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
                         Configuration.CurrentConsoleLineClear(positionX);
@@ -105,7 +106,8 @@ namespace Surveys.Views
 
                             Console.Write("      " + following[(i + j) % quantityOfOptions].nickname + "      ");
                         }
-                        i = (i + 1) % quantityOfOptions;
+                        if(quantityOfOptions != 0)
+                            i = (i + 1) % quantityOfOptions;
 
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
                         Configuration.CurrentConsoleLineClear(positionX);

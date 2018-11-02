@@ -21,7 +21,7 @@ namespace Surveys.Views
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
 
-            AccountRepository accountRepo = new AccountRepository();
+            AccountRepository accountRepository = new AccountRepository();
 
             
             Console.WriteLine("Nickname: " + accountToShow.nickname);
@@ -33,7 +33,7 @@ namespace Surveys.Views
             Console.WriteLine("Country: " + accountToShow.personData.country);
             positionY++;
             Console.SetCursorPosition(positionX, positionY);
-            Console.WriteLine("Quantity of Followers: " + accountRepo.GetQuantityOfFollowersByID(accountToShow.accountID) );
+            Console.WriteLine("Quantity of Followers: " + accountRepository.GetQuantityOfFollowersByID(accountToShow.accountID) );
             positionY += 2;
             Console.SetCursorPosition(positionX, positionY);
 
@@ -47,14 +47,14 @@ namespace Surveys.Views
                 ShowAllPeople.Show(account);
             }
 
-            else if (!accountRepo.IsFollowed(account.accountID, accountToShow.accountID) )
+            else if (!accountRepository.IsFollowed(account.accountID, accountToShow.accountID) )
             {
                 Console.Write("Do you want to follow " + accountToShow.nickname + "? Write y (yes) or n (no) ");
                 string answer = "";
                 answer = Console.ReadLine();
                 if (answer == "y")
                 {
-                    accountRepo.AddFollower(account.accountID, accountToShow.accountID);
+                    accountRepository.AddFollower(account.accountID, accountToShow.accountID);
                     AfterSignIn.ComeBack(account, accountToShow.nickname + " was followed");
                 }
                 else
@@ -68,7 +68,7 @@ namespace Surveys.Views
                 answer = Console.ReadLine();
                 if (answer == "y")
                 {
-                    accountRepo.RemoveFollower(account.accountID, accountToShow.accountID);
+                    accountRepository.RemoveFollower(account.accountID, accountToShow.accountID);
                     AfterSignIn.ComeBack(account, accountToShow.nickname + " was unfollowed");
                 }
                 else

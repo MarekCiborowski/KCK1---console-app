@@ -50,9 +50,9 @@ namespace Surveys.Views
                 }
             } while (true);
 
-            AccountRepository accountRepo = new AccountRepository();
+            AccountRepository accountRepository = new AccountRepository();
             Account account = null;
-            account = accountRepo.GetAccount(login, password);
+            account = accountRepository.GetAccount(login, password);
             if (account == null)
                 Program.Start("Wrong login or password, try again.");
                 

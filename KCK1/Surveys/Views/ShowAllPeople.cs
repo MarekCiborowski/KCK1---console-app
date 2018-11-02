@@ -22,9 +22,9 @@ namespace Surveys.Views
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
 
-            AccountRepository accountRepo = new AccountRepository();
+            AccountRepository accountRepository = new AccountRepository();
 
-            List<Account> accounts = accountRepo.GetAccountsToList();
+            List<Account> accounts = accountRepository.GetAccountsToList();
 
             ConsoleKey key;
             int i = 0;
