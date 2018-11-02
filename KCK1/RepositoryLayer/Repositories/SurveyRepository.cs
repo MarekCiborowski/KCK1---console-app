@@ -16,6 +16,7 @@ namespace RepositoryLayer.Repositories
         public Survey CreateSurvey(
             string _title,
             string _description,
+            bool _isAnonymous,
             ICollection<Question> _question
             )
         {
@@ -23,6 +24,7 @@ namespace RepositoryLayer.Repositories
             {
                 title = _title,
                 description = _description,
+                isAnonymous = _isAnonymous,
                 question = _question,
                 
             };

@@ -125,7 +125,7 @@ namespace Surveys
         public void OptionFunction()
         {
             Console.Clear();
-            //CreateSurvey.Create(account);
+            CreateSurvey.Create(account);
         }
 
         public string GetName()

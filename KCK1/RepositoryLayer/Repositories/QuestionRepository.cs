@@ -16,8 +16,8 @@ namespace RepositoryLayer.Repositories
             string _questionValue,
             int _categoryID,
             Category _category,
-            int _surveyID,
-            Survey _survey,
+          //  int _surveyID,
+          //  Survey _survey,
             ICollection<Answer> _answer)
         {
             return new Question
@@ -25,8 +25,8 @@ namespace RepositoryLayer.Repositories
                 questionValue = _questionValue,
                 categoryID = _categoryID,
                 category = _category,
-                surveyID = _surveyID,
-                survey = _survey,
+            //    surveyID = _surveyID,
+            //    survey = _survey,
                 answer = _answer
             };
         }
