@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DatabaseLayer;
 using DatabaseLayer.Models;
 using RepositoryLayer.Repositories;
+using Console = Colorful.Console;
 
 namespace Surveys.Views
 {
@@ -14,7 +16,7 @@ namespace Surveys.Views
         public static void Change(Account account)
         {
             Configuration.SetConsoleSize();
-
+            Console.ForegroundColor = Color.White;
             Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);

@@ -30,7 +30,7 @@ namespace Surveys.Views
             Console.WriteLine(survey.description);
             positionY++;
             Console.SetCursorPosition(positionX, positionY);
-            Console.WriteLine
+            //Console.WriteLine
             List<Question> questions = surveyRepository.GetQuestions(survey.surveyID);
 
             foreach(Question question in questions)

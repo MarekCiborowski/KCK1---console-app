@@ -98,10 +98,13 @@
     <Compile Include="Views\PersonView.cs" />
     <Compile Include="Views\Program.cs" />
     <Compile Include="Views\ShowAllPeople.cs" />
+    <Compile Include="Views\ShowAllSurveys.cs" />
     <Compile Include="Views\ShowFollowed.cs" />
     <Compile Include="Views\ShowFollowing.cs" />
     <Compile Include="Views\ShowMySurveys.cs" />
+    <Compile Include="Views\ShowResult.cs" />
     <Compile Include="Views\SignInView.cs" />
+    <Compile Include="Views\SurveyView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

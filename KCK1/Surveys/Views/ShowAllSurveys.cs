@@ -9,43 +9,41 @@ using DatabaseLayer.Models;
 using RepositoryLayer.Repositories;
 using Console = Colorful.Console;
 
-
 namespace Surveys.Views
 {
-    public class ShowAllPeople
+    public class ShowAllSurveys
     {
         public static void Show(Account account)
         {
             Configuration.SetConsoleSize();
             Console.ForegroundColor = Color.White;
             Console.WriteLine(ArtAscii.GetMainTitleString());
-
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
 
-            AccountRepository accountRepository = new AccountRepository();
+            SurveyRepository surveyRepository = new SurveyRepository();
 
-            List<Account> accounts = accountRepository.GetAccountsToList();
+            List<Survey> surveys = surveyRepository.GetSurveys();
 
             ConsoleKey key;
             int i = 0;
             Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
             Configuration.CurrentConsoleLineClear(positionX);
 
-            while(accounts.Count > i)
+            while (surveys.Count > i)
             {
                 if (i == 1) Console.ForegroundColor = Color.Red;
                 else Console.ForegroundColor = Color.White;
-                Console.Write("      " + accounts[i].nickname + "      ");
+                Console.Write("      " + surveys[i].title + "      ");
                 i++;
             }
             i = 1;
             Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
             Configuration.CurrentConsoleLineClear(positionX);
             //Console.ForegroundColor = Color.DarkMagenta;
-            //Console.Write(accounts[1].GetDescription());
-            //Console.ForegroundColor = Color.White;
-            int quantityOfOptions = accounts.Count;
+            // Console.Write(surveys[1].description);
+            // Console.ForegroundColor = Color.White;
+            int quantityOfOptions = surveys.Count;
 
             while (true)
             {
@@ -59,7 +57,7 @@ namespace Surveys.Views
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
                         Configuration.CurrentConsoleLineClear(positionX);
 
-                        for (int j = accounts.Count - 1; j >= 0; j--)
+                        for (int j = surveys.Count - 1; j >= 0; j--)
                         {
                             if (j == 1)
                                 Console.ForegroundColor = Color.Red;
@@ -68,29 +66,30 @@ namespace Surveys.Views
 
                             int z = (i - j) % quantityOfOptions;
                             if (z == (-1))
-                                Console.Write("      " + accounts[quantityOfOptions - 1].nickname + "      ");
+                                Console.Write("      " + surveys[quantityOfOptions - 1].title + "      ");
                             else if (z == (-2))
                             {
-                                Console.Write("      " + accounts[quantityOfOptions - 2].nickname + "      ");
+                                Console.Write("      " + surveys[quantityOfOptions - 2].title + "      ");
                                 i = quantityOfOptions;
                             }
                             else
-                                Console.Write("      " + accounts[z].nickname + "      ");
+                                Console.Write("      " + surveys[z].title + "      ");
                         }
-                        i = (i - 1) % quantityOfOptions;
+                        if (quantityOfOptions != 0)
+                            i = (i - 1) % quantityOfOptions;
 
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
                         Configuration.CurrentConsoleLineClear(positionX);
-                        //Console.ForegroundColor = Color.DarkMagenta;
-                        //Console.Write(accounts[i].GetDescription());
-                        //Console.ForegroundColor = Color.White;
+                        // Console.ForegroundColor = Color.DarkMagenta;
+                        // Console.Write(surveys[i].description);
+                        // Console.ForegroundColor = Color.White;
 
                         break;
 
                     case ConsoleKey.RightArrow:
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
                         Configuration.CurrentConsoleLineClear(positionX);
-                        for (int j = 0; j < accounts.Count; j++)
+                        for (int j = 0; j < surveys.Count; j++)
                         {
                             if (i < 0)
                                 i = -i;
@@ -99,21 +98,22 @@ namespace Surveys.Views
                             else
                                 Console.ForegroundColor = Color.White;
                             int value = (i + j) % quantityOfOptions;
-                            Console.Write("      " + accounts[value].nickname + "      ");
+                            Console.Write("      " + surveys[value].title + "      ");
                         }
-                        i = (i + 1) % quantityOfOptions;
+                        if (quantityOfOptions != 0)
+                            i = (i + 1) % quantityOfOptions;
 
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
                         Configuration.CurrentConsoleLineClear(positionX);
-                        //Console.ForegroundColor = Color.DarkMagenta;
-                        //Console.Write(accounts[i].GetDescription());
-                        //Console.ForegroundColor = Color.White;
+                        // Console.ForegroundColor = Color.DarkMagenta;
+                        // Console.Write(surveys[i].description);
+                        // Console.ForegroundColor = Color.White;
 
                         break;
                     case ConsoleKey.Enter:
                         Console.Clear();
                         Console.ForegroundColor = Color.White;
-                        PersonView.Show(account, accounts[i]);
+                        SurveyView.Show(account, surveys[i]);
                         break;
                     case ConsoleKey.Escape:
                         Console.ForegroundColor = Color.White;

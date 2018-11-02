@@ -8,6 +8,7 @@ using DatabaseLayer.Models;
 using RepositoryLayer.Repositories;
 using Console = Colorful.Console;
 using Surveys;
+using System.Drawing;
 
 namespace Surveys.Views
 {
@@ -16,6 +17,7 @@ namespace Surveys.Views
         public static void Create(Account account)
         {
             Configuration.SetConsoleSize();
+            Console.ForegroundColor = Color.White;
             Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
@@ -127,9 +129,8 @@ namespace Surveys.Views
 
             Survey survey = surveyRepository.CreateSurvey(title, description, anonymous, questions);
             surveyRepository.AddSurvey(survey, account);
-            FillSurvey.Fill(account, survey);
 
-            //AfterSignIn.ComeBack(account, "Survey was created!");
+            AfterSignIn.ComeBack(account, "Survey was created!");
         }
 
     }

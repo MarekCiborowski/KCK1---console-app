@@ -7,6 +7,7 @@ using Console = Colorful.Console;
 using DatabaseLayer.Models;
 using DatabaseLayer;
 using RepositoryLayer.Repositories;
+using System.Drawing;
 
 namespace Surveys.Views
 {
@@ -15,7 +16,7 @@ namespace Surveys.Views
         public static void SignIn()
         {
             Configuration.SetConsoleSize();
-
+            Console.ForegroundColor = Color.White;
             Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);

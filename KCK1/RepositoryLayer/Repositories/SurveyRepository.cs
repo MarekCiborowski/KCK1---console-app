@@ -35,6 +35,11 @@ namespace RepositoryLayer.Repositories
             return db.surveys.FirstOrDefault(s => s.surveyID == id);
         }
 
+        public List<Survey> GetSurveys()
+        {
+            return db.surveys.ToList();
+        }
+
         public void AddSurvey(Survey survey, Account Author)
         {
            

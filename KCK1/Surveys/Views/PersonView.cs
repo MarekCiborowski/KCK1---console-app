@@ -7,6 +7,7 @@ using Console = Colorful.Console;
 using DatabaseLayer.Models;
 using DatabaseLayer;
 using RepositoryLayer.Repositories;
+using System.Drawing;
 
 //Widok wykorzystywany po wejściu w podgląd profilu użytkownika w widoku ShowAllPeople
 
@@ -17,6 +18,7 @@ namespace Surveys.Views
         public static void Show(Account account, Account accountToShow)
         {
             Configuration.SetConsoleSize();
+            Console.ForegroundColor = Color.White;
             Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);

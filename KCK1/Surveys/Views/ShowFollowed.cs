@@ -16,7 +16,7 @@ namespace Surveys.Views
         public static void Show(Account account)
         {
             Configuration.SetConsoleSize();
-
+            Console.ForegroundColor = Color.White;
             Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
