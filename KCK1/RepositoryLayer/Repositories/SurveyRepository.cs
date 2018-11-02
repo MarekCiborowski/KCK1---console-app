@@ -25,8 +25,7 @@ namespace RepositoryLayer.Repositories
                 title = _title,
                 description = _description,
                 isAnonymous = _isAnonymous,
-                question = _question,
-                
+                question = _question,   
             };
         }
         public Survey GetSurvey(int? id)

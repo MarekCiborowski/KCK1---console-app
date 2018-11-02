@@ -113,7 +113,7 @@ namespace Surveys.Views
                    
                     i++;
                 } while (true);
-                Question question = questionRepository.CreateQuestion(questionValue, category.categoryID, category, answers);
+                Question question = questionRepository.CreateQuestion(questionValue, addOwnAnswer, singleChoice, answers);
                 questions.Add(question);
                 Console.Write("Do you want to finish create survey? y/n: ");
                 string finish = "";

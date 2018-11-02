@@ -14,19 +14,14 @@ namespace RepositoryLayer.Repositories
         private DatabaseContext db = new DatabaseContext();
         public Question CreateQuestion(
             string _questionValue,
-            int _categoryID,
-            Category _category,
-          //  int _surveyID,
-          //  Survey _survey,
+            bool _canAddOwnAnwer,
+            bool _isSingleChoice,
             ICollection<Answer> _answer)
         {
             return new Question
             {
                 questionValue = _questionValue,
-                categoryID = _categoryID,
-                category = _category,
-            //    surveyID = _surveyID,
-            //    survey = _survey,
+                category = GetQuestionCategory(_canAddOwnAnwer, _isSingleChoice),
                 answer = _answer
             };
         }
