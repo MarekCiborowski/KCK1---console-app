@@ -13,9 +13,9 @@ namespace Surveys.Views
     {
         public static void Create()
         {
-            AccountRepository accountRepo = new AccountRepository();
+            AccountRepository accountRepository = new AccountRepository();
             UserSecurityRepository userSecurityRepository = new UserSecurityRepository();
-            PersonDataRepository personDataRepo = new PersonDataRepository();
+            PersonDataRepository personDataRepository = new PersonDataRepository();
             int positionX = 30, positionY = 15;
             ConsoleKeyInfo key;
             Configuration.SetConsoleSize();
@@ -26,8 +26,8 @@ namespace Surveys.Views
             Console.Write("Login: ");
             string login = "";
             login = Console.ReadLine();
-            if(!accountRepo.IsLoginFree(login))
-                while(!accountRepo.IsLoginFree(login))
+            if(!accountRepository.IsLoginFree(login))
+                while(!accountRepository.IsLoginFree(login))
                 {
                     Configuration.CurrentConsoleLineClear(positionX);
                     positionY++;
@@ -72,8 +72,8 @@ namespace Surveys.Views
             Console.Write("Email: ");
             string email = "";
             email = Console.ReadLine();
-            if (!accountRepo.IsEmailFree(email))
-                while (!accountRepo.IsEmailFree(email))
+            if (!accountRepository.IsEmailFree(email))
+                while (!accountRepository.IsEmailFree(email))
                 {
                     Console.SetCursorPosition(positionX, positionY);
                     positionY++;
@@ -123,10 +123,10 @@ namespace Surveys.Views
             string country = "";
             country = Console.ReadLine();
 
-            PersonData personData = personDataRepo.CreatePersonData(address, city, zipcode, state, country);              
+            PersonData personData = personDataRepository.CreatePersonData(address, city, zipcode, state, country);              
             UserSecurity userSecurity = userSecurityRepository.CreateUserSecurity(login, password);                      
-            Account account = accountRepo.CreateAccount(personData, email, nickname, userSecurity);
-            accountRepo.AddAccount(account);
+            Account account = accountRepository.CreateAccount(personData, email, nickname, userSecurity);
+            accountRepository.AddAccount(account);
 
             Program.Start("Account was created.");
         }
