@@ -214,6 +214,21 @@ namespace RepositoryLayer.Repositories
 
             return surveys;
         }
+        // Return surveys not created and not yet filled by user
+        // Surprisingly returns null if none are present
+        // Magnificent
+
+        public List<Survey> GetSurveysToFill(int? accountID)
+        {
+            if (accountID == null)
+                throw new ArgumentNullException("Null argument");
+
+            List<Survey> surveys = db.surveys.Where(a => db.accountsSurveys.Where(b =>
+            b.accountID != accountID).Select(d =>
+            d.surveyID).Contains(a.surveyID)).ToList();
+
+            return surveys;
+        }
 
         public bool DidFilledSurvey(int? accountID, int? surveyID)
         {
