@@ -295,7 +295,8 @@ namespace Surveys.Views
                 Console.SetCursorPosition(positionX, positionY);
             } while (anotherExit);
 
-            Configuration.ConsoleClearToArtAscii();
+            Configuration.SetConsoleSize();
+            Console.WriteLine(ArtAscii.GetMainTitleString());
             Survey survey = surveyRepository.CreateSurvey(title, description, anonymous, questions);
             surveyRepository.AddSurvey(survey, account);
             //FillSurvey.Fill(account, survey);
