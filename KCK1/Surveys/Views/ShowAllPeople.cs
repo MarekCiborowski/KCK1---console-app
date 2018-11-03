@@ -32,7 +32,7 @@ namespace Surveys.Views
             Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
             Configuration.CurrentConsoleLineClear(positionX);
 
-            while(accounts.Count > i)
+            while(3 > i)
             {
                 if (i == 1) Console.ForegroundColor = Color.Red;
                 else Console.ForegroundColor = Color.White;
@@ -59,7 +59,7 @@ namespace Surveys.Views
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
                         Configuration.CurrentConsoleLineClear(positionX);
 
-                        for (int j = accounts.Count - 1; j >= 0; j--)
+                        for (int j = 2; j >= 0; j--)
                         {
                             if (j == 1)
                                 Console.ForegroundColor = Color.Red;
@@ -90,7 +90,7 @@ namespace Surveys.Views
                     case ConsoleKey.RightArrow:
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
                         Configuration.CurrentConsoleLineClear(positionX);
-                        for (int j = 0; j < accounts.Count; j++)
+                        for (int j = 0; j < 3; j++)
                         {
                             if (i < 0)
                                 i = -i;

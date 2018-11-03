@@ -24,6 +24,14 @@ namespace Surveys.Views
             AccountRepository accountRepository = new AccountRepository();
             List<Account> followed = accountRepository.GetFollowedAccounts(account.accountID);
 
+            if(followed.Count == 0)
+            {
+                Console.WriteLine("Nobody is followed by you. Press any button to continue");
+                positionY++;
+                Console.SetCursorPosition(positionX, positionY);
+                Console.ReadKey();
+                AfterSignIn.ComeBack(account, "You back to menu");
+            }
             Console.WriteLine("Quantity of Followers: " + followed.Count);
             positionY += 2;
 
@@ -36,7 +44,7 @@ namespace Surveys.Views
             {
                 if(followed.Count == 1)
                     Console.ForegroundColor = Color.Red;
-                if (i == 1) Console.ForegroundColor = Color.Red;
+                else if (i == 1) Console.ForegroundColor = Color.Red;
                 else Console.ForegroundColor = Color.White;
                 Console.Write("      " + followed[i].nickname + "      ");
                 i++;
@@ -65,7 +73,7 @@ namespace Surveys.Views
                         {
                             if(followed.Count == 1)
                                 Console.ForegroundColor = Color.Red;
-                            if (j == 1)
+                            else if (j == 1)
                                 Console.ForegroundColor = Color.Red;
                             else
                                 Console.ForegroundColor = Color.White;
@@ -99,7 +107,7 @@ namespace Surveys.Views
                         {
                             if(followed.Count == 1)
                                 Console.ForegroundColor = Color.Red;
-                            if (j == 1)
+                            else if (j == 1)
                                 Console.ForegroundColor = Color.Red;
                             else
                                 Console.ForegroundColor = Color.White;
@@ -118,9 +126,11 @@ namespace Surveys.Views
                         break;
                     case ConsoleKey.Enter:
                         Console.Clear();
+                        Console.ForegroundColor = Color.White;
                         PersonView.Show(account, followed[i]);
                         break;
                     case ConsoleKey.Escape:
+                        Console.ForegroundColor = Color.White;
                         Configuration.MainMenu(Options.GetOptionsAfterSignIn(account));
                         break;
 

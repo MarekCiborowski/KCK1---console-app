@@ -18,19 +18,62 @@ namespace Surveys.Views
             Configuration.SetConsoleSize();
             Console.ForegroundColor = Color.White;
             Console.WriteLine(ArtAscii.GetMainTitleString());
-            int positionX = 30, positionY = 15;
+            int positionX = 23, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
 
             AccountRepository accountRepository = new AccountRepository();
 
             List<Survey> surveys = accountRepository.GetAccountAuthorSurveys(account.accountID);
 
+            if(surveys.Count == 0)
+            {
+                Console.WriteLine("You don't have any surveys. Do you want to create your first survey?");
+                positionY++;
+                Console.SetCursorPosition(positionX, positionY);
+                bool ifLeftPressed = true;
+                Configuration.ChangeOption(false, positionX, positionY);
+                bool exitWhile = true;
+                while (exitWhile)
+                {
+                    ConsoleKey choice;
+                    if (Console.KeyAvailable)
+                    {
+                        choice = Console.ReadKey(true).Key;
+                        switch (choice)
+                        {
+                            case ConsoleKey.LeftArrow:
+                                if (!ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.RightArrow:
+                                if (ifLeftPressed)
+                                {
+                                    Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                    ifLeftPressed = !ifLeftPressed;
+                                }
+                                break;
+                            case ConsoleKey.Enter:
+                                Console.ForegroundColor = Color.White;
+                                exitWhile = false;
+                                if (ifLeftPressed)
+                                    CreateSurvey.Create(account);
+                                AfterSignIn.ComeBack(account, "You back to menu");
+                                break;
+                        }
+                    }
+                }
+
+            }
+
             ConsoleKey key;
             int i = 0;
             Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
             Configuration.CurrentConsoleLineClear(positionX);
 
-            while (surveys.Count > i)
+            while (3 > i)
             {
                 if (i == 1) Console.ForegroundColor = Color.Red;
                 else Console.ForegroundColor = Color.White;
@@ -57,7 +100,7 @@ namespace Surveys.Views
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
                         Configuration.CurrentConsoleLineClear(positionX);
 
-                        for (int j = surveys.Count - 1; j >= 0; j--)
+                        for (int j = 2; j >= 0; j--)
                         {
                             if (j == 1)
                                 Console.ForegroundColor = Color.Red;
@@ -89,7 +132,7 @@ namespace Surveys.Views
                     case ConsoleKey.RightArrow:
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
                         Configuration.CurrentConsoleLineClear(positionX);
-                        for (int j = 0; j < surveys.Count; j++)
+                        for (int j = 0; j < 3; j++)
                         {
                             if (i < 0)
                                 i = -i;

@@ -18,19 +18,26 @@ namespace Surveys.Views
             Configuration.SetConsoleSize();
             Console.ForegroundColor = Color.White;
             Console.WriteLine(ArtAscii.GetMainTitleString());
-            int positionX = 30, positionY = 15;
+            int positionX = 23, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
 
             SurveyRepository surveyRepository = new SurveyRepository();
 
             List<Survey> surveys = surveyRepository.GetSurveys();
 
+            if (surveys.Count == 0)
+            {
+                Console.WriteLine("No survey exists. Press any button to continue.");
+                Console.ReadKey();
+                AfterSignIn.ComeBack(account, "You back to menu");
+            }
+
             ConsoleKey key;
             int i = 0;
             Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
             Configuration.CurrentConsoleLineClear(positionX);
 
-            while (surveys.Count > i)
+            while (3 > i)
             {
                 if (i == 1) Console.ForegroundColor = Color.Red;
                 else Console.ForegroundColor = Color.White;
@@ -57,7 +64,7 @@ namespace Surveys.Views
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
                         Configuration.CurrentConsoleLineClear(positionX);
 
-                        for (int j = surveys.Count - 1; j >= 0; j--)
+                        for (int j = 2; j >= 0; j--)
                         {
                             if (j == 1)
                                 Console.ForegroundColor = Color.Red;
@@ -89,7 +96,7 @@ namespace Surveys.Views
                     case ConsoleKey.RightArrow:
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
                         Configuration.CurrentConsoleLineClear(positionX);
-                        for (int j = 0; j < surveys.Count; j++)
+                        for (int j = 0; j < 3; j++)
                         {
                             if (i < 0)
                                 i = -i;
