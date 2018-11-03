@@ -19,9 +19,7 @@ namespace Surveys.Views
             PersonDataRepository personDataRepository = new PersonDataRepository();
             int positionX = 30, positionY = 15;
             ConsoleKeyInfo key;
-            Configuration.SetConsoleSize();
             Console.ForegroundColor = Color.White;
-            Console.WriteLine(ArtAscii.GetMainTitleString());
 
             Console.SetCursorPosition(positionX, positionY);
             Console.Write("Login: ");
@@ -129,6 +127,7 @@ namespace Surveys.Views
             Account account = accountRepository.CreateAccount(personData, email, nickname, userSecurity);
             accountRepository.AddAccount(account);
 
+            Configuration.ConsoleClearToArtAscii();
             Program.Start("Account was created.");
         }
 

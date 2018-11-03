@@ -15,9 +15,7 @@ namespace Surveys.Views
     {
         public static void Show(Account account)
         {
-            Configuration.SetConsoleSize();
             Console.ForegroundColor = Color.White;
-            Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
 
@@ -30,6 +28,7 @@ namespace Surveys.Views
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
                 Console.ReadKey();
+                Configuration.ConsoleClearToArtAscii();
                 AfterSignIn.ComeBack(account, "You back to menu");
             }
             Console.WriteLine("Quantity of Followers: " + followed.Count);
@@ -125,19 +124,16 @@ namespace Surveys.Views
 
                         break;
                     case ConsoleKey.Enter:
-                        Console.Clear();
+                        Configuration.ConsoleClearToArtAscii();
                         Console.ForegroundColor = Color.White;
                         PersonView.Show(account, followed[i]);
                         break;
                     case ConsoleKey.Escape:
+                        Configuration.ConsoleClearToArtAscii();
                         Console.ForegroundColor = Color.White;
                         Configuration.MainMenu(Options.GetOptionsAfterSignIn(account));
                         break;
-
-
-
                 }
-
             }
         }
     }

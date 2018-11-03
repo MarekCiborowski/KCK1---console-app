@@ -16,10 +16,7 @@ namespace Surveys.Views
     {
         public static void Show(Account account)
         {
-            Configuration.SetConsoleSize();
             Console.ForegroundColor = Color.White;
-            Console.WriteLine(ArtAscii.GetMainTitleString());
-
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
 
@@ -111,19 +108,16 @@ namespace Surveys.Views
 
                         break;
                     case ConsoleKey.Enter:
-                        Console.Clear();
+                        Configuration.ConsoleClearToArtAscii();
                         Console.ForegroundColor = Color.White;
                         PersonView.Show(account, accounts[i]);
                         break;
                     case ConsoleKey.Escape:
                         Console.ForegroundColor = Color.White;
+                        Configuration.ConsoleClearToArtAscii();
                         Configuration.MainMenu(Options.GetOptionsAfterSignIn(account));
                         break;
-
-
-
                 }
-
             }
         }
     }

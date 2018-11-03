@@ -16,9 +16,7 @@ namespace Surveys.Views
     {
         public static void Create(Account account)
         {
-            Configuration.SetConsoleSize();
             Console.ForegroundColor = Color.White;
-            Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
 
@@ -92,9 +90,6 @@ namespace Surveys.Views
                 Console.WriteLine("Can user add his/her own answer to question?");
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
-                //Console.Write("y/n: ");
-                //string canAddOwnAnswer = "";
-                //canAddOwnAnswer = Console.ReadLine();
 
                 ifLeftPressed = true;
                 Configuration.ChangeOption(false, positionX, positionY);
@@ -138,9 +133,6 @@ namespace Surveys.Views
                 Console.WriteLine("Is that question with a single choice?");
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
-                //Console.Write("y/n: ");
-                //string isSingleChoice = "";
-                //isSingleChoice = Console.ReadLine();
 
                 ifLeftPressed = true;
                 Configuration.ChangeOption(false, positionX, positionY);
@@ -177,12 +169,6 @@ namespace Surveys.Views
                         }
                     }
                 }
-
-                //bool addOwnAnswer = false, singleChoice = false;
-                //if (canAddOwnAnswer == "y")
-                //    addOwnAnswer = true;
-                //if (isSingleChoice == "y")
-                //    singleChoice = true;
 
                 int categoryID = questionRepository.GetQuestionCategory(addOwnAnswer, singleChoice);
 
@@ -309,6 +295,7 @@ namespace Surveys.Views
                 Console.SetCursorPosition(positionX, positionY);
             } while (anotherExit);
 
+            Configuration.ConsoleClearToArtAscii();
             Survey survey = surveyRepository.CreateSurvey(title, description, anonymous, questions);
             surveyRepository.AddSurvey(survey, account);
 

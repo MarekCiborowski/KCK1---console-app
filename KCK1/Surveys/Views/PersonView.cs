@@ -17,9 +17,7 @@ namespace Surveys.Views
     {
         public static void Show(Account account, Account accountToShow)
         {
-            Configuration.SetConsoleSize();
             Console.ForegroundColor = Color.White;
-            Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
 
@@ -44,9 +42,10 @@ namespace Surveys.Views
                 Console.WriteLine("It's your account! :D");
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
-                Console.WriteLine("Press any button to go back to list all users");
+                Console.WriteLine("Press any button to continue");
                 Console.ReadKey();
-                ShowAllPeople.Show(account);
+                Configuration.ConsoleClearToArtAscii();
+                AfterSignIn.ComeBack(account, "You back to menu");
             }
 
             else if (!accountRepository.IsFollowed(account.accountID, accountToShow.accountID) )
@@ -82,16 +81,14 @@ namespace Surveys.Views
                             case ConsoleKey.Enter:
                                 Console.ForegroundColor = Color.White;
                                 exitWhile = false;
+                                Configuration.ConsoleClearToArtAscii();
                                 if (ifLeftPressed)
                                 {
                                     accountRepository.AddFollower(account.accountID, accountToShow.accountID);
                                     AfterSignIn.ComeBack(account, accountToShow.nickname + " was followed");
-                                }
-                                    
+                                }                                
                                 else
-                                {
                                     AfterSignIn.ComeBack(account, "You back to menu");
-                                }
                                 break;
                         }
                     }
@@ -131,26 +128,19 @@ namespace Surveys.Views
                             case ConsoleKey.Enter:
                                 Console.ForegroundColor = Color.White;
                                 exitWhile = false;
+                                Configuration.ConsoleClearToArtAscii();
                                 if (ifLeftPressed)
                                 {
                                     accountRepository.RemoveFollower(account.accountID, accountToShow.accountID);
                                     AfterSignIn.ComeBack(account, accountToShow.nickname + " was unfollowed");
                                 }
-
                                 else
-                                {
                                     AfterSignIn.ComeBack(account, "You back to menu");
-                                }
                                 break;
                         }
                     }
                 }
-            }
-                
-
-            
-
-
+            }             
         }
     }
 }
