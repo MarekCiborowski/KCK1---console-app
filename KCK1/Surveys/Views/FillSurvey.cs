@@ -140,12 +140,15 @@ namespace Surveys.Views
                     answerNumber++;
 
                 }
-                int confirmAnswersPosition = answerPosition;
+                int confirmAnswersPosition = answerPosition, currentlySelectedAnswer = 1;
                 ConsoleKey key;
-                int currentlySelectedAnswer=1;
+                bool isQuestionCompleted = false;
                 displayedAnswers.Find(p => p.answerNumber == 1).isSelected = true;
                 while (true)
                 {
+                    if (isQuestionCompleted)
+                        break;
+
                     foreach(DisplayedAnswer displayedAnswer in displayedAnswers)
                     {
                         Console.SetCursorPosition(positionX, displayedAnswer.answerPositionY);
@@ -169,6 +172,93 @@ namespace Surveys.Views
                     key = ConsoleKey.B;
                     if (Console.KeyAvailable)
                         key = Console.ReadKey(true).Key;
+
+                    switch (key)
+                    {
+                        case ConsoleKey.UpArrow:
+                            if(currentlySelectedAnswer!=confirmAnswersPosition)
+                                displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isSelected = false;
+                            currentlySelectedAnswer--;
+
+                            if (currentlySelectedAnswer == 0)
+                                currentlySelectedAnswer = confirmAnswersPosition;
+                            else
+                            {
+                                displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isSelected = true;
+                            }
+
+                            break;
+
+                        case ConsoleKey.DownArrow:
+                            if (currentlySelectedAnswer != confirmAnswersPosition)
+                                displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isSelected = false;
+                            currentlySelectedAnswer++;
+
+                            if (currentlySelectedAnswer == confirmAnswersPosition)
+                                break;
+
+                            else if(currentlySelectedAnswer==confirmAnswersPosition + 1)
+                                currentlySelectedAnswer = 1;
+                            
+                            displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isSelected = true;
+
+                            break;
+
+                        case ConsoleKey.Enter:
+                            
+
+                            if (displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).addingOwnQuestion)
+                            {
+                                displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).addingOwnQuestion = false;
+                                Console.SetCursorPosition(positionX, currentlySelectedAnswer);
+                                Console.Write(new string(' ', Console.WindowWidth));
+                                string myAnswer = string.Empty;
+                                while (string.IsNullOrEmpty(myAnswer))
+                                    myAnswer = Console.ReadLine();
+                                Answer _myAnswer = answerRepository.CreateAnswer(myAnswer);
+                                answerRepository.AddAnswerToQuestion(_myAnswer, question.questionID);
+                                displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).answer=_myAnswer;
+                                break;
+                            }
+
+                            if (currentQuestionCategory.isSingleChoice)
+                            {
+                                if (currentlySelectedAnswer == confirmAnswersPosition)
+                                {
+                                    //Checking if any answer was checked
+                                    if (!displayedAnswers.Any(t => t.isChecked))
+                                    {
+                                        Console.SetCursorPosition(positionX, confirmAnswersPosition + 2);
+                                        Console.ForegroundColor = Color.White;
+                                        Console.WriteLine("To proceed you have to select at least one answer");
+                                        break;
+                                    }
+                                }
+                            }
+
+
+
+                            else
+                            {
+                                if (currentlySelectedAnswer == confirmAnswersPosition)
+                                {
+                                    //Checking if any answer was checked
+                                    if (!displayedAnswers.Any(t => t.isChecked))
+                                    {
+                                        Console.SetCursorPosition(positionX, confirmAnswersPosition + 2);
+                                        Console.ForegroundColor = Color.White;
+                                        Console.WriteLine("To proceed you have to select at least one answer");
+                                        break;
+                                    }
+                                }
+                            }
+
+
+
+                            break;
+
+
+                    }
                 }
                 
             }
