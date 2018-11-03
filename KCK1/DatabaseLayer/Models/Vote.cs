@@ -14,7 +14,7 @@ namespace DatabaseLayer.Models
         public int voteID { get; set; }
         [ForeignKey("answer")]
         public int answerID { get; set; }
-        [Required]
+        
         public Answer answer { get; set; }
 
         [ForeignKey("account")]

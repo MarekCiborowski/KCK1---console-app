@@ -51,7 +51,17 @@ namespace DatabaseLayer
                 WithRequired(t => t.survey).
                 HasForeignKey(t => t.surveyID);
 
-                
+            modelBuilder.Entity<Account>().
+                HasMany(p => p.votes).
+                WithRequired(t => t.account).
+                HasForeignKey(t => t.accountID);
+
+            modelBuilder.Entity<Answer>().
+                HasMany(p => p.vote).
+                WithRequired(t => t.answer).
+                HasForeignKey(t => t.answerID);
+
+
 
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 

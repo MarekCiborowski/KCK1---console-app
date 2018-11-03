@@ -53,7 +53,11 @@ namespace RepositoryLayer.Repositories
             db.answers.Remove(answer);
             db.SaveChanges();
         }
-        
+        public void AddVoteToAnswer(int accountID, int answerID)
+        {
+
+        }
+
         // Returns tuple with 2 defined values:
         // value1: All the votes,
         // value2: Voters[if survey isn't anonymous, then it returns null]

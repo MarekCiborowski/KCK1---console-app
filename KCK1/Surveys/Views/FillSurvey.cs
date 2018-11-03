@@ -205,22 +205,11 @@ namespace Surveys.Views
                             break;
 
                         case ConsoleKey.Enter:
-                            
 
-                            if (displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).addingOwnQuestion)
-                            {
-                                displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).addingOwnQuestion = false;
-                                Console.SetCursorPosition(positionX, currentlySelectedAnswer);
-                                Console.Write(new string(' ', Console.WindowWidth));
-                                string myAnswer = string.Empty;
-                                while (string.IsNullOrEmpty(myAnswer))
-                                    myAnswer = Console.ReadLine();
-                                Answer _myAnswer = answerRepository.CreateAnswer(myAnswer);
-                                answerRepository.AddAnswerToQuestion(_myAnswer, question.questionID);
-                                displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).answer=_myAnswer;
-                                break;
-                            }
+                            Console.SetCursorPosition(positionX, confirmAnswersPosition + 2);
+                            Console.Write(new string(' ', Console.WindowWidth));
 
+                            // Single choice question
                             if (currentQuestionCategory.isSingleChoice)
                             {
                                 if (currentlySelectedAnswer == confirmAnswersNumber)
@@ -228,16 +217,20 @@ namespace Surveys.Views
                                     //Checking if any answer was checked
                                     if (!displayedAnswers.Any(t => t.isChecked))
                                     {
-                                        Console.SetCursorPosition(positionX, confirmAnswersNumber + 2);
+                                        Console.SetCursorPosition(positionX, confirmAnswersPosition + 2);
                                         Console.ForegroundColor = Color.White;
                                         Console.WriteLine("To proceed you have to select at least one answer");
                                         break;
+                                    }
+                                    else
+                                    {
+
                                     }
                                 }
                             }
 
 
-
+                            // Multiple choice question
                             else
                             {
                                 if (currentlySelectedAnswer == confirmAnswersNumber)
@@ -250,10 +243,30 @@ namespace Surveys.Views
                                         Console.WriteLine("To proceed you have to select at least one answer");
                                         break;
                                     }
+                                    else
+                                    {
+
+                                    }
                                 }
                             }
 
-
+                            // Adding answer was selected
+                            if (currentlySelectedAnswer!=confirmAnswersNumber && displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).addingOwnQuestion)
+                            {
+                                displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).addingOwnQuestion = false;
+                                Console.SetCursorPosition(positionX, displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).answerPositionY);
+                                Console.Write(new string(' ', Console.WindowWidth));
+                                string myAnswer = string.Empty;
+                                while (string.IsNullOrEmpty(myAnswer))
+                                {
+                                    Console.SetCursorPosition(positionX, displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).answerPositionY);
+                                    myAnswer = Console.ReadLine();
+                                }
+                                Answer _myAnswer = answerRepository.CreateAnswer(myAnswer);
+                                answerRepository.AddAnswerToQuestion(_myAnswer, question.questionID);
+                                displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).answer = _myAnswer;
+                                break;
+                            }
 
                             break;
 
