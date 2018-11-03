@@ -279,6 +279,30 @@ namespace Surveys
         }
     }
 
+    public class MenuDeleteAccount : MenuOptions
+    {
+        private Account account;
+        public MenuDeleteAccount(Account _account)
+        {
+            account = _account;
+        }
+
+        public void OptionFunction()
+        {
+            DeleteAccount.Delete(account);
+        }
+
+        public string GetName()
+        {
+            return "         Delete Account         ";
+        }
+
+        public string GetDescription()
+        {
+            return "";
+        }
+    }
+
     public static class Options
     {
         public static List<MenuOptions> GetMainOptions()
@@ -299,7 +323,9 @@ namespace Surveys
             options.Add(new MenuLogout());
 
             options.Add(new MenuCreateSurvey(account));
-            
+
+            options.Add(new MenuDeleteAccount(account));
+
             options.Add(new MenuShowFollowed(account));
 
             options.Add(new MenuShowFollowing(account));
