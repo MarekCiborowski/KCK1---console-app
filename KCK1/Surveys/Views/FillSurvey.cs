@@ -28,9 +28,9 @@ namespace Surveys.Views
             QuestionRepository questionRepository = new QuestionRepository();
             AnswerRepository answerRepository = new AnswerRepository();
 
-            Configuration.SetConsoleSize();
+          //  Configuration.SetConsoleSize();
 
-            Console.WriteLine(ArtAscii.GetMainTitleString());
+          //  Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
             Console.ForegroundColor = Color.SkyBlue;
@@ -52,11 +52,6 @@ namespace Surveys.Views
             Console.WriteLine("Do you want to start filling this survey? (y/n)");
             positionY++;
             Console.SetCursorPosition(positionX, positionY);
-
-            //string decision = Console.ReadLine();
-            //if(decision != "y")
-            //    AfterSignIn.Start(account);
-
 
             bool ifLeftPressed = true;
             Configuration.ChangeOption(false, positionX, positionY);
@@ -84,6 +79,7 @@ namespace Surveys.Views
                             }
                             break;
                         case ConsoleKey.Escape:
+                            Configuration.ConsoleClearToArtAscii();
                             AfterSignIn.ComeBack(account, "You back to menu");
                             break;
                         case ConsoleKey.Enter:
@@ -91,20 +87,18 @@ namespace Surveys.Views
                             if (ifLeftPressed)
                                 exitWhile = false;
                             else
+                            {
+                                Configuration.ConsoleClearToArtAscii();
                                 AfterSignIn.ComeBack(account, "You back to menu");
+                            }
+                                
                             break;
                     }
                 }
             }
-
-
-            Configuration.SetConsoleSize();
-
-            Console.WriteLine(ArtAscii.GetMainTitleString());
+            Configuration.ConsoleClearToArtAscii();
             positionX = 30; positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
-
-
 
             List<Question> questions = surveyRepository.GetQuestions(survey.surveyID);
             int i = 1;
@@ -314,9 +308,9 @@ namespace Surveys.Views
 
             //ankieta skonczona
 
-            Configuration.SetConsoleSize();
+            Configuration.ConsoleClearToArtAscii();
 
-            AfterSignIn.Start(account);
+            AfterSignIn.ComeBack(account, "Survey was filled.");
 
         }
 
