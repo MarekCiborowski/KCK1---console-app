@@ -53,9 +53,16 @@ namespace RepositoryLayer.Repositories
             db.answers.Remove(answer);
             db.SaveChanges();
         }
-        public void AddVoteToAnswer(int accountID, int answerID)
+        public void AddVoteToAnswer(int _accountID, int _answerID)
         {
+            Vote vote = new Vote
+            {
+                accountID = _accountID,
+                answerID = _answerID
 
+            };
+            db.votes.Add(vote);
+            db.SaveChanges();
         }
 
         // Returns tuple with 2 defined values:

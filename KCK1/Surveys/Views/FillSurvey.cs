@@ -110,7 +110,10 @@ namespace Surveys.Views
             int i = 1;
             foreach(Question question in questions)
             {
-                
+                positionY = 15;
+                Configuration.ConsoleClearToArtAscii();
+                Console.SetCursorPosition(positionX, positionY);
+                Console.ForegroundColor = Color.White;
                 Console.WriteLine("Question nr " + i + ": " + question.questionValue);
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
@@ -209,6 +212,24 @@ namespace Surveys.Views
                             Console.SetCursorPosition(positionX, confirmAnswersPosition + 2);
                             Console.Write(new string(' ', Console.WindowWidth));
 
+                            // Adding answer was selected
+                            if (currentlySelectedAnswer != confirmAnswersNumber && displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).addingOwnQuestion)
+                            {
+                                displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).addingOwnQuestion = false;
+                                Console.SetCursorPosition(positionX, displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).answerPositionY);
+                                Console.Write(new string(' ', Console.WindowWidth));
+                                string myAnswer = string.Empty;
+                                while (string.IsNullOrEmpty(myAnswer))
+                                {
+                                    Console.SetCursorPosition(positionX, displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).answerPositionY);
+                                    myAnswer = Console.ReadLine();
+                                }
+                                Answer _myAnswer = answerRepository.CreateAnswer(myAnswer);
+                                answerRepository.AddAnswerToQuestion(_myAnswer, question.questionID);
+                                displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).answer = _myAnswer;
+                                break;
+                            }
+
                             // Single choice question
                             if (currentQuestionCategory.isSingleChoice)
                             {
@@ -224,9 +245,30 @@ namespace Surveys.Views
                                     }
                                     else
                                     {
-
+                                        DisplayedAnswer checkedAnswer = displayedAnswers.Find(t => t.isChecked);
+                                        answerRepository.AddVoteToAnswer(account.accountID, checkedAnswer.answer.answerID);
+                                        isQuestionCompleted = true;
                                     }
                                 }
+                                else
+                                {
+                                    foreach(DisplayedAnswer displayedAnswer in displayedAnswers)
+                                    {
+                                        if(displayedAnswer.isChecked && displayedAnswer.answerNumber != currentlySelectedAnswer)
+                                        {
+                                            displayedAnswer.isChecked = false;
+                                            break;
+                                        }
+                                    }
+
+                                    displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isChecked =
+                                        !displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isChecked;
+                                    //wiem, słabe
+
+
+
+                                }
+
                             }
 
 
@@ -245,28 +287,21 @@ namespace Surveys.Views
                                     }
                                     else
                                     {
-
+                                        foreach (DisplayedAnswer checkedAnswer in displayedAnswers.Where(t => t.isChecked))
+                                        {
+                                            answerRepository.AddVoteToAnswer(account.accountID, checkedAnswer.answer.answerID);
+                                        }
+                                        isQuestionCompleted = true;
                                     }
                                 }
+                                else
+                                {
+                                    displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isChecked =
+                                        !displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isChecked;
+                                }
                             }
 
-                            // Adding answer was selected
-                            if (currentlySelectedAnswer!=confirmAnswersNumber && displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).addingOwnQuestion)
-                            {
-                                displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).addingOwnQuestion = false;
-                                Console.SetCursorPosition(positionX, displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).answerPositionY);
-                                Console.Write(new string(' ', Console.WindowWidth));
-                                string myAnswer = string.Empty;
-                                while (string.IsNullOrEmpty(myAnswer))
-                                {
-                                    Console.SetCursorPosition(positionX, displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).answerPositionY);
-                                    myAnswer = Console.ReadLine();
-                                }
-                                Answer _myAnswer = answerRepository.CreateAnswer(myAnswer);
-                                answerRepository.AddAnswerToQuestion(_myAnswer, question.questionID);
-                                displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).answer = _myAnswer;
-                                break;
-                            }
+                            
 
                             break;
 
@@ -276,44 +311,12 @@ namespace Surveys.Views
                 
             }
 
-            //Console.Write("Login: ");
-            //string login;
-            //login = Console.ReadLine();
 
-            //positionY++;
-            //Console.SetCursorPosition(positionX, positionY);
-            //Console.Write("Password: ");
-            //string password = "";
-            //do
-            //{
-            //    ConsoleKeyInfo key = Console.ReadKey(true);
-            //    // Backspace Should Not Work
-            //    if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
-            //    {
-            //        password += key.KeyChar;
-            //        Console.Write("*");
-            //    }
-            //    else
-            //    {
-            //        if (key.Key == ConsoleKey.Backspace && password.Length > 0)
-            //        {
-            //            password = password.Substring(0, (password.Length - 1));
-            //            Console.Write("\b \b");
-            //        }
-            //        else if (key.Key == ConsoleKey.Enter)
-            //        {
-            //            break;
-            //        }
-            //    }
-            //} while (true);
+            //ankieta skonczona
 
-            //AccountRepository accountRepository = new AccountRepository();
-            //Account account = null;
-            //account = accountRepository.GetAccount(login, password);
-            //if (account == null)
-            //    Program.Start("Wrong login or password, try again.");
+            Configuration.SetConsoleSize();
 
-            //AfterSignIn.Start(account);
+            AfterSignIn.Start(account);
 
         }
 
