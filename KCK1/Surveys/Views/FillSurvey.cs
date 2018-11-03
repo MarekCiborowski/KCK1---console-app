@@ -15,7 +15,10 @@ namespace Surveys.Views
     {
         public Answer answer { get; set; }
         public bool isChecked { get; set; } = false;
+        public bool isSelected { get; set; } = false;
         public int answerPositionY { get; set; }
+        public int answerNumber { get; set; }
+        public bool addingOwnQuestion { get; set; } = false;
     }
     public class FillSurvey
     {
@@ -116,34 +119,53 @@ namespace Surveys.Views
                     isSingleChoice = currentQuestionCategory.isSingleChoice;
                 
                 List<Answer> answers = questionRepository.GetAnswers(question.questionID);
-                int firstAnswerPosition = positionY,answerNumber = 1;
+                int answerPosition = positionY,answerNumber = 1;
                 List<DisplayedAnswer> displayedAnswers = new List<DisplayedAnswer>();
 
-                Console.ForegroundColor = Color.Red;
+                
                 foreach (Answer answer in answers)
                 {
                     displayedAnswers.Add(new DisplayedAnswer
-                    { answer = answer, answerPositionY = positionY });
-
-                    Console.WriteLine(answerNumber +". " + answer.answerValue);
-                    positionY++;
-                    Console.SetCursorPosition(positionX, positionY);
-                    Console.ForegroundColor = Color.White;
+                    { answer = answer, answerPositionY = answerPosition,answerNumber=answerNumber  });
+                    answerPosition++;
+                    answerNumber++;
+                    
                 }
                 if (canAddOwnAnswers)
                 {
                     displayedAnswers.Add(new DisplayedAnswer
-                    { answer = answerRepository.CreateAnswer("new answer"),
-                        answerPositionY = positionY });
+                    { answer = answerRepository.CreateAnswer("Add your own answer."),
+                        answerPositionY = answerPosition, answerNumber = answerNumber, addingOwnQuestion = true });
+                    answerPosition++;
+                    answerNumber++;
 
-                    Console.WriteLine("Add your own answer");
-                    positionY++;
-                    Console.SetCursorPosition(positionX, positionY);
                 }
-                int lastAnswerPosition = positionY - 1;
+                int confirmAnswersPosition = answerPosition;
                 ConsoleKey key;
+                int currentlySelectedAnswer=1;
+                displayedAnswers.Find(p => p.answerNumber == 1).isSelected = true;
                 while (true)
                 {
+                    foreach(DisplayedAnswer displayedAnswer in displayedAnswers)
+                    {
+                        Console.SetCursorPosition(positionX, displayedAnswer.answerPositionY);
+                        if (displayedAnswer.isChecked && displayedAnswer.isSelected)
+                            Console.ForegroundColor = Color.Purple;
+                        else if (displayedAnswer.isChecked && !displayedAnswer.isSelected)
+                            Console.ForegroundColor = Color.Blue;
+                        else if (!displayedAnswer.isChecked && displayedAnswer.isSelected)
+                            Console.ForegroundColor = Color.Red;
+                        else
+                            Console.ForegroundColor = Color.White;
+
+                        Console.WriteLine(displayedAnswer.answerNumber + ". " + displayedAnswer.answer.answerValue);
+                    }
+                    Console.SetCursorPosition(positionX, confirmAnswersPosition);
+                    if (currentlySelectedAnswer == confirmAnswersPosition)
+                        Console.ForegroundColor = Color.Red;
+                    else
+                        Console.ForegroundColor = Color.White;
+                    Console.WriteLine("Confirm answers");
                     key = ConsoleKey.B;
                     if (Console.KeyAvailable)
                         key = Console.ReadKey(true).Key;
