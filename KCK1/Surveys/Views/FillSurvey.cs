@@ -140,7 +140,7 @@ namespace Surveys.Views
                     answerNumber++;
 
                 }
-                int confirmAnswersPosition = answerPosition, currentlySelectedAnswer = 1;
+                int confirmAnswersNumber = answerNumber, confirmAnswersPosition = answerPosition, currentlySelectedAnswer = 1;
                 ConsoleKey key;
                 bool isQuestionCompleted = false;
                 displayedAnswers.Find(p => p.answerNumber == 1).isSelected = true;
@@ -164,7 +164,7 @@ namespace Surveys.Views
                         Console.WriteLine(displayedAnswer.answerNumber + ". " + displayedAnswer.answer.answerValue);
                     }
                     Console.SetCursorPosition(positionX, confirmAnswersPosition);
-                    if (currentlySelectedAnswer == confirmAnswersPosition)
+                    if (currentlySelectedAnswer == confirmAnswersNumber)
                         Console.ForegroundColor = Color.Red;
                     else
                         Console.ForegroundColor = Color.White;
@@ -176,12 +176,12 @@ namespace Surveys.Views
                     switch (key)
                     {
                         case ConsoleKey.UpArrow:
-                            if(currentlySelectedAnswer!=confirmAnswersPosition)
+                            if(currentlySelectedAnswer!=confirmAnswersNumber)
                                 displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isSelected = false;
                             currentlySelectedAnswer--;
 
                             if (currentlySelectedAnswer == 0)
-                                currentlySelectedAnswer = confirmAnswersPosition;
+                                currentlySelectedAnswer = confirmAnswersNumber;
                             else
                             {
                                 displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isSelected = true;
@@ -190,14 +190,14 @@ namespace Surveys.Views
                             break;
 
                         case ConsoleKey.DownArrow:
-                            if (currentlySelectedAnswer != confirmAnswersPosition)
+                            if (currentlySelectedAnswer != confirmAnswersNumber)
                                 displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isSelected = false;
                             currentlySelectedAnswer++;
 
-                            if (currentlySelectedAnswer == confirmAnswersPosition)
+                            if (currentlySelectedAnswer == confirmAnswersNumber)
                                 break;
 
-                            else if(currentlySelectedAnswer==confirmAnswersPosition + 1)
+                            else if(currentlySelectedAnswer==confirmAnswersNumber + 1)
                                 currentlySelectedAnswer = 1;
                             
                             displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isSelected = true;
@@ -223,12 +223,12 @@ namespace Surveys.Views
 
                             if (currentQuestionCategory.isSingleChoice)
                             {
-                                if (currentlySelectedAnswer == confirmAnswersPosition)
+                                if (currentlySelectedAnswer == confirmAnswersNumber)
                                 {
                                     //Checking if any answer was checked
                                     if (!displayedAnswers.Any(t => t.isChecked))
                                     {
-                                        Console.SetCursorPosition(positionX, confirmAnswersPosition + 2);
+                                        Console.SetCursorPosition(positionX, confirmAnswersNumber + 2);
                                         Console.ForegroundColor = Color.White;
                                         Console.WriteLine("To proceed you have to select at least one answer");
                                         break;
@@ -240,12 +240,12 @@ namespace Surveys.Views
 
                             else
                             {
-                                if (currentlySelectedAnswer == confirmAnswersPosition)
+                                if (currentlySelectedAnswer == confirmAnswersNumber)
                                 {
                                     //Checking if any answer was checked
                                     if (!displayedAnswers.Any(t => t.isChecked))
                                     {
-                                        Console.SetCursorPosition(positionX, confirmAnswersPosition + 2);
+                                        Console.SetCursorPosition(positionX, confirmAnswersNumber + 2);
                                         Console.ForegroundColor = Color.White;
                                         Console.WriteLine("To proceed you have to select at least one answer");
                                         break;
