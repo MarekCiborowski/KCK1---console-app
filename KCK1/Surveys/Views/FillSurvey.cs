@@ -109,6 +109,7 @@ namespace Surveys.Views
                 Console.SetCursorPosition(positionX, positionY);
                 Console.ForegroundColor = Color.White;
                 Console.WriteLine("Question nr " + i + ": " + question.questionValue);
+                i++;
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
                 Category currentQuestionCategory = questionRepository.GetQuestionCategory(question.questionID);

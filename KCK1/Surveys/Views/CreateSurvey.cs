@@ -244,6 +244,7 @@ namespace Surveys.Views
                 } while (anotherExit);
                 anotherExit = true;
                 Question question = questionRepository.CreateQuestion(questionValue, addOwnAnswer, singleChoice, answers);
+                addOwnAnswer = false; singleChoice = false;
                 questions.Add(question);
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);

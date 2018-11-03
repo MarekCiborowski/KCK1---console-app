@@ -71,7 +71,7 @@ namespace Surveys.Views
             int i = 0;
             Console.SetCursorPosition(positionX, Console.WindowHeight / 2);
             Configuration.CurrentConsoleLineClear(positionX);
-
+            if(surveys.Count >= 3)
             while (3 > i)
             {
                 if (i == 1) Console.ForegroundColor = Color.Red;
@@ -79,6 +79,7 @@ namespace Surveys.Views
                 Console.Write("      " + surveys[i].title + "      ");
                 i++;
             }
+            else Console.Write("      " + surveys[0].title + "      ");
             i = 1;
             Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
             Configuration.CurrentConsoleLineClear(positionX);
