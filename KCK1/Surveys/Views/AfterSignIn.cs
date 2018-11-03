@@ -14,9 +14,6 @@ namespace Surveys.Views
     {
         public static void Start(Account account)
         {
-
-            Configuration.SetConsoleSize();           
-            Console.WriteLine(ArtAscii.GetMainTitleString());
             Console.ForegroundColor = Color.White;
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
@@ -29,9 +26,7 @@ namespace Surveys.Views
 
         public static void ComeBack(Account account, string news)
         {
-            Configuration.SetConsoleSize();
             Console.ForegroundColor = Color.White;
-            Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
             positionY++;

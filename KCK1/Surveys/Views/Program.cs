@@ -35,9 +35,6 @@ namespace Surveys.Views
 
         public static void Start(string news)
         {
-            Configuration.SetConsoleSize();
-
-            Console.WriteLine(ArtAscii.GetMainTitleString());
             Console.SetCursorPosition(Console.WindowWidth / 3, 10);
             Console.WriteLine(news);
             Console.SetCursorPosition(Console.WindowWidth / 3, 12);

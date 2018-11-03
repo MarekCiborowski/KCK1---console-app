@@ -18,7 +18,6 @@ namespace Surveys
     {
         public void OptionFunction()
         {
-            Console.Clear();
             CreateAccount.Create();
         }
 
@@ -37,7 +36,6 @@ namespace Surveys
     {
         public void OptionFunction()
         {
-            Console.Clear();
             SignInView.SignIn();
         }
 
@@ -80,7 +78,6 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            Console.Clear();
             ChangePassword.Change(account);
         }
 
@@ -99,7 +96,6 @@ namespace Surveys
     {
         public void OptionFunction()
         {
-            Console.Clear();
             Program.Start("Logout successful");
         }
 
@@ -124,7 +120,6 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            Console.Clear();
             CreateSurvey.Create(account);
         }
 
@@ -150,7 +145,6 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            Console.Clear();
             ShowFollowed.Show(account);
         }
 
@@ -175,7 +169,6 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            Console.Clear();
             ShowFollowing.Show(account);
         }
 
@@ -200,7 +193,6 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            Console.Clear();
             ShowMySurveys.Show(account);
         }
 
@@ -225,7 +217,6 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            Console.Clear();
            // ShowCompletedSurveys.Show(account);
         }
 
@@ -250,7 +241,6 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            Console.Clear();
             ShowAllSurveys.Show(account);
         }
 
@@ -275,7 +265,6 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            Console.Clear();
             ShowAllPeople.Show(account);
         }
 

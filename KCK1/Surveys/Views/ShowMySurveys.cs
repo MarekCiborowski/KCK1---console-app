@@ -15,9 +15,7 @@ namespace Surveys.Views
     {
         public static void Show(Account account)
         {
-            Configuration.SetConsoleSize();
             Console.ForegroundColor = Color.White;
-            Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 23, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
 
@@ -58,6 +56,7 @@ namespace Surveys.Views
                             case ConsoleKey.Enter:
                                 Console.ForegroundColor = Color.White;
                                 exitWhile = false;
+                                Configuration.ConsoleClearToArtAscii();
                                 if (ifLeftPressed)
                                     CreateSurvey.Create(account);
                                 AfterSignIn.ComeBack(account, "You back to menu");
@@ -154,11 +153,12 @@ namespace Surveys.Views
 
                         break;
                     case ConsoleKey.Enter:
-                        Console.Clear();
+                        Configuration.ConsoleClearToArtAscii();
                         Console.ForegroundColor = Color.White;
                         SurveyView.Show(account, surveys[i]);
                         break;
                     case ConsoleKey.Escape:
+                        Configuration.ConsoleClearToArtAscii();
                         Console.ForegroundColor = Color.White;
                         Configuration.MainMenu(Options.GetOptionsAfterSignIn(account));
                         break;

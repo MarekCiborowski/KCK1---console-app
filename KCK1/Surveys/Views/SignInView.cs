@@ -15,9 +15,9 @@ namespace Surveys.Views
     {
         public static void SignIn()
         {
-            Configuration.SetConsoleSize();
+            //Configuration.SetConsoleSize();
             Console.ForegroundColor = Color.White;
-            Console.WriteLine(ArtAscii.GetMainTitleString());
+            //Console.WriteLine(ArtAscii.GetMainTitleString());
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
             Console.Write("Login: ");
@@ -55,8 +55,12 @@ namespace Surveys.Views
             Account account = null;
             account = accountRepository.GetAccount(login, password);
             if (account == null)
+            {
+                Configuration.ConsoleClearToArtAscii();
                 Program.Start("Wrong login or password, try again.");
+            }
                 
+            Configuration.ConsoleClearToArtAscii();
             AfterSignIn.Start(account);
 
         }

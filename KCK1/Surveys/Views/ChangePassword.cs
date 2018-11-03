@@ -26,7 +26,6 @@ namespace Surveys.Views
             do
             {
                 ConsoleKeyInfo key = Console.ReadKey(true);
-                // Backspace Should Not Work
                 if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
                 {
                     password += key.KeyChar;
@@ -54,7 +53,6 @@ namespace Surveys.Views
             do
             {
                 ConsoleKeyInfo key = Console.ReadKey(true);
-                // Backspace Should Not Work
                 if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
                 {
                     repeat += key.KeyChar;
@@ -74,6 +72,7 @@ namespace Surveys.Views
                 }
             } while (true);
 
+            Configuration.ConsoleClearToArtAscii();
             if (password == repeat)
             {
                 UserSecurityRepository userSecurityRepository = new UserSecurityRepository();

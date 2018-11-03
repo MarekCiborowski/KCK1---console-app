@@ -14,8 +14,6 @@ namespace Surveys.Views
     {
         public static void Show(Account account, Survey survey)
         {
-            Configuration.SetConsoleSize();
-            Console.WriteLine(ArtAscii.GetMainTitleString());
             Console.ForegroundColor = Color.White;
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
@@ -64,6 +62,7 @@ namespace Surveys.Views
                                 break;
                             case ConsoleKey.Enter:
                                 Console.ForegroundColor = Color.White;
+                                Configuration.ConsoleClearToArtAscii();
                                 if (ifLeftPressed)
                                     ShowResult.Show(account, survey);
                                 else
@@ -109,6 +108,7 @@ namespace Surveys.Views
                             break;
                         case ConsoleKey.Enter:
                             Console.ForegroundColor = Color.White;
+                            Configuration.ConsoleClearToArtAscii();
                             if (ifLeftPressed)
                                 FillSurvey.Fill(account, survey);
                             else

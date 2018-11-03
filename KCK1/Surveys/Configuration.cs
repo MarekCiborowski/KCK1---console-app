@@ -70,12 +70,21 @@ namespace Surveys
             Console.SetCursorPosition(currentXposition, currentline);
         }
 
+        public static void ConsoleClearToArtAscii()
+        {
+            int currentline = Console.CursorTop;
+            while(currentline > 8)
+            {
+                Console.SetCursorPosition(0, Console.CursorTop);
+                Console.Write(new String(' ', Console.WindowWidth));
+                Console.SetCursorPosition(0, currentline);
+                currentline--;
+            }
+        }
+
         public static void MainMenu(List<MenuOptions> listOptions)
         {
-            SetConsoleSize();
-
-            Console.WriteLine(ArtAscii.GetMainTitleString());
-
+            ConsoleClearToArtAscii();
             ConsoleKey key;
             int i;
             int positionX = 10;
@@ -158,9 +167,11 @@ namespace Surveys
 
                         break;
                     case ConsoleKey.Enter:
+                        ConsoleClearToArtAscii();
                         listOptions[i].OptionFunction();
                         break;
                     case ConsoleKey.Escape:
+                        ConsoleClearToArtAscii();
                         MainMenu(Options.GetMainOptions());
                         break;
                 }

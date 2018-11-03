@@ -30,6 +30,7 @@ namespace Surveys.Views
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
                 Console.ReadKey();
+                Configuration.ConsoleClearToArtAscii();
                 AfterSignIn.ComeBack(account, "You back to menu");
             }
 
@@ -126,11 +127,12 @@ namespace Surveys.Views
 
                         break;
                     case ConsoleKey.Enter:
-                        Console.Clear();
+                        Configuration.ConsoleClearToArtAscii();
                         Console.ForegroundColor = Color.White;
                         PersonView.Show(account, following[i]);
                         break;
                     case ConsoleKey.Escape:
+                        Configuration.ConsoleClearToArtAscii();
                         Console.ForegroundColor = Color.White;
                         Configuration.MainMenu(Options.GetOptionsAfterSignIn(account));
                         break;
