@@ -68,30 +68,53 @@ namespace RepositoryLayer.Repositories
         // Returns tuple with 2 defined values:
         // value1: All the votes,
         // value2: Voters[if survey isn't anonymous, then it returns null]
-        public Tuple<int, List<Account>> GetAllVotes(int? idAnswer)
+
+        public int GetQuantityOfVoters(int? surveyID)
         {
-            if (idAnswer == null)
+            if (surveyID == null)
                 throw new ArgumentNullException("Null argument");
 
-            Answer answer = db.answers.Include(t => t.vote).FirstOrDefault(t => t.answerID == idAnswer);
+            Survey survey = db.surveys.Find(surveyID);
+
+            SurveyRepository surveyRepository = new SurveyRepository();
+
+            return
+                votersAccounts = db.accounts.Where(t => votes.Select(b => b.accountID).Contains(t.accountID)).ToList();
+            
+        }
+
+        public int GetQuantityOfVotes(int? answerID)
+        {
+            if (answerID == null)
+                throw new ArgumentNullException("Null argument");
+
+            Answer answer = db.answers.Include(t => t.vote).FirstOrDefault(t => t.answerID == answerID);
+            ICollection<Vote> votes = answer.vote;
+            return votes.Count;
+        }
+
+        public List<Account> GetAccountsVoters(int? answerID)
+        {
+            if (answerID == null)
+                throw new ArgumentNullException("Null argument");
+
+            List<string> nicknames = new List<string>();
+            Answer answer = db.answers.Include(t => t.vote).FirstOrDefault(t => t.answerID == answerID);
+
+            ICollection<Vote> votes = answer.vote;
+
             Question question = db.questions.Find(answer.questionID);
             Survey survey = db.surveys.Find(question.surveyID);
 
             SurveyRepository surveyRepository = new SurveyRepository();
+            List<Account> votersAccounts = null;
 
-            ICollection<Vote> votes = answer.vote;
-
-            if (surveyRepository.IsAnonymous(survey.surveyID))
+            if (!surveyRepository.IsAnonymous(survey.surveyID))
             {
-                List<Account> votersAccounts = db.accounts.Where
-                    (t => votes.Select(b => b.accountID).Contains(t.accountID)).ToList();
+                votersAccounts = db.accounts.Where(t => votes.Select(b => b.accountID).Contains(t.accountID)).ToList();              
+            }
 
-                return new Tuple<int, List<Account>>(votes.Count, votersAccounts);
-            }
-            else
-            {
-                return new Tuple<int, List<Account>>(votes.Count, null);
-            }
+            return votersAccounts;
         }
     }
 }
