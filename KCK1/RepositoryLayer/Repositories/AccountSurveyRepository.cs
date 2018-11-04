@@ -36,9 +36,16 @@ namespace RepositoryLayer.Repositories
             return db.accountsSurveys.FirstOrDefault(a => a.accountID == id);
         }
 
-        public void AddAccountSurvey(AccountSurvey accountSurvey)
+        public void AddAccountSurvey(int _accountID, int _surveyID)
         {
+            AccountSurvey accountSurvey = new AccountSurvey
+            {
+                accountID = _accountID,
+                surveyID = _surveyID,
+                isAuthor = false
+            };
             db.accountsSurveys.Add(accountSurvey);
+
             db.SaveChanges();
         }
  
