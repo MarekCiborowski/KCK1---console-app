@@ -92,6 +92,8 @@
     <Compile Include="ArtAscii.cs" />
     <Compile Include="Views\AfterSignIn.cs" />
     <Compile Include="Views\ChangePassword.cs" />
+    <Compile Include="Views\ChooseAccount.cs" />
+    <Compile Include="Views\ChooseSurvey.cs" />
     <Compile Include="Views\CreateAccount.cs" />
     <Compile Include="Views\CreateSurvey.cs" />
     <Compile Include="Views\DeleteAccount.cs" />

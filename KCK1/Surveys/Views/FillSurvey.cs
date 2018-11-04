@@ -27,6 +27,7 @@ namespace Surveys.Views
             SurveyRepository surveyRepository = new SurveyRepository();
             QuestionRepository questionRepository = new QuestionRepository();
             AnswerRepository answerRepository = new AnswerRepository();
+            AccountSurveyRepository accountSurveyRepository = new AccountSurveyRepository();
 
           //  Configuration.SetConsoleSize();
 
@@ -305,7 +306,7 @@ namespace Surveys.Views
                 }
                 
             }
-
+            accountSurveyRepository.AddAccountSurvey(account.accountID, survey.surveyID);
 
             //ankieta skonczona
 
