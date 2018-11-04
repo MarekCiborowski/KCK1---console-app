@@ -104,5 +104,19 @@ namespace RepositoryLayer.Repositories
 
             return survey.question.ToList();
         }
+
+        public int GetQuantityOfVoters(int? surveyID)
+        {
+            if (surveyID == null)
+                throw new ArgumentNullException("Null argument");
+
+            Survey survey = db.surveys.Find(surveyID);
+
+            List<AccountSurvey> accountSurveys = db.accountsSurveys
+                .Where(a => a.surveyID == surveyID && a.isAuthor == false).ToList();
+
+            return accountSurveys.Count();
+
+        }
     }
 }

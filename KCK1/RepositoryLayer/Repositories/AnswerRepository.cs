@@ -65,24 +65,6 @@ namespace RepositoryLayer.Repositories
             db.SaveChanges();
         }
 
-        // Returns tuple with 2 defined values:
-        // value1: All the votes,
-        // value2: Voters[if survey isn't anonymous, then it returns null]
-
-        public int GetQuantityOfVoters(int? surveyID)
-        {
-            if (surveyID == null)
-                throw new ArgumentNullException("Null argument");
-
-            Survey survey = db.surveys.Find(surveyID);
-
-            SurveyRepository surveyRepository = new SurveyRepository();
-
-            return
-                votersAccounts = db.accounts.Where(t => votes.Select(b => b.accountID).Contains(t.accountID)).ToList();
-            
-        }
-
         public int GetQuantityOfVotes(int? answerID)
         {
             if (answerID == null)
