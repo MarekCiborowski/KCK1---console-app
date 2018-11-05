@@ -70,31 +70,17 @@ namespace RepositoryLayer.Repositories
             if (answerID == null)
                 throw new ArgumentNullException("Null argument");
 
-            Answer answer = db.answers.Include(t => t.vote).FirstOrDefault(t => t.answerID == answerID);
-            ICollection<Vote> votes = answer.vote;
-            return votes.Count;
+            return db.answers.Include(t => t.vote).FirstOrDefault(t => t.answerID == answerID).vote.Count;
+            
         }
 
         public List<Account> GetAccountsVoters(int? answerID)
         {
             if (answerID == null)
                 throw new ArgumentNullException("Null argument");
-
-            List<string> nicknames = new List<string>();
-            Answer answer = db.answers.Include(t => t.vote).FirstOrDefault(t => t.answerID == answerID);
-
-            ICollection<Vote> votes = answer.vote;
-
-            Question question = db.questions.Find(answer.questionID);
-            Survey survey = db.surveys.Find(question.surveyID);
-
-            SurveyRepository surveyRepository = new SurveyRepository();
-            List<Account> votersAccounts = null;
-
-            if (!surveyRepository.IsAnonymous(survey.surveyID))
-            {
-                votersAccounts = db.accounts.Where(t => votes.Select(b => b.accountID).Contains(t.accountID)).ToList();              
-            }
+            
+            List<Account> votersAccounts = db.accounts.Where(a => db.votes.Where(b =>
+            b.answerID == answerID).Select(t => t.accountID).Contains(a.accountID)).ToList();
 
             return votersAccounts;
         }

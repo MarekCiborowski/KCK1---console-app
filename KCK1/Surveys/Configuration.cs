@@ -37,7 +37,7 @@ namespace Surveys
 
         public static void SetConsoleSize()
         {
-            int heightOfWindow = 30;
+            int heightOfWindow = 50;
             int widthOfWindow = 130;
             Console.SetWindowSize(widthOfWindow, heightOfWindow);
             Console.Clear();
@@ -100,6 +100,7 @@ namespace Surveys
             i = 1;
             Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
             CurrentConsoleLineClear(positionX);
+            
             int quantityOfOptions = listOptions.Count;
 
             while (true)
@@ -136,6 +137,7 @@ namespace Surveys
 
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
                         CurrentConsoleLineClear(positionX);
+                        
 
                         break;
 
@@ -155,6 +157,8 @@ namespace Surveys
 
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
                         CurrentConsoleLineClear(positionX);
+                        
+                        
 
                         break;
                     case ConsoleKey.Enter:
