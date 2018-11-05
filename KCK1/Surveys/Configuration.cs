@@ -100,9 +100,7 @@ namespace Surveys
             i = 1;
             Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
             CurrentConsoleLineClear(positionX);
-            Console.ForegroundColor = Color.DarkMagenta;
-            Console.Write(listOptions[1].GetDescription());
-            Console.ForegroundColor = Color.White;
+            
             int quantityOfOptions = listOptions.Count;
 
             while (true)
@@ -139,9 +137,7 @@ namespace Surveys
 
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
                         CurrentConsoleLineClear(positionX);
-                        Console.ForegroundColor = Color.DarkMagenta;
-                        Console.Write(listOptions[i].GetDescription());
-                        Console.ForegroundColor = Color.White;
+                        
 
                         break;
 
@@ -161,9 +157,8 @@ namespace Surveys
 
                         Console.SetCursorPosition(positionX, Console.WindowHeight / 2 + 5);
                         CurrentConsoleLineClear(positionX);
-                        Console.ForegroundColor = Color.DarkMagenta;
-                        Console.Write(listOptions[i].GetDescription());
-                        Console.ForegroundColor = Color.White;
+                        
+                        
 
                         break;
                     case ConsoleKey.Enter:
