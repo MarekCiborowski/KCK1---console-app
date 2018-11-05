@@ -2,16 +2,18 @@
 using RepositoryLayer.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Console = Colorful.Console;
 
 namespace Surveys.Views
 {
     public class DisplayedSurvey
     {
         public Survey survey { get; set; }
-        public bool isSelected { get; set; } = false;
+        
         public int surveyPositionY { get; set; }
         public int surveyNumber { get; set; }
     }
@@ -39,10 +41,44 @@ namespace Surveys.Views
                 currentSurveyPosition++;
                 currentSurveyNumber++;
             }
-            displayedSurveys.Find(t => t.surveyNumber == 1).isSelected = true;
+            ConsoleKey key;
+            int currentlySelectedSurvey = 1, lastSurveyNumber=currentSurveyNumber;
             while (true)
             {
+                foreach(DisplayedSurvey displayedSurvey in displayedSurveys)
+                {
+                    Console.SetCursorPosition(positionX, displayedSurvey.surveyPositionY);
+                    if (currentlySelectedSurvey == displayedSurvey.surveyNumber)
+                        Console.ForegroundColor = Color.Red;
+                    else
+                        Console.ForegroundColor = Color.White;
 
+                    Console.WriteLine(displayedSurvey.survey.title);
+
+
+                }
+                key = ConsoleKey.B;
+                if (Console.KeyAvailable)
+                    key = Console.ReadKey(true).Key;
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow:
+                        currentlySelectedSurvey--;
+                        if (currentlySelectedSurvey == 0)
+                            currentlySelectedSurvey = lastSurveyNumber;
+                        break;
+
+                    case ConsoleKey.DownArrow:
+                        currentlySelectedSurvey++;
+                        if (currentlySelectedSurvey == lastSurveyNumber)
+                            currentlySelectedSurvey = 0;
+                        break;
+
+                    case ConsoleKey.Enter:
+                        FillSurvey.Fill(account, displayedSurveys.Find(t => t.surveyNumber == currentlySelectedSurvey).survey);
+
+                        break;
+                }
             }
         }
             
