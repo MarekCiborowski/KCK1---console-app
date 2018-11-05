@@ -36,6 +36,7 @@ namespace Surveys.Views
             Console.WriteLine("Quantity of Followers: " + accountRepository.GetQuantityOfFollowersByID(accountToShow.accountID) );
             positionY += 2;
             Console.SetCursorPosition(positionX, positionY);
+            bool ifLeftPressed;
 
             if (account.accountID == accountToShow.accountID)
             {
@@ -47,13 +48,14 @@ namespace Surveys.Views
                 Configuration.ConsoleClearToArtAscii();
                 AfterSignIn.ComeBack(account, "You back to menu");
             }
+            
 
             else if (!accountRepository.IsFollowed(account.accountID, accountToShow.accountID) )
             {
                 Console.WriteLine("Do you want to follow " + accountToShow.nickname + "?");
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
-                bool ifLeftPressed = true;
+                ifLeftPressed = true;
                 Configuration.ChangeOption(false, positionX, positionY);
                 bool exitWhile = true;
                 while (exitWhile)
@@ -82,13 +84,15 @@ namespace Surveys.Views
                                 Console.ForegroundColor = Color.White;
                                 exitWhile = false;
                                 Configuration.ConsoleClearToArtAscii();
+                                positionX = 30;positionY = 15;
+                                Console.SetCursorPosition(positionX, positionY);
                                 if (ifLeftPressed)
                                 {
                                     accountRepository.AddFollower(account.accountID, accountToShow.accountID);
-                                    AfterSignIn.ComeBack(account, accountToShow.nickname + " was followed");
+                                    Console.WriteLine("You succesfully followed " + accountToShow.nickname);
                                 }                                
-                                else
-                                    AfterSignIn.ComeBack(account, "You back to menu");
+                                
+                                   
                                 break;
                         }
                     }
@@ -100,7 +104,7 @@ namespace Surveys.Views
                 Console.WriteLine("Do you want to unfollow " + accountToShow.nickname + "?");
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
-                bool ifLeftPressed = true;
+                ifLeftPressed = true;
                 Configuration.ChangeOption(false, positionX, positionY);
                 bool exitWhile = true;
                 while (exitWhile)
@@ -129,18 +133,66 @@ namespace Surveys.Views
                                 Console.ForegroundColor = Color.White;
                                 exitWhile = false;
                                 Configuration.ConsoleClearToArtAscii();
+                                positionX = 30; positionY = 15;
                                 if (ifLeftPressed)
                                 {
                                     accountRepository.RemoveFollower(account.accountID, accountToShow.accountID);
-                                    AfterSignIn.ComeBack(account, accountToShow.nickname + " was unfollowed");
+                                    Console.WriteLine("You succesfully unfollowed " + accountToShow.nickname);
                                 }
-                                else
-                                    AfterSignIn.ComeBack(account, "You back to menu");
+                                
+                                    
                                 break;
                         }
                     }
                 }
-            }             
+            }
+            Console.SetCursorPosition(positionX, positionY++);
+            
+            Console.WriteLine("Do you want to see " + accountToShow.nickname + "'s surveys?");
+            positionY++;
+            Console.SetCursorPosition(positionX, positionY);
+            ifLeftPressed = true;
+            Configuration.ChangeOption(false, positionX, positionY);
+            while (true)
+            {
+                ConsoleKey choice;
+                if (Console.KeyAvailable)
+                {
+                    choice = Console.ReadKey(true).Key;
+                    switch (choice)
+                    {
+                        case ConsoleKey.LeftArrow:
+                            if (!ifLeftPressed)
+                            {
+                                Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                ifLeftPressed = !ifLeftPressed;
+                            }
+                            break;
+                        case ConsoleKey.RightArrow:
+                            if (ifLeftPressed)
+                            {
+                                Configuration.ChangeOption(ifLeftPressed, positionX, positionY);
+                                ifLeftPressed = !ifLeftPressed;
+                            }
+                            break;
+                        case ConsoleKey.Enter:
+                            Console.ForegroundColor = Color.White;
+                            
+                            Configuration.ConsoleClearToArtAscii();
+                            if (ifLeftPressed)
+                            {
+                                ChooseSurvey.Choose(account, accountRepository.GetAccountAuthorSurveys(accountToShow.accountID));
+                            }
+                            AfterSignIn.ComeBack(account, "Returned to main menu");
+
+
+                            break;
+                    }
+                }
+            }
+
+
+
         }
     }
 }
