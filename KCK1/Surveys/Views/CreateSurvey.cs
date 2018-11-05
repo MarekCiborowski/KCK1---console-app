@@ -90,7 +90,9 @@ namespace Surveys.Views
             {
                 Configuration.ConsoleClearToArtAscii();
                 positionX = 30; positionY = 10;
+                Console.SetCursorPosition(positionX, positionY);
                 Console.WriteLine("Question nr " + questionNumber + ": ");
+                questionNumber++;
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
                 string questionValue = "";
