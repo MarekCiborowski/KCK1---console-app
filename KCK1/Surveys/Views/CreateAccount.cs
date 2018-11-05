@@ -28,14 +28,16 @@ namespace Surveys.Views
             if(!userSecurityRepository.IsLoginFree(login))
                 while(!userSecurityRepository.IsLoginFree(login))
                 {
-                    Configuration.CurrentConsoleLineClear(positionX);
+                    Configuration.ConsoleClearToArtAscii();
+                    positionX = 30; positionY = 15;
+                    Console.SetCursorPosition(positionX, positionY);
                     positionY++;
                     Console.Write("This login is busy. Please try another: ");
                     login = Console.ReadLine();
                 }
             positionY++;
             Console.SetCursorPosition(positionX, positionY);
-            positionY++;
+            
             Console.Write("Password: ");
             string password = "";
             do
@@ -59,8 +61,99 @@ namespace Surveys.Views
                     }
                 }
             } while (true);
-
+            positionY++;
             Console.SetCursorPosition(positionX, positionY);
+            positionY++;
+            Console.Write("Repeat password: ");
+            string repeat = "";
+            do
+            {
+                key = Console.ReadKey(true);
+                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                {
+                    repeat += key.KeyChar;
+                    Console.Write("*");
+                }
+                else
+                {
+                    if (key.Key == ConsoleKey.Backspace && repeat.Length > 0)
+                    {
+                        repeat = repeat.Substring(0, (repeat.Length - 1));
+                        Console.Write("\b \b");
+                    }
+                    else if (key.Key == ConsoleKey.Enter)
+                    {
+                        break;
+                    }
+                }
+            } while (true);
+            positionY++;
+            Console.SetCursorPosition(positionX, positionY);
+
+            if(password != repeat)
+            {
+                while(password != repeat)
+                {
+                    Configuration.ConsoleClearToArtAscii();
+                    positionY = 15;
+                    Console.SetCursorPosition(positionX, positionY);
+                    Console.Write("Passwords were different. Try again");
+                    positionY++;
+                    Console.SetCursorPosition(positionX, positionY);
+                    Console.Write("Password: ");
+                    password = "";
+                    do
+                    {
+                        key = Console.ReadKey(true);
+                        if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                        {
+                            password += key.KeyChar;
+                            Console.Write("*");
+                        }
+                        else
+                        {
+                            if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+                            {
+                                password = password.Substring(0, (password.Length - 1));
+                                Console.Write("\b \b");
+                            }
+                            else if (key.Key == ConsoleKey.Enter)
+                            {
+                                break;
+                            }
+                        }
+                    } while (true);
+                    positionY++;
+                    Console.SetCursorPosition(positionX, positionY);
+      
+                    Console.Write("Repeat password: ");
+                    repeat = "";
+                    do
+                    {
+                        key = Console.ReadKey(true);
+                        if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                        {
+                            repeat += key.KeyChar;
+                            Console.Write("*");
+                        }
+                        else
+                        {
+                            if (key.Key == ConsoleKey.Backspace && repeat.Length > 0)
+                            {
+                                repeat = repeat.Substring(0, (repeat.Length - 1));
+                                Console.Write("\b \b");
+                            }
+                            else if (key.Key == ConsoleKey.Enter)
+                            {
+                                break;
+                            }
+                        }
+                    } while (true);
+                    positionY++;
+                    Console.SetCursorPosition(positionX, positionY);
+                }
+                
+            }
             positionY++;
             Console.Write("Nickname: ");
             string nickname = "";
@@ -68,36 +161,34 @@ namespace Surveys.Views
             if (!accountRepository.IsNicknameCorrect(nickname))
                 while (!accountRepository.IsNicknameCorrect(nickname))
                 {
-                    Configuration.CurrentConsoleLineClear(positionX);
+                    Configuration.ConsoleClearToArtAscii();
+                    positionX = 30; positionY = 15;
+                    Console.SetCursorPosition(positionX, positionY);
                     positionY++;
-                    Console.Write("This nickname is busy or not correct (lenght 3 - 10 characters). Please try another: ");
+                    Console.Write("This nickname is busy or not correct.");
+                    Console.SetCursorPosition(positionX, positionY);
+                    positionY++;
+                    Console.Write("Length of nickname is 3-10 characters. Please try another: ");
                     nickname = Console.ReadLine();
                 }
-            else
+            
             Console.SetCursorPosition(positionX, positionY);
             positionY++;
             Console.Write("Email: ");
             string email = "";
             email = Console.ReadLine();
-            if (!accountRepository.IsEmailFree(email))
-                while (!accountRepository.IsEmailFree(email))
+            if (!accountRepository.IsEmailCorrect(email))
+                while (!accountRepository.IsEmailCorrect(email))
                 {
+                    Configuration.ConsoleClearToArtAscii();
+                    positionX = 30; positionY = 15;
                     Console.SetCursorPosition(positionX, positionY);
                     positionY++;
-                    Console.Write("This email is busy. Please try another: ");
-                    email = Console.ReadLine();
-                }
-
-            bool var = IsValidEmail(email);
-
-            if(!var)
-                while (!var)
-                {
+                    Console.Write("This email is busy or not correct.");
                     Console.SetCursorPosition(positionX, positionY);
                     positionY++;
-                    Console.Write("Enter again your email: ");
+                    Console.Write("Correct format: abcd@abcd.com. Please try another: ");
                     email = Console.ReadLine();
-                    var = IsValidEmail(email);
                 }
 
             Console.SetCursorPosition(positionX, positionY);
@@ -139,17 +230,6 @@ namespace Surveys.Views
             Program.Start("Account was created.");
         }
 
-        private static bool IsValidEmail(string email)
-        {
-            try
-            {
-                var check = new System.Net.Mail.MailAddress(email);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+
     }
 }

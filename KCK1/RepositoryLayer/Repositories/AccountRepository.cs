@@ -243,12 +243,28 @@ namespace RepositoryLayer.Repositories
 
         }
 
-        public bool IsEmailFree(string email)
+        public bool IsEmailCorrect(string email)
         {
             Account account = db.accounts.FirstOrDefault(t => t.email == email);
             if (account == null)
-                return true;
+                if(IsValidEmail(email))
+                    return true;
             return false;
+
+
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var check = new System.Net.Mail.MailAddress(email);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool IsNicknameCorrect(string nick)
