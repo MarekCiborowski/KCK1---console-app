@@ -227,7 +227,7 @@ namespace Surveys.Views
             accountRepository.AddAccount(account);
 
             Configuration.ConsoleClearToArtAscii();
-            Program.Start("Account was created.");
+            Program.ComeBack("Account was created.");
         }
 
 

@@ -56,7 +56,7 @@ namespace Surveys.Views
                             if (ifLeftPressed)
                             {
                                 accountRepository.RemoveAccount(account.accountID);
-                                Program.Start("Your account was deleted :(");
+                                Program.ComeBack("Your account was deleted :(");
                             }   
                             else
                                 AfterSignIn.ComeBack(account, "Returned to main menu.");

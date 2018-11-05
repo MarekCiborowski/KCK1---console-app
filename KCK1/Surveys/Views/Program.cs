@@ -33,7 +33,7 @@ namespace Surveys.Views
             Configuration.MainMenu(Options.GetMainOptions());
         }
 
-        public static void Start(string news)
+        public static void ComeBack(string news)
         {
             Console.SetCursorPosition(Console.WindowWidth / 3, 10);
             Console.WriteLine(news);

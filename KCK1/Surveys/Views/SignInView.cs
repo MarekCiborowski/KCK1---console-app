@@ -57,7 +57,7 @@ namespace Surveys.Views
             if (account == null)
             {
                 Configuration.ConsoleClearToArtAscii();
-                Program.Start("Wrong login or password, try again.");
+                Program.ComeBack("Wrong login or password, try again.");
             }
                 
             Configuration.ConsoleClearToArtAscii();

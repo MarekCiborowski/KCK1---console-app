@@ -77,7 +77,7 @@ namespace Surveys
     {
         public void OptionFunction()
         {
-            Program.Start("Logout successful");
+            Program.ComeBack("Logout successful");
         }
 
         public string GetName()
