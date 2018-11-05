@@ -13,7 +13,6 @@ namespace Surveys
     {
         void OptionFunction();
         string GetName();
-        string GetDescription();
     }
 
     public class MenuCreateAccount : MenuOptions
@@ -26,11 +25,6 @@ namespace Surveys
         public string GetName()
         {
             return "         Create Account        ";
-        }
-
-        public string GetDescription()
-        {
-            return "";
         }
     }
 
@@ -45,11 +39,6 @@ namespace Surveys
         {
             return "            Sign In            ";
         }
-
-        public string GetDescription()
-        {
-            return "";
-        }
     }
 
     public class MenuExit : MenuOptions
@@ -62,11 +51,6 @@ namespace Surveys
         public string GetName()
         {
             return "              Exit             ";
-        }
-
-        public string GetDescription()
-        {
-            return "";
         }
     }
 
@@ -87,11 +71,6 @@ namespace Surveys
         {
             return "        Change Password        ";
         }
-
-        public string GetDescription()
-        {
-            return "";
-        }
     }
 
     public class MenuLogout : MenuOptions
@@ -104,11 +83,6 @@ namespace Surveys
         public string GetName()
         {
             return "             Logout            ";
-        }
-
-        public string GetDescription()
-        {
-            return "";
         }
     }
 
@@ -130,11 +104,6 @@ namespace Surveys
             return "         Create Survey         ";
 
         }
-
-        public string GetDescription()
-        {
-            return "";
-        }
     }
 
     public class MenuShowFollowed : MenuOptions
@@ -153,11 +122,6 @@ namespace Surveys
         public string GetName()
         {
             return "      Show Followed Users      ";
-        }
-
-        public string GetDescription()
-        {
-            return "";
         }
     }
 
@@ -178,11 +142,6 @@ namespace Surveys
         {
             return "     Show Following Users      ";
         }
-
-        public string GetDescription()
-        {
-            return "";
-        }
     }
 
     public class MenuShowMySurveys : MenuOptions
@@ -201,11 +160,6 @@ namespace Surveys
         public string GetName()
         {
             return "        Show My Surveys        ";
-        }
-
-        public string GetDescription()
-        {
-            return "";
         }
     }
 
@@ -226,11 +180,6 @@ namespace Surveys
         {
             return "     Show Completed Surveys    ";
         }
-
-        public string GetDescription()
-        {
-            return "";
-        }
     }
 
     public class MenuShowAllSurveys : MenuOptions
@@ -249,11 +198,6 @@ namespace Surveys
         public string GetName()
         {
             return "        Show All Surveys       ";
-        }
-
-        public string GetDescription()
-        {
-            return "";
         }
     }
 
@@ -274,11 +218,6 @@ namespace Surveys
         {
             return "        Show All People        ";
         }
-
-        public string GetDescription()
-        {
-            return "";
-        }
     }
 
     public class MenuDeleteAccount : MenuOptions
@@ -297,11 +236,6 @@ namespace Surveys
         public string GetName()
         {
             return "         Delete Account         ";
-        }
-
-        public string GetDescription()
-        {
-            return "";
         }
     }
 
@@ -343,7 +277,5 @@ namespace Surveys
             options.Add(new MenuExit());
             return options;
         }
-
-
     }
 }
