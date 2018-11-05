@@ -34,6 +34,7 @@ namespace Surveys.Views
             Console.SetCursorPosition(positionX, currentAccountPosition);
             Console.ForegroundColor = Color.White;
             string spaceBreak = new string(' ', 6);
+            string bigSpaceBreak = new string(' ', 18);
 
             Console.WriteLine("Nickname" + spaceBreak + "Number of followers" + spaceBreak + "Number of created surveys");
             currentAccountPosition+=2;
@@ -62,9 +63,9 @@ namespace Surveys.Views
                         Console.ForegroundColor = Color.Red;
                     else
                         Console.ForegroundColor = Color.White;
-
-                    Console.WriteLine(displayedAccount.account.nickname + spaceBreak + displayedAccount.numberOfFollowers +
-                        spaceBreak + displayedAccount.numberOfSurveysCreated);
+                    int customSpaceBreakLength = 24 - displayedAccount.account.nickname.Length;
+                    Console.WriteLine(displayedAccount.account.nickname + new string(' ', customSpaceBreakLength) + displayedAccount.numberOfFollowers +
+                        bigSpaceBreak + spaceBreak + displayedAccount.numberOfSurveysCreated);
 
 
                 }
