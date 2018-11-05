@@ -11,17 +11,19 @@ using Console = Colorful.Console;
 
 namespace Surveys.Views
 {
-    public class DisplayedAnswer
-    {
-        public Answer answer { get; set; }
-        public bool isChecked { get; set; } = false;
-        public bool isSelected { get; set; } = false;
-        public int answerPositionY { get; set; }
-        public int answerNumber { get; set; }
-        public bool addingOwnQuestion { get; set; } = false;
-    }
+    
     public class FillSurvey
     {
+        private class DisplayedAnswer
+        {
+            public Answer answer { get; set; }
+            public bool isChecked { get; set; } = false;
+            public bool isSelected { get; set; } = false;
+            public int answerPositionY { get; set; }
+            public int answerNumber { get; set; }
+            public bool addingOwnQuestion { get; set; } = false;
+        }
+
         public static void Fill(Account account, Survey survey)
         {
             SurveyRepository surveyRepository = new SurveyRepository();
