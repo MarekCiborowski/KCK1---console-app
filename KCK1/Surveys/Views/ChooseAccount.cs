@@ -27,6 +27,11 @@ namespace Surveys.Views
 
             Configuration.ConsoleClearToArtAscii();
             int positionX = 30;
+            if (!accounts.Any())
+            {
+                AfterSignIn.ComeBack(account, "There are no accounts to display in this category");
+            }
+
 
             List<DisplayedAccount> displayedAccounts = new List<DisplayedAccount>();
             int currentAccountPosition = 15, currentAccountNumber = 1;

@@ -147,7 +147,7 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            ShowFollowed.Show(account);
+            ChooseAccount.Choose(account, new AccountRepository().GetFollowedAccounts(account.accountID));
         }
 
         public string GetName()
@@ -171,7 +171,7 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            ShowFollowing.Show(account);
+            ChooseAccount.Choose(account, new AccountRepository().GetFollowingAccounts(account.accountID));
         }
 
         public string GetName()
@@ -195,7 +195,7 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            ShowMySurveys.Show(account);
+            ChooseSurvey.Choose(account, new AccountRepository().GetAccountAuthorSurveys(account.accountID));
         }
 
         public string GetName()
@@ -219,7 +219,7 @@ namespace Surveys
 
         public void OptionFunction()
         {
-           // ShowCompletedSurveys.Show(account);
+            ChooseSurvey.Choose(account, new AccountRepository().GetAccountFilledSurveys(account.accountID));
         }
 
         public string GetName()
