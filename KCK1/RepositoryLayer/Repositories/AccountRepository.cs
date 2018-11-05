@@ -243,19 +243,20 @@ namespace RepositoryLayer.Repositories
 
         }
 
-        public bool IsLoginFree(string login)
-        {
-            UserSecurity userSecurity = db.userSecurities.Include(t => t.account).FirstOrDefault(t => t.login == login);
-            if (userSecurity == null)
-                return true;
-            return false;
-        }
-
         public bool IsEmailFree(string email)
         {
             Account account = db.accounts.FirstOrDefault(t => t.email == email);
             if (account == null)
                 return true;
+            return false;
+        }
+
+        public bool IsNicknameCorrect(string nick)
+        {
+           Account account = db.accounts.FirstOrDefault(t => t.nickname == nick);
+            if (account == null)
+                if(nick.Length <= 10 && nick.Length >= 3)
+                    return true;
             return false;
         }
 

@@ -25,7 +25,7 @@ namespace Surveys.Views
             Console.Write("Login: ");
             string login = "";
             login = Console.ReadLine();
-            if(!accountRepository.IsLoginFree(login))
+            if(!userSecurityRepository.IsLoginFree(login))
                 while(!accountRepository.IsLoginFree(login))
                 {
                     Configuration.CurrentConsoleLineClear(positionX);
@@ -62,10 +62,18 @@ namespace Surveys.Views
 
             Console.SetCursorPosition(positionX, positionY);
             positionY++;
-            Console.Write("Nick: ");
+            Console.Write("Nickname: ");
             string nickname = "";
             nickname = Console.ReadLine();
-
+            if (!accountRepository.IsNicknameCorrect(nickname))
+                while (!accountRepository.IsNicknameCorrect(nickname))
+                {
+                    Configuration.CurrentConsoleLineClear(positionX);
+                    positionY++;
+                    Console.Write("This nickname is busy or not correct (lenght 3 - 10 characters). Please try another: ");
+                    nickname = Console.ReadLine();
+                }
+            else
             Console.SetCursorPosition(positionX, positionY);
             positionY++;
             Console.Write("Email: ");

@@ -54,6 +54,15 @@ namespace RepositoryLayer.Repositories
             db.SaveChanges();
         }
 
+
+        public bool IsLoginFree(string login)
+        {
+            UserSecurity userSecurity = db.userSecurities.Include(t => t.account).FirstOrDefault(t => t.login == login);
+            if (userSecurity == null)
+                return true;
+            return false;
+        }
+
         private string hashPassword(string password)
         {
             MD5 hash = MD5.Create();
