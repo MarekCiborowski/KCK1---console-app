@@ -89,7 +89,11 @@ namespace Surveys.Views
                     case ConsoleKey.Enter:
                         Configuration.ConsoleClearToArtAscii();
                         PersonView.Show(account, displayedAccounts.Find(t => t.accountNumber == currentlySelectedAccount).account);
+                        break;
 
+                    case ConsoleKey.Escape:
+                        Configuration.ConsoleClearToArtAscii();
+                        AfterSignIn.ComeBack(account, "You back to menu");
                         break;
                 }
             }

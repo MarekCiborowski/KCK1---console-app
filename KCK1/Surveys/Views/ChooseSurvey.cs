@@ -87,7 +87,11 @@ namespace Surveys.Views
                         //not yet completed survey
                         else
                             FillSurvey.Fill(account, displayedSurveys.Find(t => t.surveyNumber == currentlySelectedSurvey).survey);
+                        break;
 
+                    case ConsoleKey.Escape:
+                        Configuration.ConsoleClearToArtAscii();
+                        AfterSignIn.ComeBack(account, "You back to menu");
                         break;
                 }
             }
