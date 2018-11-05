@@ -58,7 +58,7 @@ namespace Surveys.Views
                                 }
                                 break;
                             case ConsoleKey.Escape:
-                                AfterSignIn.ComeBack(account, "You back to menu");
+                                AfterSignIn.ComeBack(account, "Returned to main menu.");
                                 break;
                             case ConsoleKey.Enter:
                                 Console.ForegroundColor = Color.White;
@@ -66,7 +66,7 @@ namespace Surveys.Views
                                 if (ifLeftPressed)
                                     ShowResult.Show(account, survey);
                                 else
-                                    AfterSignIn.ComeBack(account, "You back to menu");
+                                    AfterSignIn.ComeBack(account, "Returned to main menu.");
                                 break;
                         }
                     }
@@ -104,7 +104,7 @@ namespace Surveys.Views
                             }
                             break;
                         case ConsoleKey.Escape:
-                            AfterSignIn.ComeBack(account, "You back to menu");
+                            AfterSignIn.ComeBack(account, "Returned to main menu.");
                             break;
                         case ConsoleKey.Enter:
                             Console.ForegroundColor = Color.White;
@@ -112,7 +112,7 @@ namespace Surveys.Views
                             if (ifLeftPressed)
                                 FillSurvey.Fill(account, survey);
                             else
-                                AfterSignIn.ComeBack(account, "You back to menu");
+                                AfterSignIn.ComeBack(account, "Returned to main menu.");
                             break;
                     }
                 }

@@ -84,7 +84,7 @@ namespace Surveys.Views
                             break;
                         case ConsoleKey.Escape:
                             Configuration.ConsoleClearToArtAscii();
-                            AfterSignIn.ComeBack(account, "You back to menu");
+                            AfterSignIn.ComeBack(account, "Returned to main menu.");
                             break;
                         case ConsoleKey.Enter:
                             Console.ForegroundColor = Color.White;
@@ -93,7 +93,7 @@ namespace Surveys.Views
                             else
                             {
                                 Configuration.ConsoleClearToArtAscii();
-                                AfterSignIn.ComeBack(account, "You back to menu");
+                                AfterSignIn.ComeBack(account, "Returned to main menu.");
                             }
                                 
                             break;
@@ -262,10 +262,6 @@ namespace Surveys.Views
 
                                     displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isChecked =
                                         !displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isChecked;
-                                    //wiem, słabe
-
-
-
                                 }
 
                             }
@@ -299,19 +295,11 @@ namespace Surveys.Views
                                         !displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).isChecked;
                                 }
                             }
-
-                            
-
                             break;
-
-
                     }
-                }
-                
+                }                
             }
             accountSurveyRepository.AddAccountSurvey(account.accountID, survey.surveyID);
-
-            //ankieta skonczona
 
             Configuration.ConsoleClearToArtAscii();
 

@@ -59,7 +59,7 @@ namespace Surveys.Views
                                 Program.Start("Your account was deleted :(");
                             }   
                             else
-                                AfterSignIn.ComeBack(account, "You back to menu");
+                                AfterSignIn.ComeBack(account, "Returned to main menu.");
                             break;
                     }
                 }

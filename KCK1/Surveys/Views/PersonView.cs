@@ -46,7 +46,7 @@ namespace Surveys.Views
                 Console.WriteLine("Press any button to continue");
                 Console.ReadKey();
                 Configuration.ConsoleClearToArtAscii();
-                AfterSignIn.ComeBack(account, "You back to menu");
+                AfterSignIn.ComeBack(account, "Returned to main menu.");
             }
             
 

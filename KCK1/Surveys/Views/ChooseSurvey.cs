@@ -91,7 +91,7 @@ namespace Surveys.Views
 
                     case ConsoleKey.Escape:
                         Configuration.ConsoleClearToArtAscii();
-                        AfterSignIn.ComeBack(account, "You back to menu");
+                        AfterSignIn.ComeBack(account, "Returned to main menu.");
                         break;
                 }
             }
