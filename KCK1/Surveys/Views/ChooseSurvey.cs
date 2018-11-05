@@ -25,6 +25,7 @@ namespace Surveys.Views
             SurveyRepository surveyRepository = new SurveyRepository();
             QuestionRepository questionRepository = new QuestionRepository();
             AnswerRepository answerRepository = new AnswerRepository();
+            AccountRepository accountRepository = new AccountRepository();
 
             Configuration.SetConsoleSize();
 
@@ -42,7 +43,7 @@ namespace Surveys.Views
                 currentSurveyNumber++;
             }
             ConsoleKey key;
-            int currentlySelectedSurvey = 1, lastSurveyNumber=currentSurveyNumber;
+            int currentlySelectedSurvey = 1, lastSurveyNumber=currentSurveyNumber-1;
             while (true)
             {
                 foreach(DisplayedSurvey displayedSurvey in displayedSurveys)
@@ -70,12 +71,22 @@ namespace Surveys.Views
 
                     case ConsoleKey.DownArrow:
                         currentlySelectedSurvey++;
-                        if (currentlySelectedSurvey == lastSurveyNumber)
-                            currentlySelectedSurvey = 0;
+                        if (currentlySelectedSurvey == lastSurveyNumber+1)
+                            currentlySelectedSurvey = 1;
                         break;
 
                     case ConsoleKey.Enter:
-                        FillSurvey.Fill(account, displayedSurveys.Find(t => t.surveyNumber == currentlySelectedSurvey).survey);
+                        Configuration.ConsoleClearToArtAscii();
+                        //author
+                        Survey survey = displayedSurveys.Find(t => t.surveyNumber == currentlySelectedSurvey).survey;
+                        if (surveyRepository.GetAuthor(survey.surveyID).accountID == account.accountID)
+                            ShowResult.Show(account, survey);
+                        // completed survey
+                        else if (accountRepository.DidFillSurvey(account.accountID, survey.surveyID))
+                            AfterSignIn.ComeBack(account, " You have already filled this survey ");
+                        //not yet completed survey
+                        else
+                            FillSurvey.Fill(account, displayedSurveys.Find(t => t.surveyNumber == currentlySelectedSurvey).survey);
 
                         break;
                 }

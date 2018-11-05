@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Surveys.Views;
 using DatabaseLayer.Models;
+using RepositoryLayer.Repositories;
+
 namespace Surveys
 {
     public interface MenuOptions
@@ -241,7 +243,7 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            ShowAllSurveys.Show(account);
+            ChooseSurvey.Choose(account, new SurveyRepository().GetSurveys());
         }
 
         public string GetName()
@@ -265,7 +267,7 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            ShowAllPeople.Show(account);
+            ChooseAccount.Choose(account, new AccountRepository().GetAccountsToList());
         }
 
         public string GetName()

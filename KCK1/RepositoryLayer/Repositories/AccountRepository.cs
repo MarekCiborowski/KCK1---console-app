@@ -230,7 +230,7 @@ namespace RepositoryLayer.Repositories
             return surveys;
         }
 
-        public bool DidFilledSurvey(int? accountID, int? surveyID)
+        public bool DidFillSurvey(int? accountID, int? surveyID)
         {
             if (accountID == null || surveyID == null)
                 throw new ArgumentNullException("Null argument");
@@ -239,7 +239,7 @@ namespace RepositoryLayer.Repositories
             t.accountID == accountID && t.surveyID == surveyID);
             if (accountSurvey == null)
                 return false;
-            return accountSurvey.isAuthor;
+            return true;
 
         }
 
