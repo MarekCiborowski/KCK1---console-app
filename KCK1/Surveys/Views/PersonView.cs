@@ -134,10 +134,11 @@ namespace Surveys.Views
                                 exitWhile = false;
                                 Configuration.ConsoleClearToArtAscii();
                                 positionX = 30; positionY = 15;
+                                Console.SetCursorPosition(positionX, positionY);
                                 if (ifLeftPressed)
                                 {
                                     accountRepository.RemoveFollower(account.accountID, accountToShow.accountID);
-                                    Console.WriteLine("You succesfully unfollowed " + accountToShow.nickname);
+                                    Console.Write("You succesfully unfollowed " + accountToShow.nickname + "!");
                                 }
                                 
                                     
@@ -146,7 +147,8 @@ namespace Surveys.Views
                     }
                 }
             }
-            Console.SetCursorPosition(positionX, positionY++);
+            positionY += 2;
+            Console.SetCursorPosition(positionX, positionY);
             
             Console.WriteLine("Do you want to see " + accountToShow.nickname + "'s surveys?");
             positionY++;
