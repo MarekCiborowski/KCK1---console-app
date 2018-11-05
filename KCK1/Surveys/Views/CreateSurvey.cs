@@ -85,10 +85,18 @@ namespace Surveys.Views
             ICollection<Question> questions = new List<Question>();
             bool addOwnAnswer = false, singleChoice = false;
             bool anotherExit = true;
+            int questionNumber = 1;
             do
             {
                 Configuration.ConsoleClearToArtAscii();
                 positionX = 30; positionY = 10;
+                Console.WriteLine("Question nr " + questionNumber + ": ");
+                positionY++;
+                Console.SetCursorPosition(positionX, positionY);
+                string questionValue = "";
+                questionValue = Console.ReadLine();
+                positionY += 2;
+                
                 Console.SetCursorPosition(positionX, positionY);
                 Console.WriteLine("Can user add his/her own answer to question?");
                 positionY++;
@@ -177,13 +185,7 @@ namespace Surveys.Views
 
                 positionY += 2;
                 Console.SetCursorPosition(positionX, positionY);
-                Console.WriteLine("Ask for something.");
-                positionY++;
-                Console.SetCursorPosition(positionX, positionY);
-                string questionValue = "";
-                questionValue = Console.ReadLine();
-                positionY += 2;
-                Console.SetCursorPosition(positionX, positionY);
+                
                 int i = 1;
                 ICollection<Answer> answers = new List<Answer>();
                 
@@ -251,7 +253,7 @@ namespace Surveys.Views
                 questions.Add(question);
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
-                Console.WriteLine("Do you want to finish create survey?");
+                Console.WriteLine("Do you want to finish creating survey?");
 
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);

@@ -10,17 +10,18 @@ using Console = Colorful.Console;
 
 namespace Surveys.Views
 {
-    public class DisplayedAccount
-    {
-        public Account account { get; set; }
-        public int accountPositionY { get; set; }
-        public int accountNumber { get; set; }
-        public int numberOfFollowers { get; set; }
-        public int numberOfSurveysCreated { get; set; }
-
-    }
+    
     public class ChooseAccount
     {
+        private class DisplayedAccount
+        {
+            public Account account { get; set; }
+            public int accountPositionY { get; set; }
+            public int accountNumber { get; set; }
+            public int numberOfFollowers { get; set; }
+            public int numberOfSurveysCreated { get; set; }
+
+        }
         public static void Choose(Account account, List<Account> accounts)
         {
             AccountRepository accountRepository = new AccountRepository();
