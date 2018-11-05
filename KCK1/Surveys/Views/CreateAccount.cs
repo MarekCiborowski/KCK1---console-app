@@ -26,7 +26,7 @@ namespace Surveys.Views
             string login = "";
             login = Console.ReadLine();
             if(!userSecurityRepository.IsLoginFree(login))
-                while(!accountRepository.IsLoginFree(login))
+                while(!userSecurityRepository.IsLoginFree(login))
                 {
                     Configuration.CurrentConsoleLineClear(positionX);
                     positionY++;
