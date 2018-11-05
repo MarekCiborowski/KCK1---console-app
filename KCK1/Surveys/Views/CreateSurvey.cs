@@ -87,6 +87,9 @@ namespace Surveys.Views
             bool anotherExit = true;
             do
             {
+                Configuration.ConsoleClearToArtAscii();
+                positionX = 30; positionY = 10;
+                Console.SetCursorPosition(positionX, positionY);
                 Console.WriteLine("Can user add his/her own answer to question?");
                 positionY++;
                 Console.SetCursorPosition(positionX, positionY);
@@ -296,8 +299,7 @@ namespace Surveys.Views
                 Console.SetCursorPosition(positionX, positionY);
             } while (anotherExit);
 
-            Configuration.SetConsoleSize();
-            Console.WriteLine(ArtAscii.GetMainTitleString());
+            Configuration.ConsoleClearToArtAscii();
             Survey survey = surveyRepository.CreateSurvey(title, description, anonymous, questions);
             surveyRepository.AddSurvey(survey, account);
             //FillSurvey.Fill(account, survey);
