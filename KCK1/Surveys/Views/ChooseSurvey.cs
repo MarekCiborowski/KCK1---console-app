@@ -27,11 +27,15 @@ namespace Surveys.Views
             AnswerRepository answerRepository = new AnswerRepository();
             AccountRepository accountRepository = new AccountRepository();
 
-            Configuration.SetConsoleSize();
+            Configuration.ConsoleClearToArtAscii();
 
-              Console.WriteLine(ArtAscii.GetMainTitleString());
+            
+            
             int positionX = 30;
-
+            if (!surveys.Any())
+            {
+                AfterSignIn.ComeBack(account, "There are no surveys to display in this category");
+            }
 
             List<DisplayedSurvey> displayedSurveys = new List<DisplayedSurvey>();
             int currentSurveyPosition=15, currentSurveyNumber=1;
@@ -83,7 +87,7 @@ namespace Surveys.Views
                             ShowResult.Show(account, survey);
                         // completed survey
                         else if (accountRepository.DidFillSurvey(account.accountID, survey.surveyID))
-                            AfterSignIn.ComeBack(account, " You have already filled this survey ");
+                            AfterSignIn.ComeBack(account, "You have already filled this survey");
                         //not yet completed survey
                         else
                             FillSurvey.Fill(account, displayedSurveys.Find(t => t.surveyNumber == currentlySelectedSurvey).survey);
@@ -91,7 +95,7 @@ namespace Surveys.Views
 
                     case ConsoleKey.Escape:
                         Configuration.ConsoleClearToArtAscii();
-                        AfterSignIn.ComeBack(account, "You back to menu");
+                        AfterSignIn.ComeBack(account, "Returned to main menu");
                         break;
                 }
             }

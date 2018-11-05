@@ -106,6 +106,7 @@ namespace Surveys.Views
 
             List<Question> questions = surveyRepository.GetQuestions(survey.surveyID);
             int i = 1;
+            List<DisplayedAnswer> checkedAnswers = new List<DisplayedAnswer>();
             foreach(Question question in questions)
             {
                 positionY = 15;
@@ -244,8 +245,8 @@ namespace Surveys.Views
                                     }
                                     else
                                     {
-                                        DisplayedAnswer checkedAnswer = displayedAnswers.Find(t => t.isChecked);
-                                        answerRepository.AddVoteToAnswer(account.accountID, checkedAnswer.answer.answerID);
+                                       
+                                        checkedAnswers.AddRange(displayedAnswers.Where(t => t.isChecked));
                                         isQuestionCompleted = true;
                                     }
                                 }
@@ -308,6 +309,10 @@ namespace Surveys.Views
                     }
                 }
                 
+            }
+            foreach(DisplayedAnswer checkedAnswer in checkedAnswers)
+            {
+                answerRepository.AddVoteToAnswer(account.accountID, checkedAnswer.answer.answerID);
             }
             accountSurveyRepository.AddAccountSurvey(account.accountID, survey.surveyID);
 
