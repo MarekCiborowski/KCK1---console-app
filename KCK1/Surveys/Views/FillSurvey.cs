@@ -31,9 +31,10 @@ namespace Surveys.Views
             AnswerRepository answerRepository = new AnswerRepository();
             AccountSurveyRepository accountSurveyRepository = new AccountSurveyRepository();
 
-          //  Configuration.SetConsoleSize();
+            //  Configuration.SetConsoleSize();
 
-          //  Console.WriteLine(ArtAscii.GetMainTitleString());
+            //  Console.WriteLine(ArtAscii.GetMainTitleString());
+            
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
             Console.ForegroundColor = Color.SkyBlue;

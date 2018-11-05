@@ -21,19 +21,17 @@ namespace Surveys.Views
     }
     public class ChooseAccount
     {
-        public void Choose(Account account, List<Account> accounts)
+        public static void Choose(Account account, List<Account> accounts)
         {
             AccountRepository accountRepository = new AccountRepository();
 
-            Configuration.SetConsoleSize();
-
-            Console.WriteLine(ArtAscii.GetMainTitleString());
+            Configuration.ConsoleClearToArtAscii();
             int positionX = 30;
 
             List<DisplayedAccount> displayedAccounts = new List<DisplayedAccount>();
             int currentAccountPosition = 15, currentAccountNumber = 1;
 
-            Console.SetCursorPosition(positionX, currentAccountNumber);
+            Console.SetCursorPosition(positionX, currentAccountPosition);
             Console.ForegroundColor = Color.White;
             string spaceBreak = new string(' ', 6);
 
@@ -54,7 +52,7 @@ namespace Surveys.Views
                 currentAccountNumber++;
             }
             ConsoleKey key;
-            int currentlySelectedAccount = 1, lastAccountNumber = currentAccountNumber;
+            int currentlySelectedAccount = 1, lastAccountNumber = currentAccountNumber-1;
             while (true)
             {
                 foreach (DisplayedAccount displayedAccount in displayedAccounts)
@@ -83,12 +81,13 @@ namespace Surveys.Views
 
                     case ConsoleKey.DownArrow:
                         currentlySelectedAccount++;
-                        if (currentlySelectedAccount == lastAccountNumber)
-                            currentlySelectedAccount = 0;
+                        if (currentlySelectedAccount == lastAccountNumber+1)
+                            currentlySelectedAccount = 1;
                         break;
 
                     case ConsoleKey.Enter:
-                        // jakaś metoda korzystajaca z tego uzytkownika(account, displayedAccounts.Find(t => t.accountNumber == currentlySelectedAccount).account);
+                        Configuration.ConsoleClearToArtAscii();
+                        PersonView.Show(account, displayedAccounts.Find(t => t.accountNumber == currentlySelectedAccount).account);
 
                         break;
                 }
