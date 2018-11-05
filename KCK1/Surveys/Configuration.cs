@@ -37,7 +37,7 @@ namespace Surveys
 
         public static void SetConsoleSize()
         {
-            int heightOfWindow = 30;
+            int heightOfWindow = 50;
             int widthOfWindow = 130;
             Console.SetWindowSize(widthOfWindow, heightOfWindow);
             Console.Clear();

@@ -33,27 +33,24 @@ namespace Surveys.Views
         {
             SurveyRepository surveyRepository = new SurveyRepository();
             QuestionRepository questionRepository = new QuestionRepository();
-
+            Configuration.ConsoleClearToArtAscii();
 
             List<Question> surveyQuestions = surveyRepository.GetQuestions(survey.surveyID);
             List<DisplayedQuestion> displayedQuestions = new List<DisplayedQuestion>();
             int positionX = 30, positionY = 15;
             if (surveyRepository.GetQuantityOfVoters(survey.surveyID) == 0)
             {
-                Console.SetCursorPosition(positionX, positionY);
-                Console.WriteLine("No one has completed your survey yet. Press any key to return.");
-                Console.ReadKey();
                 Configuration.ConsoleClearToArtAscii();
-                AfterSignIn.ComeBack(account, "");
+                AfterSignIn.ComeBack(account, "No one has completed your survey yet.");
             }
             Console.SetCursorPosition(positionX, positionY);
-            Console.ForegroundColor = Color.Azure;
-            Console.WriteLine(survey.title);
+            Console.ForegroundColor = Color.Blue;
+            Console.WriteLine("Title: "+ survey.title);
             positionY++;
             Console.SetCursorPosition(positionX, positionY);
             Console.ForegroundColor = Color.White;
-            Console.WriteLine(survey.description);
-            positionY++;
+            Console.WriteLine("Description: " + survey.description);
+            positionY+=2;
 
             int currentQuestionPosition = positionY, currentQuestionNumber = 1;
             foreach (Question question in surveyQuestions)
@@ -106,7 +103,7 @@ namespace Surveys.Views
                         
                         Question question = displayedQuestions.Find(t => t.questionNumber == currentlySelectedQuestion).question;
 
-                        ShowAnswers(question, survey.isAnonymous);
+                        ShowAnswers(account, survey, question);
                         break;
 
                     case ConsoleKey.Escape:
@@ -117,7 +114,7 @@ namespace Surveys.Views
             }
         }
 
-        private static void ShowAnswers(Question question, bool isAnonymous)
+        private static void ShowAnswers(Account account, Survey survey, Question question )
         {
 
             QuestionRepository questionRepository = new QuestionRepository();
@@ -127,11 +124,11 @@ namespace Surveys.Views
             List<DisplayedAnswer> displayedAnswers = new List<DisplayedAnswer>();
             int positionX = 30, positionY = 15;
             Console.SetCursorPosition(positionX, positionY);
-            Console.ForegroundColor = Color.Azure;
-            Console.WriteLine(question.questionValue);
+            Console.ForegroundColor = Color.Blue;
+            Console.WriteLine("Question: " + question.questionValue);
             positionY++;
 
-            string spaceBreak = new string(' ', 8);
+            string spaceBreak = new string(' ', 17);
             Console.SetCursorPosition(positionX, positionY);
             Console.ForegroundColor = Color.White;
             Console.WriteLine("Answer" + spaceBreak + "Number of votes");
@@ -152,7 +149,7 @@ namespace Surveys.Views
             }
             ConsoleKey key;
             int currentlySelectedAnswer = 1, lastAnswerNumber = currentAnswerNumber - 1;
-            if (isAnonymous)
+            if (survey.isAnonymous)
             {
                 foreach (DisplayedAnswer displayedAnswer in displayedAnswers)
                 {
@@ -167,7 +164,8 @@ namespace Surveys.Views
                 Console.WriteLine("Press any key to go back to question selection screen.");
                 Console.ReadKey();
                 Configuration.ConsoleClearToArtAscii();
-                return;
+                Show(account, survey);
+                
             }
 
             while (true)
@@ -209,33 +207,49 @@ namespace Surveys.Views
                         //author
                         Answer answer = displayedAnswers.Find(t => t.answerNumber == currentlySelectedAnswer).answer;
 
-                        ShowVoters(answer);
+                        ShowVoters(answer, account, survey, question);
                         break;
 
                     case ConsoleKey.Escape:
                         Configuration.ConsoleClearToArtAscii();
-                        return;
+                        Show(account, survey);
+                        break;
 
                 }
             }
 
         }
 
-        private static void ShowVoters(Answer answer)
+        private static void ShowVoters(Answer answer, Account account, Survey survey, Question question)
         {
             AnswerRepository answerRepository = new AnswerRepository();
 
             List<Account> voters = answerRepository.GetAccountsVoters(answer.answerID);
             
+            
             int positionX = 30, positionY = 15;
+
             Console.SetCursorPosition(positionX, positionY);
-            Console.WriteLine(answer.answerValue);
+            Console.ForegroundColor = Color.White;
+            if (voters.Count == 0)
+            {
+                Console.SetCursorPosition(20, positionY);
+                Console.WriteLine("No one has voted for this answer yet. Press any key to go back to answer selection screen. ");
+                
+                Console.ReadKey();
+                Configuration.ConsoleClearToArtAscii();
+                ShowAnswers(account, survey, question);
+
+            }
+            Console.WriteLine("Answer: " + answer.answerValue);
             positionY += 2;
 
             Console.SetCursorPosition(positionX, positionY);
-            Console.ForegroundColor = Color.Azure;
+            Console.ForegroundColor = Color.Blue;
             Console.WriteLine("Nickname");
-            positionY++;
+            positionY+=2;
+
+
 
 
 
@@ -246,11 +260,11 @@ namespace Surveys.Views
                 Console.WriteLine(_account.nickname);
                 positionY++;
             }
-            Console.SetCursorPosition(positionX, positionY++);
+            Console.SetCursorPosition(positionX, positionY+3);
             Console.WriteLine("Press any key to go back to answer selection screen.");
             Console.ReadKey();
             Configuration.ConsoleClearToArtAscii();
-            return;
+            ShowAnswers(account, survey, question);
 
         }
     }
