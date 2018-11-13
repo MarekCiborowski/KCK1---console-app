@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryLayer", "Reposito
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{069DFF09-F108-48EC-8B31-5FF1B66106C2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survey_MVC", "Survey_MVC\Survey_MVC.csproj", "{42573823-432B-4B7C-B71C-87F03CF025DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{524E98BB-BFD7-4C63-A702-4ACFE4D788E8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{069DFF09-F108-48EC-8B31-5FF1B66106C2}.Debug|Any CPU.ActiveCfg = Debug
 		{069DFF09-F108-48EC-8B31-5FF1B66106C2}.Release|Any CPU.ActiveCfg = Release
+		{42573823-432B-4B7C-B71C-87F03CF025DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42573823-432B-4B7C-B71C-87F03CF025DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42573823-432B-4B7C-B71C-87F03CF025DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42573823-432B-4B7C-B71C-87F03CF025DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
