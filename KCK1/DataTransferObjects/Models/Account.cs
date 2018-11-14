@@ -18,7 +18,9 @@ namespace DataTransferObjects.Models
         [Required]
         public virtual PersonData personData { get; set; }
 
+        [Required]
         public string email { get; set; }
+        [Required]
         public string nickname { get; set; }
         
         

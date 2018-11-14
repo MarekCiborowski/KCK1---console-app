@@ -15,7 +15,9 @@ namespace DataTransferObjects.Models
         [Required]
         public virtual Account account { get; set; }
 
+        [Required]
         public string login { get; set; }
+        [Required]
         public string password { get; set; }
 
         

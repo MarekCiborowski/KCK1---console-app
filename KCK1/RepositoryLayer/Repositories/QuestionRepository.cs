@@ -34,23 +34,58 @@ namespace RepositoryLayer.Repositories
 
         public void AddQuestion(Question question)
         {
-            db.questions.Add(question);
-            db.SaveChanges();
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    db.questions.Add(question);
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
         public void EditQuestion(Question editedQuestion)
         {
-            db.Entry(editedQuestion).State = EntityState.Modified;
-            db.SaveChanges();
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    db.Entry(editedQuestion).State = EntityState.Modified;
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
         public void RemoveQuestion(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            Question question = db.questions.Find(id);
-            db.questions.Remove(question);
-            db.SaveChanges();
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    Question question = db.questions.Find(id);
+                    db.questions.Remove(question);
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
         public List<Answer> GetAnswers(int? id)

@@ -13,8 +13,10 @@ namespace DataTransferObjects.Models
     {
         [Key]
         public int surveyID { get; set; }
+        [Required]
         public string title { get; set; }
-        
+        [Required]
+
         public string description { get; set; }
         public bool isAnonymous { get; set; }
 

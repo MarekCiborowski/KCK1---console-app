@@ -42,24 +42,48 @@ namespace RepositoryLayer.Repositories
 
         public void AddSurvey(Survey survey, Account Author)
         {
-           
-            db.surveys.Add(survey);
-            db.SaveChanges();
-            AccountSurvey accountSurvey = new AccountSurvey
+
+            using (var dbContextTransaction = db.Database.BeginTransaction())
             {
-                accountID = Author.accountID,
-                isAuthor = true,
-                surveyID = survey.surveyID
-            };
-            db.accountsSurveys.Add(accountSurvey);
-            
-            db.SaveChanges();
+                try
+                {
+                    db.surveys.Add(survey);
+                    db.SaveChanges();
+                    AccountSurvey accountSurvey = new AccountSurvey
+                    {
+                        accountID = Author.accountID,
+                        isAuthor = true,
+                        surveyID = survey.surveyID
+                    };
+                    db.accountsSurveys.Add(accountSurvey);
+
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
         public void EditSurvey(Survey editedSurvey)
         {
-            db.Entry(editedSurvey).State = EntityState.Modified;
-            db.SaveChanges();
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    db.Entry(editedSurvey).State = EntityState.Modified;
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
         public Account GetAuthor(int? SurveyId)
@@ -80,10 +104,21 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            Survey survey = db.surveys.Find(id);
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    Survey survey = db.surveys.Find(id);
 
-            db.surveys.Remove(survey);
-            db.SaveChanges();
+                    db.surveys.Remove(survey);
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
         public bool IsAnonymous(int? id)

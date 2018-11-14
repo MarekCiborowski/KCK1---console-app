@@ -14,11 +14,16 @@ namespace DataTransferObjects.Models
         public int personDataID { get; set; }
         [Required]
         public virtual Account account { get; set; }
+        [Required]
 
         public string address { get; set; }
+        [Required]
         public string city { get; set; }
+        [Required]
         public string zipcode { get; set; }
+        [Required]
         public string state { get; set; }
+        [Required]
         public string country { get; set; }
 
     }

@@ -33,25 +33,60 @@ namespace RepositoryLayer.Repositories
         {
             if (questionID == null)
                 throw new ArgumentNullException("Null argument");
-            Question question = db.questions.Include(t =>t.answer).FirstOrDefault(t => t.questionID==questionID);
-            question.answer.Add(answer);
-            db.Entry(question).State = EntityState.Modified;
-            db.SaveChanges();
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    Question question = db.questions.Include(t => t.answer).FirstOrDefault(t => t.questionID == questionID);
+                    question.answer.Add(answer);
+                    db.Entry(question).State = EntityState.Modified;
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
         public void EditAnswer(Answer editedAnswer)
         {
-            db.Entry(editedAnswer).State = EntityState.Modified;
-            db.SaveChanges();
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    db.Entry(editedAnswer).State = EntityState.Modified;
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
         public void RemoveAnswer(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            Answer answer = db.answers.Find(id);
-            db.answers.Remove(answer);
-            db.SaveChanges();
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    Answer answer = db.answers.Find(id);
+                    db.answers.Remove(answer);
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
         public void AddVoteToAnswer(int _accountID, int _answerID)
         {
@@ -61,8 +96,19 @@ namespace RepositoryLayer.Repositories
                 answerID = _answerID
 
             };
-            db.votes.Add(vote);
-            db.SaveChanges();
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    db.votes.Add(vote);
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
         public int GetQuantityOfVotes(int? answerID)

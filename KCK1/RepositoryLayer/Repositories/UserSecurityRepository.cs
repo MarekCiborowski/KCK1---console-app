@@ -34,24 +34,59 @@ namespace RepositoryLayer.Repositories
 
         public void AddUserSecurity(UserSecurity userSecurity)
         {
-            db.userSecurities.Add(userSecurity);
-            db.SaveChanges();
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    db.userSecurities.Add(userSecurity);
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
         public void EditUserSecurity(UserSecurity editedUserSecurity)
         {
-            editedUserSecurity.password = hashPassword(editedUserSecurity.password);
-            db.Entry(editedUserSecurity).State = EntityState.Modified;
-            db.SaveChanges();
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    editedUserSecurity.password = hashPassword(editedUserSecurity.password);
+                    db.Entry(editedUserSecurity).State = EntityState.Modified;
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
         public void RemoveUserSecurity(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            UserSecurity userSecurity = db.userSecurities.Find(id);
-            db.userSecurities.Remove(userSecurity);
-            db.SaveChanges();
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    UserSecurity userSecurity = db.userSecurities.Find(id);
+                    db.userSecurities.Remove(userSecurity);
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
 

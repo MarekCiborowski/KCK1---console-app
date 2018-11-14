@@ -51,21 +51,44 @@ namespace RepositoryLayer.Repositories
         }
 
 
-        public int AddAccount(Account account/*, PersonData personData, UserSecurity userSecurity */)
+        public void AddAccount(Account account/*, PersonData personData, UserSecurity userSecurity */)
         {
             //account.userSecurity = userSecurity;
             //account.personData = personData;
-            Account createdAccount = db.accounts.Add(account);
-            db.SaveChanges();
-            return createdAccount.accountID;
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    Account createdAccount = db.accounts.Add(account);
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+
+                    dbContextTransaction.Rollback();
+                }
+            }
+            
 
         }
 
         public void EditAccount(Account editedAccount)
         {
 
-            db.Entry(editedAccount).State = EntityState.Modified;
-            db.SaveChanges();
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    db.Entry(editedAccount).State = EntityState.Modified;
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback();
+                }
+            }
 
         }
 
@@ -104,18 +127,25 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            Account account = db.accounts.Include(t => t.followedUsers).
-                Include(t => t.followingUsers).FirstOrDefault(t => t.accountID == id);
-            account.followedUsers.Clear();
-            account.followingUsers.Clear();
-            EditAccount(account);
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    Account account = db.accounts.Include(t => t.followedUsers).
+                                Include(t => t.followingUsers).FirstOrDefault(t => t.accountID == id);
+                    account.followedUsers.Clear();
+                    account.followingUsers.Clear();
+                    EditAccount(account);
 
-
-
-            //db.personDatas.Remove(account.personData);
-            //db.userSecurities.Remove(account.userSecurity);
-            db.accounts.Remove(account);
-            db.SaveChanges();
+                    db.accounts.Remove(account);
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
         public int GetQuantityOfFollowersByID(int? id)
@@ -278,14 +308,7 @@ namespace RepositoryLayer.Repositories
 
         public bool IsFollowed(int followerId, int followedId)
         {
-            List<Account> account = GetFollowedAccounts(followerId);
-
-            for(int i = 0; i < account.Count; i++)
-            {
-                if (account[i].accountID == followedId)
-                    return true;
-            }
-            return false;
+            return GetFollowedAccounts(followerId).Select(a => a.accountID).Contains(followedId);
         }
     }
 }

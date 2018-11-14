@@ -44,19 +44,43 @@ namespace RepositoryLayer.Repositories
                 surveyID = _surveyID,
                 isAuthor = false
             };
-            db.accountsSurveys.Add(accountSurvey);
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    db.accountsSurveys.Add(accountSurvey);
 
-            db.SaveChanges();
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
  
         public void RemoveAccountSurvey(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            AccountSurvey accountSurvey = db.accountsSurveys.Find(id);
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    AccountSurvey accountSurvey = db.accountsSurveys.Find(id);
 
-            db.accountsSurveys.Remove(accountSurvey);
-            db.SaveChanges();
+                    db.accountsSurveys.Remove(accountSurvey);
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
     }
 }
