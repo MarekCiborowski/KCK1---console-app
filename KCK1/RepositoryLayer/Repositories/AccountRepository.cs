@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using DatabaseLayer;
-using DatabaseLayer.Models;
+using DataTransferObjects.Models;
 
 namespace RepositoryLayer.Repositories
 {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace DatabaseLayer.Models
+namespace DataTransferObjects.Models
 {
     //Tabela zapisująca osoby które zagłosowały w danej ankiecie
     [Table("AccountSurvey")]

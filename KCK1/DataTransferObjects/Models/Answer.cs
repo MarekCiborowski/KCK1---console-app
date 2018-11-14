@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DatabaseLayer.Models
+namespace DataTransferObjects.Models
 {
     [Table("Answer")]
     public class Answer

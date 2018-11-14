@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DatabaseLayer.Models
+namespace DataTransferObjects.Models
 {
     [Table("Survey")]
     public class Survey

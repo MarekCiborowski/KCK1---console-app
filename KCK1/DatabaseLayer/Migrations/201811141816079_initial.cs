@@ -14,7 +14,6 @@ namespace DatabaseLayer.Migrations
                         accountID = c.Int(nullable: false, identity: true),
                         email = c.String(),
                         nickname = c.String(),
-                        followers = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.accountID);
             
@@ -28,8 +27,8 @@ namespace DatabaseLayer.Migrations
                         isAuthor = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.accountSurveyID)
-                .ForeignKey("dbo.Account", t => t.accountID, cascadeDelete: true)
                 .ForeignKey("dbo.Survey", t => t.surveyID, cascadeDelete: true)
+                .ForeignKey("dbo.Account", t => t.accountID, cascadeDelete: true)
                 .Index(t => t.accountID)
                 .Index(t => t.surveyID);
             
@@ -40,6 +39,7 @@ namespace DatabaseLayer.Migrations
                         surveyID = c.Int(nullable: false, identity: true),
                         title = c.String(),
                         description = c.String(),
+                        isAnonymous = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.surveyID);
             
@@ -76,11 +76,11 @@ namespace DatabaseLayer.Migrations
                     {
                         voteID = c.Int(nullable: false, identity: true),
                         answerID = c.Int(nullable: false),
-                        accountID = c.Int(),
+                        accountID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.voteID)
-                .ForeignKey("dbo.Account", t => t.accountID)
                 .ForeignKey("dbo.Answer", t => t.answerID, cascadeDelete: true)
+                .ForeignKey("dbo.Account", t => t.accountID, cascadeDelete: true)
                 .Index(t => t.answerID)
                 .Index(t => t.accountID);
             
@@ -91,20 +91,8 @@ namespace DatabaseLayer.Migrations
                         categoryID = c.Int(nullable: false, identity: true),
                         canAddOwnAnswer = c.Boolean(nullable: false),
                         isSingleChoice = c.Boolean(nullable: false),
-                        isAnonymous = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.categoryID);
-            
-            CreateTable(
-                "dbo.FollowedUsers",
-                c => new
-                    {
-                        followedUsersID = c.Int(nullable: false, identity: true),
-                        followedUserID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.followedUsersID)
-                .ForeignKey("dbo.Account", t => t.followedUserID, cascadeDelete: true)
-                .Index(t => t.followedUserID);
             
             CreateTable(
                 "dbo.PersonDatas",
@@ -113,12 +101,12 @@ namespace DatabaseLayer.Migrations
                         personDataID = c.Int(nullable: false),
                         address = c.String(),
                         city = c.String(),
-                        zipcode = c.Int(nullable: false),
+                        zipcode = c.String(),
                         state = c.String(),
                         country = c.String(),
                     })
                 .PrimaryKey(t => t.personDataID)
-                .ForeignKey("dbo.Account", t => t.personDataID)
+                .ForeignKey("dbo.Account", t => t.personDataID, cascadeDelete: true)
                 .Index(t => t.personDataID);
             
             CreateTable(
@@ -130,26 +118,41 @@ namespace DatabaseLayer.Migrations
                         password = c.String(),
                     })
                 .PrimaryKey(t => t.userSecurityID)
-                .ForeignKey("dbo.Account", t => t.userSecurityID)
+                .ForeignKey("dbo.Account", t => t.userSecurityID, cascadeDelete: true)
                 .Index(t => t.userSecurityID);
+            
+            CreateTable(
+                "dbo.Followers",
+                c => new
+                    {
+                        UserId = c.Int(nullable: false),
+                        FollowerId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.FollowerId })
+                .ForeignKey("dbo.Account", t => t.UserId)
+                .ForeignKey("dbo.Account", t => t.FollowerId)
+                .Index(t => t.UserId)
+                .Index(t => t.FollowerId);
             
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Votes", "accountID", "dbo.Account");
             DropForeignKey("dbo.UserSecurities", "userSecurityID", "dbo.Account");
             DropForeignKey("dbo.PersonDatas", "personDataID", "dbo.Account");
-            DropForeignKey("dbo.FollowedUsers", "followedUserID", "dbo.Account");
-            DropForeignKey("dbo.AccountSurvey", "surveyID", "dbo.Survey");
+            DropForeignKey("dbo.Followers", "FollowerId", "dbo.Account");
+            DropForeignKey("dbo.Followers", "UserId", "dbo.Account");
+            DropForeignKey("dbo.AccountSurvey", "accountID", "dbo.Account");
             DropForeignKey("dbo.Question", "surveyID", "dbo.Survey");
             DropForeignKey("dbo.Question", "categoryID", "dbo.Categories");
             DropForeignKey("dbo.Votes", "answerID", "dbo.Answer");
-            DropForeignKey("dbo.Votes", "accountID", "dbo.Account");
             DropForeignKey("dbo.Answer", "questionID", "dbo.Question");
-            DropForeignKey("dbo.AccountSurvey", "accountID", "dbo.Account");
+            DropForeignKey("dbo.AccountSurvey", "surveyID", "dbo.Survey");
+            DropIndex("dbo.Followers", new[] { "FollowerId" });
+            DropIndex("dbo.Followers", new[] { "UserId" });
             DropIndex("dbo.UserSecurities", new[] { "userSecurityID" });
             DropIndex("dbo.PersonDatas", new[] { "personDataID" });
-            DropIndex("dbo.FollowedUsers", new[] { "followedUserID" });
             DropIndex("dbo.Votes", new[] { "accountID" });
             DropIndex("dbo.Votes", new[] { "answerID" });
             DropIndex("dbo.Answer", new[] { "questionID" });
@@ -157,9 +160,9 @@ namespace DatabaseLayer.Migrations
             DropIndex("dbo.Question", new[] { "categoryID" });
             DropIndex("dbo.AccountSurvey", new[] { "surveyID" });
             DropIndex("dbo.AccountSurvey", new[] { "accountID" });
+            DropTable("dbo.Followers");
             DropTable("dbo.UserSecurities");
             DropTable("dbo.PersonDatas");
-            DropTable("dbo.FollowedUsers");
             DropTable("dbo.Categories");
             DropTable("dbo.Votes");
             DropTable("dbo.Answer");
