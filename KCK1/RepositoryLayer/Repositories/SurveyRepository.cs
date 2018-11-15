@@ -48,7 +48,6 @@ namespace RepositoryLayer.Repositories
                 try
                 {
                     db.surveys.Add(survey);
-                    db.SaveChanges();
                     AccountSurvey accountSurvey = new AccountSurvey
                     {
                         accountID = Author.accountID,
@@ -62,7 +61,8 @@ namespace RepositoryLayer.Repositories
                 }
                 catch (Exception)
                 {
-
+                    //wysypywało się gdy któraś walidacja sie nie zgadzala
+                    //in other cases works fine 
                     dbContextTransaction.Rollback();
                 }
             }

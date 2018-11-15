@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DatabaseLayer;
-using DatabaseLayer.Models;
+
+using DataTransferObjects.Models;
 using RepositoryLayer.Repositories;
 using Console = Colorful.Console;
 

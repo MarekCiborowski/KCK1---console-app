@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DatabaseLayer.Models;
 using RepositoryLayer.Repositories;
 using Console = Colorful.Console;
 using System.Drawing;
+using DataTransferObjects.Models;
 
 namespace Surveys.Views
 {

@@ -26,7 +26,7 @@ namespace DataTransferObjects.Models
         
         [Required]
         public virtual UserSecurity userSecurity { get; set; }
-        public ICollection<AccountSurvey> accountSurvey { get; set; }
+        public virtual ICollection<AccountSurvey> accountSurvey { get; set; }
         
         public ICollection<Account> followedUsers { get; set; }
         public ICollection<Account> followingUsers { get; set; }

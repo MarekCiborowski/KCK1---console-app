@@ -113,6 +113,10 @@
       <Project>{addaf72e-52ee-4d71-836b-7194475d413f}</Project>
       <Name>DatabaseLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataTransferObjects\DataTransferObjects.csproj">
+      <Project>{8534EE44-C05C-436C-8B5F-3006DFDD1E93}</Project>
+      <Name>DataTransferObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RepositoryLayer\RepositoryLayer.csproj">
       <Project>{524e98bb-bfd7-4c63-a702-4acfe4d788e8}</Project>
       <Name>RepositoryLayer</Name>

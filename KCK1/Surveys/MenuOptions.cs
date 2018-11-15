@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Surveys.Views;
-using DatabaseLayer.Models;
 using RepositoryLayer.Repositories;
+using DataTransferObjects.Models;
 
 namespace Surveys
 {

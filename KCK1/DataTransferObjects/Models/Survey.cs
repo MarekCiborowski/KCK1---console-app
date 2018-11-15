@@ -21,6 +21,6 @@ namespace DataTransferObjects.Models
         public bool isAnonymous { get; set; }
 
         public ICollection<Question> question { get; set; }
-        public ICollection<AccountSurvey> accountSurvey { get; set; } //Osoby które zagłosowały w danej ankiecie lub autorzy
+        public virtual ICollection<AccountSurvey> accountSurvey { get; set; } //Osoby które zagłosowały w danej ankiecie lub autorzy
     }
 }

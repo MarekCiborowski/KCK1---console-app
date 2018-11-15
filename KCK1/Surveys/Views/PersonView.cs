@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Console = Colorful.Console;
-using DatabaseLayer.Models;
 using DatabaseLayer;
 using RepositoryLayer.Repositories;
 using System.Drawing;
+using DataTransferObjects.Models;
 
 //Widok wykorzystywany po wejściu w podgląd profilu użytkownika w widoku ShowAllPeople
 

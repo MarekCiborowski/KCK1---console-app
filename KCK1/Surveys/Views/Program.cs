@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using DatabaseLayer;
-using DatabaseLayer.Models;
 using RepositoryLayer.Repositories;
 using Console = Colorful.Console;
 
@@ -22,6 +21,7 @@ namespace Surveys.Views
 
         public static void Start()
         {
+            
             Configuration.SetConsoleSize();
 
             Console.WriteLine(ArtAscii.GetMainTitleString());

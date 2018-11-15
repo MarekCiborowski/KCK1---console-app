@@ -1,4 +1,5 @@
-﻿using DatabaseLayer.Models;
+﻿
+using DataTransferObjects.Models;
 using RepositoryLayer.Repositories;
 using System;
 using System.Collections.Generic;

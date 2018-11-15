@@ -21,7 +21,7 @@ namespace DatabaseLayer
         public virtual DbSet<UserSecurity> userSecurities { get; set; }
         public virtual DbSet<PersonData> personDatas { get; set; }
         public virtual DbSet<Vote> votes { get; set; }
-        
+
         public virtual DbSet<Category> categories { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -64,6 +64,8 @@ namespace DatabaseLayer
 
 
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+            
 
             //modelBuilder.Conventions.Add<OneToOneConstraintIntroductionConvention>();
             //modelBuilder.Conventions.Add<OneToManyCascadeDeleteConvention>();

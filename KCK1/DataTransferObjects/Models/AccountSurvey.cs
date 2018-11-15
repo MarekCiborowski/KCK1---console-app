@@ -17,12 +17,12 @@ namespace DataTransferObjects.Models
         [ForeignKey("account")]
         public int accountID { get; set; }
         
-        public Account account { get; set; }
+        public virtual Account account { get; set; }
 
         [ForeignKey("survey")]
         public int surveyID { get; set; }
         
-        public Survey survey { get; set; }
+        public virtual Survey survey { get; set; }
         public bool isAuthor { get; set; } = false;
         
 

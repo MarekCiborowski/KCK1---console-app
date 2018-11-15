@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Console = Colorful.Console;
 using RepositoryLayer.Repositories;
-using DatabaseLayer.Models;
 using System.Drawing;
+using DataTransferObjects.Models;
 
 namespace Surveys.Views
 {
