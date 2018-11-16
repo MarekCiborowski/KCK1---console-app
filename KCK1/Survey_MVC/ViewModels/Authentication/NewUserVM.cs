@@ -15,29 +15,31 @@ namespace Survey_MVC.ViewModels.Authentication
         [Display(Name = "Nickname")]
         [Required(ErrorMessage = "Nickname required")]
         public string nickname { get; set; }
+        
+        public string repeatPassword { get; set; }
         [Display(Name = "Login")]
         [Required(ErrorMessage = "Login required")]
         public string login { get; set; }
         [Display(Name = "Password")]
         [Required(ErrorMessage = "Password required")]
         public string password { get; set; }
-        [Display(Name = "Address")]
-        [Required(ErrorMessage = "Address Required")]
+        [Display(Name ="Address")]
+        [Required (ErrorMessage ="Address Required")]
 
         public string address { get; set; }
-        [Display(Name = "City")]
-        [Required(ErrorMessage = "City required")]
+        [Display(Name ="City")]
+        [Required (ErrorMessage ="City required")]
         public string city { get; set; }
-        [Display(Name = "Zipcode")]
-        [Required(ErrorMessage = "Zipcode required")]
+        [Display(Name ="Zipcode")]
+        [Required (ErrorMessage ="Zipcode required")]
         public string zipcode { get; set; }
-        [Display(Name = "State")]
-        [Required(ErrorMessage = "State required")]
+        [Display(Name ="State")]
+        [Required (ErrorMessage ="State required")]
         public string state { get; set; }
-        [Display(Name = "Country")]
-        [Required(ErrorMessage = "Country required")]
+        [Display(Name ="Country")]
+        [Required(ErrorMessage ="Country required")]
         public string country { get; set; }
-        [Display(Name = "This profile is: ")]
+        [Display(Name ="This profile is: ")]
         public bool isProfilePublic { get; set; } = false;
     }
 }
