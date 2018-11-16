@@ -1,4 +1,4 @@
-﻿@model Survey_MVC.ViewModels.Authentication.UserVM
+﻿@model Survey_MVC.ViewModels.Authentication.NewUserVM
 @{
     ViewBag.Title = "NewUser";
 }
@@ -9,33 +9,119 @@
 
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <table >
+    <table style=" float:left">
 
         <tr>
             <td>
-                @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.userSecurity.login, htmlAttributes: new { @class = "control-label col-md-2" })
             </td>
             <td>
-                @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", placeholder = "Username" } })
-                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.userSecurity.login, new { htmlAttributes = new { @class = "form-control", placeholder = "Username" } })
+                @Html.ValidationMessageFor(model => model.userSecurity.login, "", new { @class = "text-danger" })
             </td>
         </tr>
 
         <tr>
             <td>
-                @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.userSecurity.password, htmlAttributes: new { @class = "control-label col-md-2" })
             </td>
             <td>
-                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", type = "password" } })
-                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.userSecurity.password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", type = "password" } })
+                @Html.ValidationMessageFor(model => model.userSecurity.password, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.repeatPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.repeatPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Repeat password", type = "password" } })
+                @Html.ValidationMessageFor(model => model.repeatPassword, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.account.nickname, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.account.nickname, new { htmlAttributes = new { @class = "form-control", placeholder = "Nickname" } })
+                @Html.ValidationMessageFor(model => model.account.nickname, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.account.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.account.email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+                @Html.ValidationMessageFor(model => model.account.email, "", new { @class = "text-danger" })
             </td>
         </tr>
 
 
     </table>
-    <div class="form-group">
-        <div>
-            <input type="submit" value="Create user" class="btn btn-search" />
+    <table style=" float:left">
+
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.personData.country, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.personData.country, new { htmlAttributes = new { @class = "form-control", placeholder = "Country" } })
+                @Html.ValidationMessageFor(model => model.personData.country, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.personData.state, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.personData.state, new { htmlAttributes = new { @class = "form-control", placeholder = "State" } })
+                @Html.ValidationMessageFor(model => model.personData.state, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.personData.city, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.personData.city, new { htmlAttributes = new { @class = "form-control", placeholder = "City" } })
+                @Html.ValidationMessageFor(model => model.personData.city, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.personData.zipcode, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.personData.zipcode, new { htmlAttributes = new { @class = "form-control", placeholder = "Zipcode" } })
+                @Html.ValidationMessageFor(model => model.personData.zipcode, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.personData.address, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.personData.address, new { htmlAttributes = new { @class = "form-control", placeholder = "Address" } })
+                @Html.ValidationMessageFor(model => model.personData.address, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+
+
+    </table>
+    <br /><br /><br /> <br /><br /><br /><br /><br /><br /> <br /><br /><br />
+    <div>
+        @Html.LabelFor(model => model.personData.isProfilePublic, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="radio-jquery-ui">@Html.RadioButtonFor(model => model.personData.isProfilePublic, "false", new { @checked = "checked" }) <label>Private</label></div>
+        <div class="radio-jquery-ui">@Html.RadioButtonFor(model => model.personData.isProfilePublic, "true") <label>Public</label></div>
+        <div class="form-group">
+            <div>
+                <input type="submit" value="Create user" class="btn btn-search" />
+            </div>
         </div>
     </div>
 

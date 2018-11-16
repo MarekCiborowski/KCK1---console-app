@@ -30,6 +30,7 @@ namespace DataTransferObjects.Models
         [Display(Name ="Country")]
         [Required(ErrorMessage ="Country required")]
         public string country { get; set; }
+        [Display(Name ="This profile is: ")]
         public bool isProfilePublic { get; set; } = false;
         //inni użytkownicy mogą wyświetlić dane inne niż nickname
 

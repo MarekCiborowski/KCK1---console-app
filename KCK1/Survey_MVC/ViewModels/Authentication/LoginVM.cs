@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Survey_MVC.ViewModels.Authentication
 {
-    public class UserVM
+    public class LoginVM
     {
 
         [Display(Name = "Username")]
