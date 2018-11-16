@@ -15,10 +15,6 @@
             <div class="navbar-header">
                 <a class="btn-menu" href="">Strona główna</a>
                 <a class="btn-menu" href="">Ankiety</a>
-
-                <a class="btn-menu" href="">Dodaj ofertę</a>
-
-
                 <a class="btn-menu" href="">Wyloguj się: </a>
                 <a class="btn-menu" href="">Profil</a>
 
@@ -32,8 +28,12 @@
         {
             <div class="alert alert-success">@TempData["message"]</div>
         }
-        @RenderBody()
-        <hr />
+        <div class="main">
+            <div class=" container-main">
+                @RenderBody()
+            </div>
+        </div>
+        <br/>
         <footer>
             <p>&copy; @DateTime.Now.Day.@DateTime.Now.Month.@DateTime.Now.Year</p>
         </footer>

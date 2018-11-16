@@ -14,17 +14,24 @@ namespace DataTransferObjects.Models
         public int personDataID { get; set; }
         [Required]
         public virtual Account account { get; set; }
-        [Required]
+        [Display(Name ="Address")]
+        [Required (ErrorMessage ="Address Required")]
 
         public string address { get; set; }
-        [Required]
+        [Display(Name ="City")]
+        [Required (ErrorMessage ="City required")]
         public string city { get; set; }
-        [Required]
+        [Display(Name ="Zipcode")]
+        [Required (ErrorMessage ="Zipcode required")]
         public string zipcode { get; set; }
-        [Required]
+        [Display(Name ="State")]
+        [Required (ErrorMessage ="State required")]
         public string state { get; set; }
-        [Required]
+        [Display(Name ="Country")]
+        [Required(ErrorMessage ="Country required")]
         public string country { get; set; }
+        public bool isProfilePublic { get; set; } = false;
+        //inni użytkownicy mogą wyświetlić dane inne niż nickname
 
     }
 }

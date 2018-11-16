@@ -14,7 +14,7 @@ namespace DataTransferObjects.Models
         public bool canAddOwnAnswer { get; set; }
         public bool isSingleChoice { get; set; }
 
-        //jeżeli true, to w tabeli Votes będzie zapisane kto głosował
+        
         
         
         public ICollection<Question> question { get; set; }

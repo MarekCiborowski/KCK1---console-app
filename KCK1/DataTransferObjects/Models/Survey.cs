@@ -13,9 +13,11 @@ namespace DataTransferObjects.Models
     {
         [Key]
         public int surveyID { get; set; }
-        [Required]
+        [Display(Name ="Survey's title")]
+        [Required(ErrorMessage ="Title required")]
         public string title { get; set; }
-        [Required]
+        [Display(Name ="Survey's description")]
+        [Required(ErrorMessage = "Description required")]
 
         public string description { get; set; }
         public bool isAnonymous { get; set; }

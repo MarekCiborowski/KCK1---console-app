@@ -14,10 +14,11 @@ namespace DataTransferObjects.Models
         public int userSecurityID { get; set; }
         [Required]
         public virtual Account account { get; set; }
-
-        [Required]
+        [Display(Name ="Login")]
+        [Required(ErrorMessage ="Login required")]
         public string login { get; set; }
-        [Required]
+        [Display(Name = "Password")]
+        [Required(ErrorMessage ="Password required")]
         public string password { get; set; }
 
         

@@ -18,12 +18,12 @@ namespace DataTransferObjects.Models
         [Required]
         public virtual PersonData personData { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Email required")]
+        [Display(Name ="Email")]
         public string email { get; set; }
-        [Required]
+        [Display(Name ="Nickname")]
+        [Required(ErrorMessage ="Nickname required")]
         public string nickname { get; set; }
-        
-        
         [Required]
         public virtual UserSecurity userSecurity { get; set; }
         public virtual ICollection<AccountSurvey> accountSurvey { get; set; }

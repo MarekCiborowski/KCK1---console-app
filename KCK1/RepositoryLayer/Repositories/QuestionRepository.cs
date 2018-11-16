@@ -102,7 +102,15 @@ namespace RepositoryLayer.Repositories
             Category category = db.categories.FirstOrDefault(t => t.isSingleChoice == isSingleChoice
             && t.canAddOwnAnswer == canAddOwnAnswer);
             if (category == null)
-                throw new ArgumentNullException("Category is null");
+            {
+                category = new Category
+                {
+                    canAddOwnAnswer = canAddOwnAnswer,
+                    isSingleChoice = isSingleChoice
+                };
+                db.categories.Add(category);
+            }
+                
             return category.categoryID;
         }
 

@@ -13,6 +13,7 @@ namespace DataTransferObjects.Models
     {
         [Key]
         public int questionID { get; set; }
+        [Required]
         public string questionValue { set; get; }
         [ForeignKey("category")]
         public int categoryID { get; set; }
