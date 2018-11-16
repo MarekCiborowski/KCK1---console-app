@@ -1,0 +1,45 @@
+﻿@model Projekt.ViewModels.Authentication.UserVM
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+
+    <div>
+        <p> @Html.ValidationSummary(true, "", new { @class = "text-danger" })</p>
+        <p>
+            @Html.ValidationMessage("CredentialError")
+        </p>
+        @using (Html.BeginForm())
+        {
+        <table>
+            <tr>
+                <th style="text-align: right">@Html.DisplayNameFor(m => m.username)</th>
+                <td>@Html.EditorFor(m => Model.username , new { htmlAttributes = new { @class = "form-control", placeholder = "Username" } })</td>
+
+            </tr>
+
+            <tr>
+                <th style="text-align: right">@Html.DisplayNameFor(m => m.password)</th>
+                <td>@Html.EditorFor(m => Model.password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password",type="password" } })</td>
+
+            </tr>
+        </table>
+
+        <input type="submit" value="Zatwierdź" class="btn btn-default" />
+        }
+    </div>
+    <br /><br />
+    <div class="btn badge-dark">
+        @Html.ActionLink("Powrót do listy", "Index","Product")
+    </div>
+</body>
+</html>

@@ -94,30 +94,30 @@ namespace RepositoryLayer.Repositories
 
         public void AddFollower(int followerId, int followedId)
         {
-            Account followed = db.accounts.Include(t => t.followingUsers).
+            Account followed = db.accounts.
                 FirstOrDefault(t => t.accountID == followedId);
             Account follower = db.accounts.Include(t => t.followedUsers).
                 FirstOrDefault(t => t.accountID == followerId);
 
-            followed.followingUsers.Add(follower);
+            //followed.followingUsers.Add(follower);
             follower.followedUsers.Add(followed);
 
-            EditAccount(followed);
+            //EditAccount(followed);
             EditAccount(follower);
 
         }
 
         public void RemoveFollower(int followerId, int followedId)
         {
-            Account followed = db.accounts.Include(t => t.followingUsers).
+            Account followed = db.accounts.
                 FirstOrDefault(t => t.accountID == followedId);
             Account follower = db.accounts.Include(t => t.followedUsers).
                 FirstOrDefault(t => t.accountID == followerId);
 
-            followed.followingUsers.Remove(follower);
+            //followed.followingUsers.Remove(follower);
             follower.followedUsers.Remove(followed);
 
-            EditAccount(followed);
+            //EditAccount(followed);
             EditAccount(follower);
 
         }
@@ -133,9 +133,9 @@ namespace RepositoryLayer.Repositories
                 {
                     Account account = db.accounts.Include(t => t.followedUsers).
                                 Include(t => t.followingUsers).FirstOrDefault(t => t.accountID == id);
-                    account.followedUsers.Clear();
-                    account.followingUsers.Clear();
-                    EditAccount(account);
+                    //account.followedUsers.Clear();
+                    //account.followingUsers.Clear();
+                    //EditAccount(account);
 
                     db.accounts.Remove(account);
                     db.SaveChanges();
