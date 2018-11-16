@@ -1,4 +1,6 @@
-﻿using Survey_MVC.ViewModels.Authentication;
+﻿using DataTransferObjects.Models;
+using RepositoryLayer.Repositories;
+using Survey_MVC.ViewModels.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,9 @@ namespace Survey_MVC.Controllers
 {
     public class AuthenticationController : Controller
     {
+        private AccountRepository accountRepository= new AccountRepository();
+        private PersonDataRepository personDataRepository = new PersonDataRepository();
+        private UserSecurityRepository userSecurityRepository = new UserSecurityRepository();
         // GET: Authentication
         public ActionResult Login()
         {
@@ -20,11 +25,12 @@ namespace Survey_MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                if (false)
+                Account account;
+                if ((account = accountRepository.GetAccount(vm.username, vm.password)) != null)
                 {
-                    FormsAuthentication.SetAuthCookie(vm.username, false);
-                    return RedirectToAction("Index", "Admin");
+                    Session["CurrentUser"] = account;
+                    FormsAuthentication.SetAuthCookie(account.nickname, false);
+                    return RedirectToAction("Index", "Home");
                 }
 
             }
@@ -34,13 +40,14 @@ namespace Survey_MVC.Controllers
 
         public ActionResult Logout()
         {
+            Session.Clear();
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Product");
+            return Login();
         }
 
         public ActionResult NewUser()
         {
-            ViewBag.availability = true;
+            
             return View();
         }
 
@@ -52,7 +59,7 @@ namespace Survey_MVC.Controllers
                 
 
             }
-            ViewBag.availability = true;
+           
             return View(newUser);
         }
     }

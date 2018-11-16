@@ -9,11 +9,11 @@ namespace Survey_MVC.ViewModels.Authentication
     public class UserVM
     {
 
-        [Display(Name = "Użytkownik")]
-        [Required(ErrorMessage = "Wymagana nazwa użytkownika")]
+        [Display(Name = "Username")]
+        [Required(ErrorMessage = "Username required")]
         public string username { get; set; }
-        [Required(ErrorMessage = "Wymagane hasło")]
-        [Display(Name = "Hasło")]
+        [Required(ErrorMessage = "Password required")]
+        [Display(Name = "Password")]
         public string password { get; set; }
     }
 }
