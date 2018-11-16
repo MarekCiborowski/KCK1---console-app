@@ -58,22 +58,22 @@ namespace Survey_MVC.Controllers
         public ActionResult NewUser(NewUserVM newUser)
         {
             bool isValid = true;
-            if (!userSecurityRepository.IsLoginFree(newUser.userSecurity.login))
+            if (!userSecurityRepository.IsLoginFree(newUser.login))
             {
-                ModelState.AddModelError("CredentialError", "Login is already in use");
+                ModelState.AddModelError("login", "Login is already in use");
                 isValid = false;
             }
-            if (newUser.userSecurity.password != newUser.repeatPassword)
+            if (newUser.password != newUser.repeatPassword)
             {
-                ModelState.AddModelError("CredentialError", "Repeat correct password");
+                ModelState.AddModelError("repeatPassword", "Repeat correct password");
                 isValid = false;
             }
             if (ModelState.IsValid && isValid)
             {
-                UserSecurity userSecurity = userSecurityRepository.CreateUserSecurity(newUser.userSecurity.login, newUser.userSecurity.password);
-                PersonData personData = personDataRepository.CreatePersonData(newUser.personData.address,
-                    newUser.personData.city, newUser.personData.zipcode, newUser.personData.state, newUser.personData.country);
-                Account account = accountRepository.CreateAccount(personData, newUser.account.email, newUser.account.nickname, userSecurity);
+                UserSecurity userSecurity = userSecurityRepository.CreateUserSecurity(newUser.login, newUser.password);
+                PersonData personData = personDataRepository.CreatePersonData(newUser.address,
+                    newUser.city, newUser.zipcode, newUser.state, newUser.country);
+                Account account = accountRepository.CreateAccount(personData, newUser.email, newUser.nickname, userSecurity);
                 accountRepository.AddAccount(account);
                 return RedirectToAction("Login");
 
