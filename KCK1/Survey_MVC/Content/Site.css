@@ -121,4 +121,7 @@ body {
         background: #10465e;
         border: 1px solid #10465e;
     }
-
+table {
+    border-collapse: separate;
+    border-spacing: 10px 20px;
+}

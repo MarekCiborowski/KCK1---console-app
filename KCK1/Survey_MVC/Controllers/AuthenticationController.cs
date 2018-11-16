@@ -18,9 +18,11 @@ namespace Survey_MVC.Controllers
         // GET: Authentication
         public ActionResult Login()
         {
+            if (!string.IsNullOrEmpty(User.Identity.Name))
+                return RedirectToAction("Index", "Home");
             return View();
         }
-        [HttpPost]
+        [HttpPost,ValidateAntiForgeryToken]
         public ActionResult Login(UserVM vm)
         {
             if (ModelState.IsValid)
@@ -30,6 +32,7 @@ namespace Survey_MVC.Controllers
                 {
                     Session["CurrentUser"] = account;
                     FormsAuthentication.SetAuthCookie(account.nickname, false);
+                    string xd = User.Identity.Name;
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -42,7 +45,7 @@ namespace Survey_MVC.Controllers
         {
             Session.Clear();
             FormsAuthentication.SignOut();
-            return Login();
+            return RedirectToAction("Login");
         }
 
         public ActionResult NewUser()
@@ -51,7 +54,7 @@ namespace Survey_MVC.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost,ValidateAntiForgeryToken]
         public ActionResult NewUser(UserVM newUser)
         {
             if (ModelState.IsValid)

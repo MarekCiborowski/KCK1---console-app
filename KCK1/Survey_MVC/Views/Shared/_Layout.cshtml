@@ -13,12 +13,21 @@
     <div class="navbar navbar-fixed-top">
         <div class="container-box">
             <div class="navbar-header">
-                <a class="btn-menu" href="">Home page</a>
+                @{ bool isAuthenticated = !string.IsNullOrEmpty(User.Identity.Name);}
+                @if (isAuthenticated)
+                {
+                <a class="btn-menu" href="@Url.Action("Index", "Home")">Homepage</a>
                 <a class="btn-menu" href="">Surveys</a>
-                <a class="btn-menu" href="">Logout: </a>
+                <a class="btn-menu" href="@Url.Action("Logout","Authentication")">Logout: @User.Identity.Name</a>
                 <a class="btn-menu" href="">Profile</a>
+                }
 
-                <a class="btn-menu" href="">Login</a>
+                else{
+                <a class="btn-menu" href="@Url.Action("Login", "Authentication")">Homepage</a>
+                <a class="btn-menu" href="@Url.Action("NewUser", "Authentication")">New account</a>
+                }
+                
+               
 
             </div>
         </div>
