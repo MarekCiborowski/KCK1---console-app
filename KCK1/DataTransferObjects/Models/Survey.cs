@@ -12,6 +12,7 @@ namespace DataTransferObjects.Models
     public class Survey
     {
         [Key]
+        [Display(Name ="Survey ID")]
         public int surveyID { get; set; }
         [Display(Name ="Survey's title")]
         [Required(ErrorMessage ="Title required")]

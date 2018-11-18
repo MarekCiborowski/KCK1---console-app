@@ -13,7 +13,7 @@ namespace Survey_MVC.Controllers
     public class HomeController : Controller
     {
         private SurveyRepository surveyRepository = new SurveyRepository();
-        private int pageSize = 1;
+        private int pageSize = 2;
         public ActionResult Index(int page=1)
         {
             SurveyListVM surveys  = new SurveyListVM

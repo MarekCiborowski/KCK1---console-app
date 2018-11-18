@@ -122,4 +122,11 @@ body {
 table {
     border-collapse: separate;
     border-spacing: 10px 20px;
+    border-width:5px;
+}
+
+th {
+    background-color:Highlight;
+    border-radius:10px
+    
 }
