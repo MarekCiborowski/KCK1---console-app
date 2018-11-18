@@ -63,11 +63,7 @@ namespace Survey_MVC.Controllers
                 ModelState.AddModelError("login", "Login is already in use");
                 isValid = false;
             }
-            if (newUser.password != newUser.repeatPassword)
-            {
-                ModelState.AddModelError("repeatPassword", "Repeat correct password");
-                isValid = false;
-            }
+            
             if (ModelState.IsValid && isValid)
             {
                 UserSecurity userSecurity = userSecurityRepository.CreateUserSecurity(newUser.login, newUser.password);

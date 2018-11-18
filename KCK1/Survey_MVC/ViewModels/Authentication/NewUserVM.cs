@@ -15,7 +15,9 @@ namespace Survey_MVC.ViewModels.Authentication
         [Display(Name = "Nickname")]
         [Required(ErrorMessage = "Nickname required")]
         public string nickname { get; set; }
-        
+        [Display(Name ="Repeat password")]
+        [Compare("Password",
+          ErrorMessage = "Passwords are not the same.")]
         public string repeatPassword { get; set; }
         [Display(Name = "Login")]
         [Required(ErrorMessage = "Login required")]
