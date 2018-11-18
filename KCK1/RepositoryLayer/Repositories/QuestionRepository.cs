@@ -109,6 +109,7 @@ namespace RepositoryLayer.Repositories
                     isSingleChoice = isSingleChoice
                 };
                 db.categories.Add(category);
+                db.SaveChanges();
             }
                 
             return category.categoryID;
