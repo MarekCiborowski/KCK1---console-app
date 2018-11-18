@@ -12,8 +12,8 @@ namespace DatabaseLayer.Migrations
                 c => new
                     {
                         accountID = c.Int(nullable: false, identity: true),
-                        email = c.String(),
-                        nickname = c.String(),
+                        email = c.String(nullable: false),
+                        nickname = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.accountID);
             
@@ -37,8 +37,8 @@ namespace DatabaseLayer.Migrations
                 c => new
                     {
                         surveyID = c.Int(nullable: false, identity: true),
-                        title = c.String(),
-                        description = c.String(),
+                        title = c.String(nullable: false),
+                        description = c.String(nullable: false),
                         isAnonymous = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.surveyID);
@@ -48,7 +48,7 @@ namespace DatabaseLayer.Migrations
                 c => new
                     {
                         questionID = c.Int(nullable: false, identity: true),
-                        questionValue = c.String(),
+                        questionValue = c.String(nullable: false),
                         categoryID = c.Int(nullable: false),
                         surveyID = c.Int(nullable: false),
                     })
@@ -63,7 +63,7 @@ namespace DatabaseLayer.Migrations
                 c => new
                     {
                         answerID = c.Int(nullable: false, identity: true),
-                        answerValue = c.String(),
+                        answerValue = c.String(nullable: false),
                         questionID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.answerID)
@@ -99,11 +99,12 @@ namespace DatabaseLayer.Migrations
                 c => new
                     {
                         personDataID = c.Int(nullable: false),
-                        address = c.String(),
-                        city = c.String(),
-                        zipcode = c.String(),
-                        state = c.String(),
-                        country = c.String(),
+                        address = c.String(nullable: false),
+                        city = c.String(nullable: false),
+                        zipcode = c.String(nullable: false),
+                        state = c.String(nullable: false),
+                        country = c.String(nullable: false),
+                        isProfilePublic = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.personDataID)
                 .ForeignKey("dbo.Account", t => t.personDataID, cascadeDelete: true)
@@ -114,8 +115,8 @@ namespace DatabaseLayer.Migrations
                 c => new
                     {
                         userSecurityID = c.Int(nullable: false),
-                        login = c.String(),
-                        password = c.String(),
+                        login = c.String(nullable: false),
+                        password = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.userSecurityID)
                 .ForeignKey("dbo.Account", t => t.userSecurityID, cascadeDelete: true)

@@ -7,13 +7,13 @@ namespace DatabaseLayer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class minor_changes : IMigrationMetadata
+    public sealed partial class initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(minor_changes));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201811161701570_minor_changes"; }
+            get { return "201811181156451_initial"; }
         }
         
         string IMigrationMetadata.Source

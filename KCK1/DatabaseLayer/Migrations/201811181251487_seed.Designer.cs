@@ -13,7 +13,7 @@ namespace DatabaseLayer.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201811151627513_seed"; }
+            get { return "201811181251487_seed"; }
         }
         
         string IMigrationMetadata.Source
