@@ -65,11 +65,11 @@ body {
 }
 
 .container-main {
-    display: flex;
+    display: compact;
     justify-content:inherit;
-    margin-top: 40px;
+    margin-top: 20px;
     border-radius: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .btn-menu {

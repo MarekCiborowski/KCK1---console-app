@@ -50,7 +50,7 @@ namespace Survey_MVC.ViewModels.Authentication
         [Required(ErrorMessage ="Country required")]
         public string country { get; set; }
 
-        [Display(Name ="This profile is: ")]
+        [Display(Name ="Profile type: ")]
         public bool isProfilePublic { get; set; } = false;
     }
 }
