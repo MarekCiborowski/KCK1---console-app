@@ -153,8 +153,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelpers\PagingHelpers.cs" />
+    <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Authentication\NewUserVM.cs" />
+    <Compile Include="ViewModels\Surveys\AccountList.cs" />
+    <Compile Include="ViewModels\Surveys\SurveyListVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -199,7 +203,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\Surveys\" />
     <Folder Include="Views\Surveys\" />
   </ItemGroup>
   <ItemGroup>

@@ -32,7 +32,7 @@ namespace Survey_MVC.Controllers
                 {
                     Session["CurrentUser"] = account;
                     FormsAuthentication.SetAuthCookie(account.nickname, false);
-                    string xd = User.Identity.Name;
+                    TempData["message"] = "Successfully logged as " + account.nickname;
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -75,6 +75,7 @@ namespace Survey_MVC.Controllers
                     newUser.city, newUser.zipcode, newUser.state, newUser.country);
                 Account account = accountRepository.CreateAccount(personData, newUser.email, newUser.nickname, userSecurity);
                 accountRepository.AddAccount(account);
+                TempData["message"] = "Successfully added new account: " + account.nickname;
                 return RedirectToAction("Login");
 
             }
