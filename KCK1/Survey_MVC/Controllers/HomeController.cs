@@ -17,9 +17,10 @@ namespace Survey_MVC.Controllers
         private int pageSize = 2;
         public ActionResult Index(int page=1)
         {
+            Account account = (Account)Session["CurrentUser"];
             SurveyListVM surveys  = new SurveyListVM
             {
-                surveyList = surveyRepository.GetSurveys()
+                surveyList = surveyRepository.GetSurveys(account.accountID)
                 .OrderBy(p => p.surveyID)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize),
@@ -27,7 +28,7 @@ namespace Survey_MVC.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = surveyRepository.GetSurveys().Count
+                    TotalItems = surveyRepository.GetSurveys(account.accountID).Count
                 },
                 
             };
@@ -43,8 +44,8 @@ namespace Survey_MVC.Controllers
                 isAnonymous = survey.isAnonymous,
                 questions = surveyRepository.GetQuestions(survey.surveyID)
             };
-
-            
+            //cos bedzie xd
+            return RedirectToAction("Index");
 
         }
         public ActionResult About()
