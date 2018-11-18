@@ -32,12 +32,13 @@
 
             <td>
                 @Html.ActionLink("Choose survey", "Choose", new { id = item.surveyID }) |
-                @Html.ActionLink("Current results", "Results", new { id = item.surveyID }) |
+                @Html.ActionLink("Current results", "Results", new { id = item.surveyID })
             </td>
         </tr>
     }
 
 </table>
+<br/><br /><br /><br />
 <div>
     @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
 </div>

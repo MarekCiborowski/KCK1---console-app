@@ -25,7 +25,7 @@ namespace Survey_MVC.HtmlHelpers
                     tag.AddCssClass("selected");
                     tag.AddCssClass("btn-primary");
                 }
-                tag.AddCssClass("btn btn-search");
+                tag.AddCssClass("btn btn-default");
                 result.Append(tag.ToString());
             }
             return MvcHtmlString.Create(result.ToString());

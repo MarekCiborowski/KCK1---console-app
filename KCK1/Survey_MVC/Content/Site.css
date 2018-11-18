@@ -58,7 +58,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
-    padding: 100px;
+    padding: 50px;
     box-shadow: 0px 10px 45px #10465e;
     color: #10465e;
     z-index: 10;
@@ -66,7 +66,7 @@ body {
 
 .container-main {
     display: flex;
-    justify-content: space-evenly;
+    justify-content:inherit;
     margin-top: 40px;
     border-radius: 20px;
     margin-bottom: 30px;
