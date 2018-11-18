@@ -1,4 +1,5 @@
-﻿using RepositoryLayer.Repositories;
+﻿using DataTransferObjects.Models;
+using RepositoryLayer.Repositories;
 using Survey_MVC.Models;
 using Survey_MVC.ViewModels.Surveys;
 using System;
@@ -33,6 +34,19 @@ namespace Survey_MVC.Controllers
             return View(surveys);
         }
 
+        public ActionResult ChooseSurvey(int? surveyID)
+        {
+            Survey survey = surveyRepository.GetSurvey(surveyID);
+            SurveyToFill surveyToFill = new SurveyToFill
+            {
+                surveyID = survey.surveyID,
+                isAnonymous = survey.isAnonymous,
+                questions = surveyRepository.GetQuestions(survey.surveyID)
+            };
+
+            
+
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
