@@ -77,13 +77,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseContext.cs" />
-    <Compile Include="Migrations\201811181156451_initial.cs" />
-    <Compile Include="Migrations\201811181156451_initial.Designer.cs">
-      <DependentUpon>201811181156451_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201811191138162_initial.cs" />
+    <Compile Include="Migrations\201811191138162_initial.Designer.cs">
+      <DependentUpon>201811191138162_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811181251487_seed.cs" />
-    <Compile Include="Migrations\201811181251487_seed.Designer.cs">
-      <DependentUpon>201811181251487_seed.cs</DependentUpon>
+    <Compile Include="Migrations\201811191139386_seed.cs" />
+    <Compile Include="Migrations\201811191139386_seed.Designer.cs">
+      <DependentUpon>201811191139386_seed.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,11 +99,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811181156451_initial.resx">
-      <DependentUpon>201811181156451_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811191138162_initial.resx">
+      <DependentUpon>201811191138162_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811181251487_seed.resx">
-      <DependentUpon>201811181251487_seed.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811191139386_seed.resx">
+      <DependentUpon>201811191139386_seed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
