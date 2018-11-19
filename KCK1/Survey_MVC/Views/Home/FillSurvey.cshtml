@@ -21,31 +21,55 @@ else
     <h3>This survey is not anonymous.</h3>
 }
 <br /><br />
-@for (int i = 0; i < Model.questions.Count; i++)
+@using (Html.BeginForm())
 {
-    { question = Model.questions.ElementAt(i); }
-    <h2>@questionNumber.  @question.questionValue</h2>
-    { questionNumber++;}
-    if (question.isSingleChoice)
+    @Html.AntiForgeryToken();
+    @Html.HiddenFor(m => m.title);
+    @Html.HiddenFor(m => m.description);
+    @Html.HiddenFor(m => m.isAnonymous);
+    @Html.HiddenFor(m => m.surveyID);
+    @Html.HiddenFor(m => m.authorNickname);
+    @Html.HiddenFor(m => m.questions);
+
+    for (int i = 0; i < Model.questions.Count; i++)
     {
-        for (int j = 0; j < question.answers.Count; j++)
+        
+        @Html.HiddenFor(m => m.questions.ElementAt(i).canAddOwnAnswers);
+        @Html.HiddenFor(m => m.questions.ElementAt(i).isSingleChoice);
+        @Html.HiddenFor(m => m.questions.ElementAt(i).questionValue);
+        @Html.HiddenFor(m => m.questions.ElementAt(i).newAnswer);
+        @Html.HiddenFor(m => m.questions.ElementAt(i).answers);
+
+        { question = Model.questions.ElementAt(i); }
+        <h2>@questionNumber.  @question.questionValue</h2>
+        { questionNumber++; }
+        if (question.isSingleChoice)
         {
-            <div style="display:flex; flex-direction:column">
-                @{ answer = question.answers.ElementAt(j); }
-                <div> <label>@answer.value</label> @Html.RadioButtonFor( m => m.questions.ElementAt(i).answers.ElementAt(j).isChecked, true)</div>
-            </div>
+            for (int j = 0; j < question.answers.Count; j++)
+            {
+                @Html.HiddenFor(m => m.questions.ElementAt(i).answers.ElementAt(j).value);
+                <div style="display:flex; flex-direction:column">
+                    @{ answer = question.answers.ElementAt(j); }
+                    <div> <label>@answer.value</label> @Html.RadioButton(i.ToString(), answer.isChecked)</div>
+                </div>
+            }
+        }
+        else
+        {
+            for (int j = 0; j < question.answers.Count; j++)
+            {
+                <div style="display:flex; flex-direction:column">
+                    @{ answer = question.answers.ElementAt(j); }
+                    <div><label>@answer.value</label> @Html.CheckBoxFor(m => m.questions.ElementAt(i).answers.ElementAt(j).isChecked, true)</div>
+                </div>
+            }
         }
     }
-    else
-    {
-        for (int j = 0; j < question.answers.Count; j++)
-        {
-            <div style="display:flex; flex-direction:column">
-                @{ answer = question.answers.ElementAt(j); }
-                <div><label>@answer.value</label> @Html.CheckBoxFor(m => m.questions.ElementAt(i).answers.ElementAt(j).isChecked, true)</div>
-            </div>
-        }
-    }
+    <div class="form-group">
+        <div>
+            <input type="submit" value="Confirm" class="btn btn-search" />
+        </div>
+    </div>
 }
 
 

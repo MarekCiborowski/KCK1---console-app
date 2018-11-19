@@ -56,6 +56,7 @@ namespace Survey_MVC.Controllers
                 authorNickname = surveyRepository.GetAuthor(id).nickname
                
             };
+
             foreach(Question question in surveyRepository.GetQuestions(survey.surveyID))
             {
                 Category category = questionRepository.GetQuestionCategory(question.questionID);
@@ -81,9 +82,13 @@ namespace Survey_MVC.Controllers
             return View(surveyToFill);
 
         }
-        [HttpPost]
+        [HttpPost][ValidateAntiForgeryToken]
         public ActionResult FillSurvey (SurveyToFillVM surveyToFillVM)
         {
+            if (ModelState.IsValid)
+            {
+
+            }
             return View(surveyToFillVM);
         }
         public ActionResult About()

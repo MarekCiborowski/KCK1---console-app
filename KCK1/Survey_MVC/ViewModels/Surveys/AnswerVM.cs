@@ -10,5 +10,6 @@ namespace Survey_MVC.ViewModels.Surveys
     {
         public string value { get; set; }
         public bool isChecked { get; set; } = false;
+        
     }
 }
