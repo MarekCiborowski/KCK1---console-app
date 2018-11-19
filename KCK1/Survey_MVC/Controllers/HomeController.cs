@@ -15,6 +15,7 @@ namespace Survey_MVC.Controllers
     {
         private SurveyRepository surveyRepository = new SurveyRepository();
         private AccountRepository accountRepository = new AccountRepository();
+        private QuestionRepository questionRepository = new QuestionRepository();
         private int pageSize = 2;
         public ActionResult Index(int page=1)
         {
@@ -22,7 +23,7 @@ namespace Survey_MVC.Controllers
            
             SurveyListVM surveys  = new SurveyListVM
             {
-                surveyList = surveyRepository.GetSurveys(account.accountID)
+                surveyList = surveyRepository.GetSurveysToFill(account.accountID)
                 .OrderBy(p => p.surveyID)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize),
@@ -30,14 +31,14 @@ namespace Survey_MVC.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = surveyRepository.GetSurveys(account.accountID).Count
+                    TotalItems = surveyRepository.GetSurveysToFill(account.accountID).Count
                 },
                 
             };
             return View(surveys);
         }
 
-        public ActionResult ChooseSurvey(int? id)
+        public ActionResult FillSurvey(int? id)
         {
             Account account = (Account)Session["CurrentUser"];
             if (accountRepository.DidFillSurvey(account.accountID, id)) {
@@ -46,17 +47,44 @@ namespace Survey_MVC.Controllers
             }
 
             Survey survey = surveyRepository.GetSurvey(id);
-            SurveyToFill surveyToFill = new SurveyToFill()
+            SurveyToFillVM surveyToFill = new SurveyToFillVM
             {
                 surveyID = survey.surveyID,
                 isAnonymous = survey.isAnonymous,
-                questions = surveyRepository.GetQuestions(survey.surveyID)
+                title = survey.title,
+                description = survey.description,
+                authorNickname = surveyRepository.GetAuthor(id).nickname
+               
             };
-            //cos bedzie xd
+            foreach(Question question in surveyRepository.GetQuestions(survey.surveyID))
+            {
+                Category category = questionRepository.GetQuestionCategory(question.questionID);
+                QuestionVM questionVM = new QuestionVM
+                {
+                    questionValue = question.questionValue,
+                    canAddOwnAnswers = category.canAddOwnAnswer,
+                    isSingleChoice = category.isSingleChoice
+                };
+                foreach(Answer answer in question.answer)
+                {
+                    AnswerVM answerVM = new AnswerVM
+                    {
+                        value = answer.answerValue
+                    };
+                    questionVM.answers.Add(answerVM);
+                }
+                surveyToFill.questions.Add(questionVM);
+            }
 
 
-            return RedirectToAction("Index");
 
+            return View(surveyToFill);
+
+        }
+        [HttpPost]
+        public ActionResult FillSurvey (SurveyToFillVM surveyToFillVM)
+        {
+            return View(surveyToFillVM);
         }
         public ActionResult About()
         {

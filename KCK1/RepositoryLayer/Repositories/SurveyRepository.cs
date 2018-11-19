@@ -35,12 +35,12 @@ namespace RepositoryLayer.Repositories
             return db.surveys.FirstOrDefault(s => s.surveyID == id);
         }
 
-        public List<Survey> GetSurveys(int accountID)
+        public List<Survey> GetSurveysToFill(int accountID)
         {
 
 
-            return db.surveys.Where(a => db.accountsSurveys.Where(b =>
-            b.accountID == accountID && !b.isAuthor).Select(d =>
+            return db.surveys.Where(a => !db.accountsSurveys.Where(b =>
+            b.accountID == accountID).Select(d =>
             d.surveyID).Contains(a.surveyID)).ToList();
         }
 
@@ -139,9 +139,9 @@ namespace RepositoryLayer.Repositories
             if (id == null)
                 throw new ArgumentException("Null argument");
 
-            Survey survey = db.surveys.Include(t => t.question).FirstOrDefault(t=> t.surveyID==id);
+            List<Question> questions = db.questions.Include(a => a.answer).Where(t => t.surveyID == id).ToList();
 
-            return survey.question.ToList();
+            return questions;
         }
 
         public int GetQuantityOfVoters(int? surveyID)

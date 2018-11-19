@@ -1,0 +1,42 @@
+﻿@model Survey_MVC.ViewModels.Surveys.SurveyToFillVM
+@{
+    ViewBag.Title = "Fill Survey";
+}
+@{ int questionNumber = 1;}
+
+<h1>Title: @Model.title</h1>
+<h2>Description: @Model.description</h2>
+<h2>Author: @Model.authorNickname</h2>
+
+@if (Model.isAnonymous)
+{
+    <h3>This survey is anonymous.</h3>
+}
+else
+{
+    <h3>This survey is not anonymous.</h3>
+}
+<br /><br />
+@for (int i=0;i< Model.questions.Count; i++)
+{
+    { var question = Model.questions[i]; }
+    <h2>@questionNumber.  @question.questionValue</h2>
+    { questionNumber++; }
+    if (question.isSingleChoice)
+    {
+        foreach (var answer in question.answers)
+        {
+            @Html.RadioButtonFor(m=>m.questions. isChecked,true)
+        }
+    }
+    else
+    {
+        foreach (var answer in question.answers)
+        {
+
+        }
+    }
+
+}
+
+
