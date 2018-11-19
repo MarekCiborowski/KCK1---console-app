@@ -2,43 +2,50 @@
 @{
     ViewBag.Title = "Fill Survey";
 }
-@{ int questionNumber = 1;}
+@{ int questionNumber = 1; }
 @{ int integer = 0; }
-@{ var question = Model.questions.ElementAt(integer);}
+@{ var question = Model.questions.ElementAt(integer); }
+@{ var answer = question.answers.ElementAt(integer); }
 
 
-    <h1>Title: @Model.title</h1>
-    <h2>Description: @Model.description</h2>
-    <h2>Author: @Model.authorNickname</h2>
+<h1>Title: @Model.title</h1>
+<h2>Description: @Model.description</h2>
+<h2>Author: @Model.authorNickname</h2>
 
-    @if (Model.isAnonymous)
+@if (Model.isAnonymous)
+{
+    <h3>This survey is anonymous.</h3>
+}
+else
+{
+    <h3>This survey is not anonymous.</h3>
+}
+<br /><br />
+@for (int i = 0; i < Model.questions.Count; i++)
+{
+    { question = Model.questions.ElementAt(i); }
+    <h2>@questionNumber.  @question.questionValue</h2>
+    { questionNumber++;}
+    if (question.isSingleChoice)
     {
-        <h3>This survey is anonymous.</h3>
+        for (int j = 0; j < question.answers.Count; j++)
+        {
+            <div style="display:flex; flex-direction:column">
+                @{ answer = question.answers.ElementAt(j); }
+                <div> <label>@answer.value</label> @Html.RadioButtonFor( m => m.questions.ElementAt(i).answers.ElementAt(j).isChecked, true)</div>
+            </div>
+        }
     }
     else
     {
-        <h3>This survey is not anonymous.</h3>
-    }
-    <br /><br />
-    @for (int i = 0; i < Model.questions.Count; i++)
-    {
-        { question = Model.questions.ElementAt(i); }
-        <h2>@questionNumber.  @question.questionValue</h2>
-        { questionNumber++; }
-        if (question.isSingleChoice)
+        for (int j = 0; j < question.answers.Count; j++)
         {
-            foreach (var answer in question.answers)
-            {
-                @Html.RadioButtonFor(m=>m.questions. isChecked,true)
-            }
-        }
-        else
-        {
-            foreach (var answer in question.answers)
-            {
-
-            }
+            <div style="display:flex; flex-direction:column">
+                @{ answer = question.answers.ElementAt(j); }
+                <div><label>@answer.value</label> @Html.CheckBoxFor(m => m.questions.ElementAt(i).answers.ElementAt(j).isChecked, true)</div>
+            </div>
         }
     }
+}
 
 
