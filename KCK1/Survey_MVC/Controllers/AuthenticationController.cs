@@ -18,8 +18,18 @@ namespace Survey_MVC.Controllers
         // GET: Authentication
         public ActionResult Login()
         {
-            if (!string.IsNullOrEmpty(User.Identity.Name))
+            Account account = (Account)Session["CurrentUser"];
+            if (account != null)
+            {
+                
                 return RedirectToAction("Index", "Home");
+            }
+            if (!string.IsNullOrEmpty(User.Identity.Name) && account == null)
+            {
+                Session.Clear();
+                FormsAuthentication.SignOut();
+            }
+
             return View();
         }
         [HttpPost]

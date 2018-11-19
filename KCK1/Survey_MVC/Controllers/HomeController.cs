@@ -14,10 +14,12 @@ namespace Survey_MVC.Controllers
     public class HomeController : Controller
     {
         private SurveyRepository surveyRepository = new SurveyRepository();
+        private AccountRepository accountRepository = new AccountRepository();
         private int pageSize = 2;
         public ActionResult Index(int page=1)
         {
             Account account = (Account)Session["CurrentUser"];
+           
             SurveyListVM surveys  = new SurveyListVM
             {
                 surveyList = surveyRepository.GetSurveys(account.accountID)
@@ -35,16 +37,24 @@ namespace Survey_MVC.Controllers
             return View(surveys);
         }
 
-        public ActionResult ChooseSurvey(int? surveyID)
+        public ActionResult ChooseSurvey(int? id)
         {
-            Survey survey = surveyRepository.GetSurvey(surveyID);
-            SurveyToFill surveyToFill = new SurveyToFill
+            Account account = (Account)Session["CurrentUser"];
+            if (accountRepository.DidFillSurvey(account.accountID, id)) {
+                TempData["message"] = "You have already filled this survey.";
+                return RedirectToAction("Index");
+            }
+
+            Survey survey = surveyRepository.GetSurvey(id);
+            SurveyToFill surveyToFill = new SurveyToFill()
             {
                 surveyID = survey.surveyID,
                 isAnonymous = survey.isAnonymous,
                 questions = surveyRepository.GetQuestions(survey.surveyID)
             };
             //cos bedzie xd
+
+
             return RedirectToAction("Index");
 
         }

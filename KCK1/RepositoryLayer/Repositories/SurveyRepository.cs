@@ -38,7 +38,8 @@ namespace RepositoryLayer.Repositories
         public List<Survey> GetSurveys(int accountID)
         {
 
-            return db.surveys.ToList().Except(new AccountRepository().GetAccountAuthorSurveys(accountID)).ToList();
+            List < Survey > authorSurveys = new AccountRepository().GetAccountAuthorSurveys(accountID);
+            return db.surveys.Where(a=>!(authorSurveys.Select(b=>b.surveyID).Contains(a.surveyID))).ToList();
         }
 
         public void AddSurvey(Survey survey, Account Author)

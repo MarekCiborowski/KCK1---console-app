@@ -192,7 +192,7 @@ namespace Surveys
 
         public void OptionFunction()
         {
-            ChooseSurvey.Choose(account, new SurveyRepository().GetSurveys());
+            //ChooseSurvey.Choose(account, new SurveyRepository().GetSurveys());
         }
 
         public string GetName()
