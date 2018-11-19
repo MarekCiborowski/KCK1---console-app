@@ -11,6 +11,7 @@ namespace Survey_MVC.ViewModels.Authentication
     {
         [Required(ErrorMessage = "Email required")]
         [Display(Name = "Email")]
+        
         public string email { get; set; }
 
         [Display(Name = "Nickname")]

@@ -4,6 +4,7 @@
 
                 ViewBag.Title = "NewUser";
 }
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -116,9 +117,9 @@
 
     </table>
     <br />
-    <div >
+    <div style="display:flex; flex-direction:column">
         @Html.LabelFor(model => model.isProfilePublic, htmlAttributes: new { @class = "control-label col-md-2" })
-        <br />
+        
         <div >@Html.RadioButtonFor(model => model.isProfilePublic, "false", new { @checked = "checked" }) <label>Private</label></div>
         <div>@Html.RadioButtonFor(model => model.isProfilePublic, "true") <label>Public</label></div>
 

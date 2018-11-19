@@ -63,6 +63,12 @@ namespace Survey_MVC.Controllers
                 ModelState.AddModelError("login", "Login is already in use");
                 isValid = false;
             }
+            if (!accountRepository.IsEmailCorrect(newUser.email))
+            {
+                ModelState.AddModelError("email", "Email is not correct");
+                isValid = false;
+            }
+
             
             if (ModelState.IsValid && isValid)
             {

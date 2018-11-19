@@ -130,3 +130,9 @@ th {
     border-radius:10px
     
 }
+
+.column{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid red;
+}
