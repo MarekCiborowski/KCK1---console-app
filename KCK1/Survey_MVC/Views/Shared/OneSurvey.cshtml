@@ -5,7 +5,7 @@
     <h3>
         <strong>@Model.title</strong>
         <p class="btn btn-dark" style="margin-top:10px">
-    @Html.ActionLink("Choose survey", "ChooseSurvey", "Home", new { surveyID = Model.surveyID }, null)
+    @Html.ActionLink("Choose survey", "ChooseSurvey", "Home", new { id = Model.surveyID }, null)
 </p>
     </h3>
     <span class="lead">@Model.description</span>
