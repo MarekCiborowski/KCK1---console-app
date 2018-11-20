@@ -9,17 +9,39 @@ namespace Survey_MVC.ViewModels.Surveys
 {
     public class CreateSurveyVM
     {
-        [Display(Name ="Survey's title")]
+        [Display(Name ="Title")]
         [Required(ErrorMessage ="Title required")]
         public string title { get; set; }
 
-        [Display(Name ="Survey's description")]
+        [Display(Name ="Description")]
         [Required(ErrorMessage = "Description required")]
         public string description { get; set; }
 
         [Display(Name ="Is anonymous?")]
         public bool isAnonymous { get; set; }
 
-        public List<QuestionVM> questions { get; set; }
+        public List<NewQuestion> questions { get; set; } = new List<NewQuestion>();
+
+        public NewQuestion newQuestion { get; set; }
+
+        public class NewQuestion
+        {
+            [Display(Name = "Question")]
+            public string questionValue { get; set; }
+
+            [Display(Name = "Is a single choice?")]
+            public bool isSingleChoice { get; set; }
+
+            [Display(Name = "Can user add his/her own answers?")]
+            public bool canAddOwnAnswers { get; set; }
+
+            public List<string> answers { get; set; } = new List<string>();
+
+            [Display(Name = "First Answer")]
+            public string firstAnswerValue { get; set; }
+
+            [Display(Name = "Second Answer")]
+            public string secondAnswerValue { get; set; }
+        }
     }
 }
