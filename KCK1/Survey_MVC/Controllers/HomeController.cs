@@ -122,6 +122,7 @@ namespace Survey_MVC.Controllers
                 createSurveyVM.newQuestion.answers.Add(createSurveyVM.newQuestion.firstAnswerValue);
                 createSurveyVM.newQuestion.answers.Add(createSurveyVM.newQuestion.secondAnswerValue);
                 createSurveyVM.questions.Add(createSurveyVM.newQuestion);
+                return View(createSurveyVM);
             }
             else if(button == "Confirm")
             {

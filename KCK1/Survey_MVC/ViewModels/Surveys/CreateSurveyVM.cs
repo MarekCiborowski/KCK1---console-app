@@ -24,6 +24,7 @@ namespace Survey_MVC.ViewModels.Surveys
 
         public NewQuestion newQuestion { get; set; }
 
+
         public class NewQuestion
         {
             [Display(Name = "Question")]
