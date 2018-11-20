@@ -60,10 +60,10 @@ else
             {
                 @Html.HiddenFor(m => m.questions[i].answers[j].answerID);
                 @Html.HiddenFor(m => m.questions[i].answers[j].value);
-                @Html.HiddenFor(m => m.questions[i].answers[j].isChecked);
+                
                 <div style="display:flex; flex-direction:column">
 
-                    <div> @Html.CheckBoxFor(m => m.questions.ElementAt(i).answers.ElementAt(j).isChecked, true)<label>@Model.questions[i].answers[j].value</label></div>
+                    <div> @Html.CheckBoxFor(m => m.questions[i].answers[j].isChecked)<label>@Model.questions[i].answers[j].value</label></div>
                 </div>
             }
         }
