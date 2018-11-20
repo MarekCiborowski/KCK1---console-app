@@ -10,6 +10,11 @@
 {
     @Html.AntiForgeryToken()
 
+    @Html.HiddenFor(m => m.title);
+    @Html.HiddenFor(m => m.description);
+    @Html.HiddenFor(m => m.isAnonymous);
+
+
     @Html.ValidationSummary(true, "Error occured while creating new survey", new { @class = "text-danger" })
     <table style="float:left">
         <tr>
@@ -21,52 +26,58 @@
             <td>
                 @if (Model.questions.Count > 0)
                 {
-                        <div>
-                            <center><button value="Submit" name="button" type="submit" class="btn btn-search">Create Survey</button></center>
-                        </div>
-                 }
-                </td>
-            </tr>
-        </table>
+                    <div>
+                        <center><button value="Submit" name="button" type="submit" class="btn btn-search">Create Survey</button></center>
+                    </div>
+                }
+            </td>
+        </tr>
+    </table>
 
-        <table>
-            <tr>
-                <td>
-                    @Html.EditorFor(model => model.newQuestion, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.newQuestion, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <center><button value="AddQuestion" name="button" type="submit" class="btn btn-search">Add Question</button></center>
-                </td>
+    <table>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.newQuestion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.newQuestion, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <center><button value="AddQuestion" name="button" type="submit" class="btn btn-search">Add Question</button></center>
+            </td>
 
-            </tr>
-        </table>
+        </tr>
+    </table>
 
-        <table>
-            @if (Model.questions.Count > 0)
+    <table>
+        @if (Model.questions.Count > 0)
+        {
+            for (int i = 0; i < Model.questions.Count; i++)
             {
-                for (int i = 0; i < Model.questions.Count; i++)
+                @Html.HiddenFor(m => m.questions[i].canAddOwnAnswers)
+                @Html.HiddenFor(m => m.questions[i].isSingleChoice)
+                @Html.HiddenFor(m => m.questions[i].questionValue)
+                @Html.HiddenFor(m => m.questions[i].firstAnswerValue)
+                @Html.HiddenFor(m => m.questions[i].secondAnswerValue)
+                <tr>
+                    <td>
+                        <div>
+                            @iterator. @Model.questions[i].questionValue
+                        </div>
+                    </td>
+                </tr>
+                for (int j = 0; j < @Model.questions[i].answers.Count; j++)
                 {
+                    @Html.HiddenFor(m => m.questions[i].answers[j])
                     <tr>
                         <td>
-                            <div>
-                                @iterator. @Model.questions[i].questionValue
-                            </div>
+                            @sign) @Model.questions[i].answers[j]
                         </td>
                     </tr>
-                    for (int j = 0; j < @Model.questions[i].answers.Count; j++)
-                    {
-                        <tr>
-                            <td>
-                                @sign) @Model.questions[i].answers[j]
-                            </td>
-                        </tr>
-                        { sign++; }
-                    }
-                    { iterator++; sign = 'a'; }
+                    { sign++; }
                 }
+                { iterator++; sign = 'a'; }
             }
-        </table>
-    }
+        }
+    </table>
+}
