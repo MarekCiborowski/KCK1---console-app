@@ -67,6 +67,10 @@ else
                 </div>
             }
         }
+        if (@Model.questions[i].canAddOwnAnswers)
+        {
+            @Html.TextBoxFor(m=>m.questions[i].newAnswer, new { htmlAttributes = new { placeholder = "New answer" } })
+        }
     }
     <div class="form-group">
         <div>
