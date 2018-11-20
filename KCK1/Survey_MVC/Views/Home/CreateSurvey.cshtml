@@ -3,6 +3,7 @@
     ViewBag.Title = "CreateSurvey";
 }
 
+@{ var iterator = 1; char sign = 'a';}
 <h2>Create new survey</h2>
 
 @using (Html.BeginForm())
@@ -10,37 +11,62 @@
     @Html.AntiForgeryToken()
 
     @Html.ValidationSummary(true, "Error occured while creating new survey", new { @class = "text-danger" })
-    <table>
+    <table style="float:left">
         <tr>
             <td>
-                @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
-            </td>
-            <td>
-                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter the title" } })
-                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model, new { htmlAttributes = new { @class = "form-control" } })
             </td>
         </tr>
         <tr>
             <td>
-                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-            </td>
-            <td>
-                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter the description" } })
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-            </td>
-        </tr>
-    </table>
-    <br />
-    <div style="display:flex; flex-direction:column">
-        @Html.LabelFor(model => model.isAnonymous, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div style="margin-left: 15px">
-            @Html.RadioButtonFor(model => model.isAnonymous, "true", new { @checked = "checked" })  <label>Yes</label>       
-            @Html.RadioButtonFor(model => model.isAnonymous, "false")  <label>No</label>
-        </div>
-    </div>
-    <div class="form-group">
-        <div>
-            <input type="submit" value="Create " class="btn btn-search" />
-        </div>
-    </div>
-}
+                @if (Model.questions.Count > 0)
+                {
+                        <div>
+                            <center><button value="Submit" name="button" type="submit" class="btn btn-search">Create Survey</button></center>
+                        </div>
+                 }
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td>
+                    @Html.EditorFor(model => model.newQuestion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.newQuestion, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center><button value="AddQuestion" name="button" type="submit" class="btn btn-search">Add Question</button></center>
+                </td>
+
+            </tr>
+        </table>
+
+        <table>
+            @if (Model.questions.Count > 0)
+            {
+                for (int i = 0; i < Model.questions.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            <div>
+                                @iterator. @Model.questions[i].questionValue
+                            </div>
+                        </td>
+                    </tr>
+                    for (int j = 0; j < @Model.questions[i].answers.Count; j++)
+                    {
+                        <tr>
+                            <td>
+                                @sign) @Model.questions[i].answers[j]
+                            </td>
+                        </tr>
+                        { sign++; }
+                    }
+                    { iterator++; sign = 'a'; }
+                }
+            }
+        </table>
+    }
