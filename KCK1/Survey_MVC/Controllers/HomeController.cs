@@ -56,7 +56,7 @@ namespace Survey_MVC.Controllers
                 authorNickname = surveyRepository.GetAuthor(id).nickname
                
             };
-
+            int answerID = 0, questionID = 0 ;
             foreach(Question question in surveyRepository.GetQuestions(survey.surveyID))
             {
                 Category category = questionRepository.GetQuestionCategory(question.questionID);
@@ -64,18 +64,24 @@ namespace Survey_MVC.Controllers
                 {
                     questionValue = question.questionValue,
                     canAddOwnAnswers = category.canAddOwnAnswer,
-                    isSingleChoice = category.isSingleChoice
+                    isSingleChoice = category.isSingleChoice,
+                    questionID = questionID
                 };
+                questionID++;
                 foreach(Answer answer in question.answer)
                 {
                     AnswerVM answerVM = new AnswerVM
                     {
-                        value = answer.answerValue
+                        value = answer.answerValue,
+                        answerID = answerID
+                        
                     };
+                    answerID++;
                     questionVM.answers.Add(answerVM);
                 }
                 surveyToFill.questions.Add(questionVM);
             }
+            surveyToFill.lastAnswerID = answerID - 1;
 
 
 

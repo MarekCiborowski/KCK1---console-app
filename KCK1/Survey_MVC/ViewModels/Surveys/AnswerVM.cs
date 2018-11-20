@@ -9,7 +9,7 @@ namespace Survey_MVC.ViewModels.Surveys
     public class AnswerVM
     {
         public string value { get; set; }
-        public bool isChecked { get; set; } = false;
-        
+        public bool isChecked { get; set; } = false; //for multiple choice
+        public int answerID { get; set; }
     }
 }

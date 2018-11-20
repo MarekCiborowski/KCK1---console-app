@@ -3,10 +3,6 @@
     ViewBag.Title = "Fill Survey";
 }
 @{ int questionNumber = 1; }
-@{ int integer = 0; }
-@{ var question = Model.questions.ElementAt(integer); }
-@{ var answer = question.answers.ElementAt(integer); }
-
 
 <h1>Title: @Model.title</h1>
 <h2>Description: @Model.description</h2>
@@ -29,38 +25,45 @@ else
     @Html.HiddenFor(m => m.isAnonymous);
     @Html.HiddenFor(m => m.surveyID);
     @Html.HiddenFor(m => m.authorNickname);
-    @Html.HiddenFor(m => m.questions);
+    @Html.HiddenFor(m => m.lastAnswerID);
 
     for (int i = 0; i < Model.questions.Count; i++)
     {
-        
-        @Html.HiddenFor(m => m.questions.ElementAt(i).canAddOwnAnswers);
-        @Html.HiddenFor(m => m.questions.ElementAt(i).isSingleChoice);
-        @Html.HiddenFor(m => m.questions.ElementAt(i).questionValue);
-        @Html.HiddenFor(m => m.questions.ElementAt(i).newAnswer);
-        @Html.HiddenFor(m => m.questions.ElementAt(i).answers);
 
-        { question = Model.questions.ElementAt(i); }
-        <h2>@questionNumber.  @question.questionValue</h2>
+        @Html.HiddenFor(m => m.questions[i].canAddOwnAnswers);
+        @Html.HiddenFor(m => m.questions[i].isSingleChoice);
+        @Html.HiddenFor(m => m.questions[i].newAnswer);
+        @Html.HiddenFor(m => m.questions[i].questionValue);
+
+
+
+        @Html.HiddenFor(m => m.questions[i].questionID);
+
+
+        <h2>@questionNumber.  @Model.questions[i].questionValue</h2>
         { questionNumber++; }
-        if (question.isSingleChoice)
+        if (@Model.questions[i].isSingleChoice)
         {
-            for (int j = 0; j < question.answers.Count; j++)
+            for (int j = 0; j < @Model.questions[i].answers.Count; j++)
             {
-                @Html.HiddenFor(m => m.questions.ElementAt(i).answers.ElementAt(j).value);
+                @Html.HiddenFor(m => m.questions[i].answers[j].answerID);
+                @Html.HiddenFor(m => m.questions[i].answers[j].value);
                 <div style="display:flex; flex-direction:column">
-                    @{ answer = question.answers.ElementAt(j); }
-                    <div> <label>@answer.value</label> @Html.RadioButton(i.ToString(), answer.isChecked)</div>
+
+                    <div>  @Html.RadioButtonFor(m => m.questions[i].selectedAnswersID, Model.questions[i].answers[j].answerID)<label>@Model.questions[i].answers[j].value</label></div>
                 </div>
             }
         }
         else
         {
-            for (int j = 0; j < question.answers.Count; j++)
+            for (int j = 0; j < @Model.questions[i].answers.Count; j++)
             {
+                @Html.HiddenFor(m => m.questions[i].answers[j].answerID);
+                @Html.HiddenFor(m => m.questions[i].answers[j].value);
+                @Html.HiddenFor(m => m.questions[i].answers[j].isChecked);
                 <div style="display:flex; flex-direction:column">
-                    @{ answer = question.answers.ElementAt(j); }
-                    <div><label>@answer.value</label> @Html.CheckBoxFor(m => m.questions.ElementAt(i).answers.ElementAt(j).isChecked, true)</div>
+
+                    <div> @Html.CheckBoxFor(m => m.questions.ElementAt(i).answers.ElementAt(j).isChecked, true)<label>@Model.questions[i].answers[j].value</label></div>
                 </div>
             }
         }
