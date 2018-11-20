@@ -25,7 +25,7 @@ else
     @Html.HiddenFor(m => m.isAnonymous);
     @Html.HiddenFor(m => m.surveyID);
     @Html.HiddenFor(m => m.authorNickname);
-   
+
 
     for (int i = 0; i < Model.questions.Count; i++)
     {
@@ -60,7 +60,7 @@ else
             {
                 @Html.HiddenFor(m => m.questions[i].answers[j].answerID);
                 @Html.HiddenFor(m => m.questions[i].answers[j].value);
-                
+
                 <div style="display:flex; flex-direction:column">
 
                     <div> @Html.CheckBoxFor(m => m.questions[i].answers[j].isChecked)<label>@Model.questions[i].answers[j].value</label></div>
@@ -69,12 +69,17 @@ else
         }
         if (@Model.questions[i].canAddOwnAnswers)
         {
-            @Html.TextBoxFor(m=>m.questions[i].newAnswer, new { htmlAttributes = new { placeholder = "New answer" } })
+            @Html.EditorFor(m => m.questions[i].newAnswer, new { htmlAttributes = new { @Value="", placeholder = "New answer" } })
+            <div class="form-group">
+                <div>
+                    <button value=@Model.questions[i].questionID.ToString() type="submit" name="button" class="btn btn-search"> Add answer </button>
+                </div>
+            </div>
         }
     }
     <div class="form-group">
         <div>
-            <input type="submit" value="Confirm" class="btn btn-search" />
+            <button value="Submit" name="button" type="submit" class="btn btn-search"> Confirm </button>
         </div>
     </div>
 }
