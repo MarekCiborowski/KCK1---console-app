@@ -162,6 +162,7 @@
     <Compile Include="ViewModels\Authentication\NewUserVM.cs" />
     <Compile Include="ViewModels\Surveys\AccountListVM.cs" />
     <Compile Include="ViewModels\Surveys\AnswerVM.cs" />
+    <Compile Include="ViewModels\Surveys\CreateSurveyVM.cs" />
     <Compile Include="ViewModels\Surveys\QuestionVM.cs" />
     <Compile Include="ViewModels\Surveys\SurveyListVM.cs" />
     <Compile Include="ViewModels\Surveys\SurveyToFillVM.cs" />
@@ -208,6 +209,7 @@
     <Content Include="Views\Authentication\NewUser.cshtml" />
     <Content Include="Views\Shared\OneSurvey.cshtml" />
     <Content Include="Views\Home\FillSurvey.cshtml" />
+    <Content Include="Views\Home\CreateSurvey.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

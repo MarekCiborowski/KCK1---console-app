@@ -20,18 +20,20 @@
                 @{ bool isAuthenticated = !string.IsNullOrEmpty(User.Identity.Name);}
                 @if (isAuthenticated)
                 {
-                <a class="btn-menu" href="@Url.Action("Index", "Home")">Homepage</a>
-                <a class="btn-menu" href="">Surveys</a>
-                <a class="btn-menu" href="@Url.Action("Logout","Authentication")">Logout: @User.Identity.Name</a>
-                <a class="btn-menu" href="">Profile</a>
+                    <a class="btn-menu" href="@Url.Action("Index", "Home")">Homepage</a>
+                    <a class="btn-menu" href="">Surveys</a>
+                    <a class="btn-menu" href="@Url.Action("Logout","Authentication")">Logout: @User.Identity.Name</a>
+                    <a class="btn-menu" href="">Profile</a>
+                    <a class="btn-menu" href="@Url.Action("CreateSurvey","Home")">Create Survey</a>
                 }
 
-                else{
-                <a class="btn-menu" href="@Url.Action("Login", "Authentication")">Homepage</a>
-                <a class="btn-menu" href="@Url.Action("NewUser", "Authentication")">New account</a>
+                else
+                {
+                    <a class="btn-menu" href="@Url.Action("Login", "Authentication")">Homepage</a>
+                    <a class="btn-menu" href="@Url.Action("NewUser", "Authentication")">New account</a>
                 }
-                
-               
+
+
 
             </div>
         </div>

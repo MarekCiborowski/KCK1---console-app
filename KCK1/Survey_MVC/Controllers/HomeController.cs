@@ -103,5 +103,25 @@ namespace Survey_MVC.Controllers
 
             return View();
         }
+
+
+
+        public ActionResult CreateSurvey ()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSurvey(CreateSurveyVM createSurveyVM)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+
+            return View(createSurveyVM);
+        }
+
     }
 }
