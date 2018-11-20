@@ -89,7 +89,8 @@ namespace Survey_MVC.Controllers
 
         }
         [HttpPost][ValidateAntiForgeryToken]
-        public ActionResult FillSurvey (SurveyToFillVM surveyToFillVM)
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult FillSurvey (SurveyToFillVM surveyToFillVM, string button)
         {
             if (ModelState.IsValid)
             {
