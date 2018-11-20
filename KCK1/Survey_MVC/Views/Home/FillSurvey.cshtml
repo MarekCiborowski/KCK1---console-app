@@ -32,15 +32,13 @@ else
 
         @Html.HiddenFor(m => m.questions[i].canAddOwnAnswers);
         @Html.HiddenFor(m => m.questions[i].isSingleChoice);
-        @Html.HiddenFor(m => m.questions[i].newAnswer);
+
         @Html.HiddenFor(m => m.questions[i].questionValue);
-
-
-
         @Html.HiddenFor(m => m.questions[i].questionID);
 
 
         <h2>@questionNumber.  @Model.questions[i].questionValue</h2>
+        @Html.ValidationMessageFor(model => model.questions[i].questionValue, "", new { @class = "text-danger" })
         { questionNumber++; }
         if (@Model.questions[i].isSingleChoice)
         {
@@ -69,7 +67,8 @@ else
         }
         if (@Model.questions[i].canAddOwnAnswers)
         {
-            @Html.EditorFor(m => m.questions[i].newAnswer, new { htmlAttributes = new { @Value="", placeholder = "New answer" } })
+            @Html.EditorFor(m => m.questions[i].newAnswer, new { htmlAttributes = new { @Value = "", placeholder = "New answer" } })
+            @Html.ValidationMessageFor(model => model.questions[i].newAnswer, "", new { @class = "text-danger" })
             <div class="form-group">
                 <div>
                     <button value=@Model.questions[i].questionID.ToString() type="submit" name="button" class="btn btn-search"> Add answer </button>
