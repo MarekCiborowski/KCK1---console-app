@@ -13,7 +13,7 @@ namespace Survey_MVC.ViewModels.Surveys
         public string questionValue { get; set; }
         public bool isSingleChoice { get; set; }
         public bool canAddOwnAnswers { get; set; }
-        public int selectedAnswersID { get; set; } //for single choice
+        public int? selectedAnswersID { get; set; } = null; //for single choice
         public List<AnswerVM> answers { get; set; } = new List<AnswerVM>();
         public string newAnswer { get; set; }
     }

@@ -16,6 +16,9 @@ namespace Survey_MVC.Controllers
         private SurveyRepository surveyRepository = new SurveyRepository();
         private AccountRepository accountRepository = new AccountRepository();
         private QuestionRepository questionRepository = new QuestionRepository();
+        private AnswerRepository answerRepository = new AnswerRepository();
+        private AccountSurveyRepository accountSurveyRepository = new AccountSurveyRepository();
+
         private int pageSize = 2;
         public ActionResult Index(int page=1)
         {
@@ -89,14 +92,71 @@ namespace Survey_MVC.Controllers
 
         }
         [HttpPost][ValidateAntiForgeryToken]
-        [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult FillSurvey (SurveyToFillVM surveyToFillVM, string button)
         {
-            if (ModelState.IsValid)
+            if (button == "Submit")
             {
+                bool isValid = true;
+                for(int i = 0;i< surveyToFillVM.questions.Count; i++)
+                {
+                    QuestionVM question = surveyToFillVM.questions[i];
+                    if (question.isSingleChoice)
+                    {
+                        if (question.selectedAnswersID == null) {
+                            ModelState.AddModelError(string.Format("questions[{0}].questionValue", i), "Select at least one answer");
+                            isValid = false;
+                        }
+                    }
+                    else
+                    {
+                        if (!question.answers.Any(a => a.isChecked == true))
+                        {
+                            ModelState.AddModelError(string.Format("questions[{0}].questionValue", i), "Select at least one answer");
+                            isValid = false;
+                        }
+                    }
+                }
 
+                if (ModelState.IsValid && isValid)
+                {
+                    Account account = (Account)Session["CurrentUser"];
+                    foreach(QuestionVM question in surveyToFillVM.questions)
+                    {
+                        if (question.isSingleChoice)
+                            answerRepository.AddVoteToAnswer(account.accountID, question.selectedAnswersID.GetValueOrDefault());                     
+                        else
+                        {
+                            foreach(AnswerVM answer in question.answers.Where(a => a.isChecked))
+                            {
+                                answerRepository.AddVoteToAnswer(account.accountID, answer.answerID);
+                            }
+                        }
+                    }
+                    accountSurveyRepository.AddAccountSurvey(account.accountID, surveyToFillVM.surveyID);
+                    return RedirectToAction("Index", "Home");
+                }
+                return View(surveyToFillVM);
             }
-            return View(surveyToFillVM);
+            else
+            {
+                int questionID = Int32.Parse(button);
+                string newAnswerValue = surveyToFillVM.questions.FirstOrDefault(t => t.questionID == questionID).newAnswer;
+                int questionIndex = surveyToFillVM.questions.IndexOf(surveyToFillVM.questions.
+                        FirstOrDefault(t => t.questionID == questionID));
+                if (string.IsNullOrEmpty(newAnswerValue))
+                {
+                    
+                    ModelState.AddModelError(string.Format("questions[{0}].newAnswer", questionIndex), "You can't add empty answer.");
+                    return View(surveyToFillVM);
+                }
+                Answer newAnswer = answerRepository.CreateAnswer(surveyToFillVM.questions[questionIndex].newAnswer);
+                answerRepository.AddAnswerToQuestion(newAnswer, questionID);
+
+                surveyToFillVM.questions[questionIndex].answers.Add(new AnswerVM { answerID = newAnswer.answerID, value = newAnswerValue });
+                surveyToFillVM.questions[questionIndex].canAddOwnAnswers = false;
+
+                return View(surveyToFillVM);
+            }
         }
         public ActionResult About()
         {
