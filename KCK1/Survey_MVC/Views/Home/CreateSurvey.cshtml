@@ -41,7 +41,7 @@
                 @if (Model.questions.Count > 0)
                 {
                     <div>
-                        <center><button value="Confirm" name="button" type="submit" class="btn btn-search">Save changes and create survey</button></center>
+                        <center><button value="Confirm" name="button" type="submit" class="btn btn-search">Create survey</button></center>
                     </div>
                 }
             </td>
@@ -52,20 +52,20 @@
         <tr>
             <td>
                 @Html.LabelFor(m => m.newQuestion.questionValue)
-                @Html.EditorFor(model => model.newQuestion.questionValue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.newQuestion.questionValue, "", new { @class = "text-danger" })
+                @Html.EditorFor(m => m.newQuestion.questionValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.newQuestion.questionValue, "", new { @class = "text-danger" })
             </td>
         </tr>
         <tr>
             <td>
                 @Html.LabelFor(m => m.newQuestion.isSingleChoice)
-                @Html.CheckBoxFor(model => model.newQuestion.isSingleChoice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.CheckBoxFor(m => m.newQuestion.isSingleChoice, new { htmlAttributes = new { @class = "form-control" } })
             </td>
         </tr>
         <tr>
             <td>
                 @Html.LabelFor(m => m.newQuestion.canAddOwnAnswers)
-                @Html.CheckBoxFor(model => model.newQuestion.canAddOwnAnswers, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.CheckBoxFor(m => m.newQuestion.canAddOwnAnswers, new { htmlAttributes = new { @class = "form-control" } })
             </td>
         </tr>
         <tr>
@@ -83,27 +83,33 @@
             {
                 @Html.HiddenFor(m => m.questions[i].canAddOwnAnswers)
                 @Html.HiddenFor(m => m.questions[i].isSingleChoice)
-                @Html.HiddenFor(m => m.questions[i].questionValue)
+                @Html.HiddenFor(m => m.questions[i].questionValueCopy)
                 <tr>
                     <td>
+                        @*@iterator.*@
                         <div>
-                            @iterator. @Model.questions[i].questionValue
+                            @Html.EditorFor(m => m.questions[i].questionValue, new { htmlAttributes = new { @Value = @Model.questions[i].questionValue, @class = "form-control" } })
                         </div>
+                        <div>@Html.ValidationMessageFor(m => m.questions[i].questionValue, "", new { @class = "text-danger" })</div>
+                    <td>
+                        <button class="btn-xs" value="DeleteQuestion @i" type="submit" name="button"><i class="glyphicon glyphicon-trash"></i>  Delete Question</button>
                     </td>
+
                 </tr>
                 for (int j = 0; j < @Model.questions[i].answers.Count; j++)
                 {
                     @*@Html.HiddenFor(m => m.questions[i].answers[j])*@
                     @Html.HiddenFor(m => m.questions[i].answersCopy[j])
-                    <tr>                   
+                    <tr>
                         <td>
-                             @Html.EditorFor(m => m.questions[i].answers[j], new { htmlAttributes = new { @Value = @Model.questions[i].answers[j], @class = "form-control" } })
+                            @Html.EditorFor(m => m.questions[i].answers[j], new { htmlAttributes = new { @Value = @Model.questions[i].answers[j], @class = "form-control" } })
                             <div>@Html.ValidationMessageFor(m => m.questions[i].answers[j], "", new { @class = "text-danger" })</div>
                         </td>
-                        <td><button class="btn-xs" value="Delete @i @j" type="submit" name="button"><i class="fa fa-close"></i></button></td>
+                        <td><button class="btn-xs" value="DeleteAnswer @i @j" type="submit" name="button"><i class="fa fa-close"></i> Delete Answer</button></td>
                     </tr>
                     { sign++; }
                 }
+
                 <tr>
                     <td>
                         @Html.EditorFor(m => m.questions[i].newAnswer, new { htmlAttributes = new { @Value = "", placeholder = "New answer", @class = "form-control" } })

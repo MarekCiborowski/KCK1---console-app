@@ -20,11 +20,11 @@ namespace Survey_MVC.Controllers
         private AccountSurveyRepository accountSurveyRepository = new AccountSurveyRepository();
 
         private int pageSize = 2;
-        public ActionResult Index(int page=1)
+        public ActionResult Index(int page = 1)
         {
             Account account = (Account)Session["CurrentUser"];
-           
-            SurveyListVM surveys  = new SurveyListVM
+
+            SurveyListVM surveys = new SurveyListVM
             {
                 surveyList = surveyRepository.GetSurveysToFill(account.accountID)
                 .OrderBy(p => p.surveyID)
@@ -36,7 +36,7 @@ namespace Survey_MVC.Controllers
                     ItemsPerPage = pageSize,
                     TotalItems = surveyRepository.GetSurveysToFill(account.accountID).Count
                 },
-                
+
             };
             return View(surveys);
         }
@@ -44,7 +44,8 @@ namespace Survey_MVC.Controllers
         public ActionResult FillSurvey(int? id)
         {
             Account account = (Account)Session["CurrentUser"];
-            if (accountRepository.DidFillSurvey(account.accountID, id)) {
+            if (accountRepository.DidFillSurvey(account.accountID, id))
+            {
                 TempData["message"] = "You have already filled this survey.";
                 return RedirectToAction("Index");
             }
@@ -57,10 +58,10 @@ namespace Survey_MVC.Controllers
                 title = survey.title,
                 description = survey.description,
                 authorNickname = surveyRepository.GetAuthor(id).nickname
-               
+
             };
-            
-            foreach(Question question in surveyRepository.GetQuestions(survey.surveyID))
+
+            foreach (Question question in surveyRepository.GetQuestions(survey.surveyID))
             {
                 Category category = questionRepository.GetQuestionCategory(question.questionID);
                 QuestionVM questionVM = new QuestionVM
@@ -70,39 +71,41 @@ namespace Survey_MVC.Controllers
                     isSingleChoice = category.isSingleChoice,
                     questionID = question.questionID
                 };
-                
-                foreach(Answer answer in question.answer)
+
+                foreach (Answer answer in question.answer)
                 {
                     AnswerVM answerVM = new AnswerVM
                     {
                         value = answer.answerValue,
                         answerID = answer.answerID
-                        
+
                     };
-                    
+
                     questionVM.answers.Add(answerVM);
                 }
                 surveyToFill.questions.Add(questionVM);
             }
-            
+
 
 
 
             return View(surveyToFill);
 
         }
-        [HttpPost][ValidateAntiForgeryToken]
-        public ActionResult FillSurvey (SurveyToFillVM surveyToFillVM, string button)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FillSurvey(SurveyToFillVM surveyToFillVM, string button)
         {
             if (button == "Submit")
             {
                 bool isValid = true;
-                for(int i = 0;i< surveyToFillVM.questions.Count; i++)
+                for (int i = 0; i < surveyToFillVM.questions.Count; i++)
                 {
                     QuestionVM question = surveyToFillVM.questions[i];
                     if (question.isSingleChoice)
                     {
-                        if (question.selectedAnswersID == null) {
+                        if (question.selectedAnswersID == null)
+                        {
                             ModelState.AddModelError(string.Format("questions[{0}].questionValue", i), "Select at least one answer");
                             isValid = false;
                         }
@@ -120,13 +123,13 @@ namespace Survey_MVC.Controllers
                 if (ModelState.IsValid && isValid)
                 {
                     Account account = (Account)Session["CurrentUser"];
-                    foreach(QuestionVM question in surveyToFillVM.questions)
+                    foreach (QuestionVM question in surveyToFillVM.questions)
                     {
                         if (question.isSingleChoice)
-                            answerRepository.AddVoteToAnswer(account.accountID, question.selectedAnswersID.GetValueOrDefault());                     
+                            answerRepository.AddVoteToAnswer(account.accountID, question.selectedAnswersID.GetValueOrDefault());
                         else
                         {
-                            foreach(AnswerVM answer in question.answers.Where(a => a.isChecked))
+                            foreach (AnswerVM answer in question.answers.Where(a => a.isChecked))
                             {
                                 answerRepository.AddVoteToAnswer(account.accountID, answer.answerID);
                             }
@@ -145,7 +148,7 @@ namespace Survey_MVC.Controllers
                         FirstOrDefault(t => t.questionID == questionID));
                 if (string.IsNullOrEmpty(newAnswerValue))
                 {
-                    
+
                     ModelState.AddModelError(string.Format("questions[{0}].newAnswer", questionIndex), "You can't add empty answer.");
                     return View(surveyToFillVM);
                 }
@@ -167,7 +170,7 @@ namespace Survey_MVC.Controllers
 
 
 
-        public ActionResult CreateSurvey ()
+        public ActionResult CreateSurvey()
         {
             CreateSurveyVM createSurveyVM = new CreateSurveyVM();
             return View(createSurveyVM);
@@ -179,27 +182,65 @@ namespace Survey_MVC.Controllers
         {
             if (button == "AddQuestion")
             {
+                if (createSurveyVM.newQuestion.questionValue == null || createSurveyVM.newQuestion.questionValue == "")
+                {
+                    ModelState.AddModelError(string.Format("newQuestion.questionValue"), "You can't add empty question.");
+                    return View(createSurveyVM);
+                }
+                createSurveyVM.newQuestion.questionValueCopy = createSurveyVM.newQuestion.questionValue;
                 createSurveyVM.questions.Add(createSurveyVM.newQuestion);
                 return View(createSurveyVM);
             }
-            else if(button == "Confirm")
+            // Create Survey
+            else if (button == "Confirm")
             {
                 if (ModelState.IsValid)
                 {
-                    Account account = (Account)Session["CurrentUser"];                 
+                    Account account = (Account)Session["CurrentUser"];
+                    int index = 0;
+                    bool isOk = true;
+                    if (createSurveyVM.title == null || createSurveyVM.title == "")
+                    {
+                        ModelState.AddModelError(string.Format("title"), "You can't add survey without title.");
+                        isOk = false;
+                    }
+                    if (createSurveyVM.description == null || createSurveyVM.description == "")
+                    {
+                        ModelState.AddModelError(string.Format("description"), "You can't add survey without description.");
+                        isOk = false;
+                    }
                     foreach (CreateSurveyVM.NewQuestion question in createSurveyVM.questions)
                     {
                         if (question.answers.Count < 2)
                         {
                             TempData["CreateSurvey"] = "All questions must have 2 or more answers.";
-                            return View(createSurveyVM);
+                            isOk = false;
                         }
+                        int i = 0;
+                        foreach (string answer in question.answers)
+                        {
+                            if (answer == "")
+                            {
+                                ModelState.AddModelError(string.Format("questions[{0}].answers[{1}]", index, i), "You can't add empty answer.");
+                                isOk = false;
+                            }
+                            i++;
+                        }
+                        if (question.questionValue == null || question.questionValue == "")
+                        {
+                            ModelState.AddModelError(string.Format("questions[{0}].questionValue", index), "You can't add empty question.");
+                            isOk = false;
+                        }
+                        index++;
                     }
+                    if (!isOk)
+                        return View(createSurveyVM);
+
                     ICollection<Question> questions = new List<Question>();
                     foreach (CreateSurveyVM.NewQuestion question in createSurveyVM.questions)
                     {
                         ICollection<Answer> answers = new List<Answer>();
-                        foreach(string answer in question.answers)
+                        foreach (string answer in question.answers)
                         {
                             Answer answerCreated = answerRepository.CreateAnswer(answer);
                             answers.Add(answerCreated);
@@ -213,23 +254,34 @@ namespace Survey_MVC.Controllers
                 }
                 return View(createSurveyVM);
             }
-            else if (button.Contains("Delete"))
+            // Delete Answer
+            else if (button.Contains("DeleteAnswer"))
             {
                 string indexI = "", indexJ = "";
                 int i = 0;
-                for (i = 7; i < button.Length; i++)
+                for (i = 13; i < button.Length; i++)
                 {
                     string slice = button.Substring(i, 1);
                     if (string.Equals(slice, " "))
                         break;
                     indexI = slice;
                 }
-                indexJ = button.Substring(7 + indexI.Length + 1);
+                indexJ = button.Substring(13 + indexI.Length + 1);
                 i = Int32.Parse(indexI);
                 int j = Int32.Parse(indexJ);
                 createSurveyVM.questions[i].answers.RemoveAt(j);
                 createSurveyVM.questions[i].answersCopy.RemoveAt(j);
             }
+
+            // Delete Question
+            else if (button.Contains("DeleteQuestion"))
+            {
+                string index = button.Substring(15);
+                int i = Int32.Parse(index);
+                createSurveyVM.questions.RemoveAt(i);
+            }
+
+            // Add Answer and validation
             else
             {
                 int index = Int32.Parse(button);
@@ -244,7 +296,7 @@ namespace Survey_MVC.Controllers
                 {
                     createSurveyVM.questions[index].answers.Add(newAnswerValue);
                     createSurveyVM.questions[index].answersCopy.Add(newAnswerValue);
-                }     
+                }
                 isOk = true;
                 int i = 0;
                 foreach (string answer in createSurveyVM.questions[index].answers)
@@ -256,15 +308,24 @@ namespace Survey_MVC.Controllers
                     }
                     i++;
                 }
+                if (createSurveyVM.questions[index].questionValue == null)
+                {
+                    ModelState.AddModelError(string.Format("questions[{0}].questionValue", index), "You can't add empty question.");
+                    isOk = false;
+                }
                 if (!isOk)
                 {
                     createSurveyVM.questions[index].answers.Clear();
                     createSurveyVM.questions[index].answers.AddRange(createSurveyVM.questions[index].answersCopy);
+                    createSurveyVM.questions[index].questionValue =
+                        createSurveyVM.questions[index].questionValueCopy;
                 }
                 else
                 {
                     createSurveyVM.questions[index].answersCopy.Clear();
                     createSurveyVM.questions[index].answersCopy.AddRange(createSurveyVM.questions[index].answers);
+                    createSurveyVM.questions[index].questionValueCopy =
+                        createSurveyVM.questions[index].questionValue;
                 }
             }
             return View(createSurveyVM);
