@@ -20,27 +20,86 @@ namespace Survey_MVC.Controllers
         private AnswerRepository answerRepository = new AnswerRepository();
         private AccountSurveyRepository accountSurveyRepository = new AccountSurveyRepository();
 
-        private int pageSize = 2;
-        public ActionResult Index(int page = 1)
+        private int pageSize = 1;
+        public ActionResult Index(string sortOrder, string searchString, int page = 1)
         {
             Account account = (Account)Session["CurrentUser"];
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.DescSortParm = sortOrder == "Desc" ? "description_desc" : "Desc";
+
+            List<Survey> surveyList = surveyRepository.GetSurveysToFill(account.accountID);
+
+            SurveyListVM surveys = SortSurveys(surveyList, sortOrder, searchString, page);
+            
+            return View(surveys);
+        }
+        public ActionResult AuthorSurveys(string sortOrder, string searchString, int page = 1)
+        {
+            Account account = (Account)Session["CurrentUser"];
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.DescSortParm = sortOrder == "Desc" ? "description_desc" : "Desc";
+
+            List<Survey> surveyList = accountRepository.GetAccountAuthorSurveys(account.accountID);
+
+            SurveyListVM surveys = SortSurveys(surveyList, sortOrder, searchString, page);
+
+            return View(surveys);
+        }
+        public ActionResult FilledSurveys(string sortOrder, string searchString, int page = 1)
+        {
+            Account account = (Account)Session["CurrentUser"];
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.DescSortParm = sortOrder == "Desc" ? "description_desc" : "Desc";
+
+            List<Survey> surveyList = accountRepository.GetAccountFilledSurveys(account.accountID);
+
+            SurveyListVM surveys = SortSurveys(surveyList, sortOrder, searchString, page);
+
+            return View(surveys);
+        }
+
+
+        
+
+        private SurveyListVM SortSurveys(List<Survey> surveyList, string sortOrder, string searchString, int page)
+        {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                surveyList = surveyList.Where(s => s.title.Contains(searchString)
+                                       || s.description.Contains(searchString)).ToList();
+            }
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    surveyList = surveyList.OrderByDescending(s => s.title).ToList();
+                    break;
+                case "Desc":
+                    surveyList = surveyList.OrderBy(s => s.description).ToList();
+                    break;
+                case "description_desc":
+                    surveyList = surveyList.OrderByDescending(s => s.description).ToList();
+                    break;
+                default:
+                    surveyList = surveyList.OrderBy(s => s.title).ToList();
+                    break;
+            }
 
             SurveyListVM surveys = new SurveyListVM
             {
-                surveyList = surveyRepository.GetSurveysToFill(account.accountID)
-                .OrderBy(p => p.surveyID)
+                surveyList = surveyList
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = surveyRepository.GetSurveysToFill(account.accountID).Count
+                    TotalItems = surveyList.Count
                 },
 
             };
-            return View(surveys);
+            return surveys;
         }
+
 
         public ActionResult FillSurvey(int? id)
         {

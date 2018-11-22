@@ -20,6 +20,14 @@ select,
 textarea {
     max-width: 280px;
 }
+body, input, textarea, select, button {
+    background-color: #17181c;
+}
+
+body, input, textarea, select, button {
+    border-color: #575757;
+    color: #e8e7e3;
+}
 
 
 * {

@@ -2,17 +2,21 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
+@using (Html.BeginForm())
+{
+    <p>
+        Find: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table table-striped">
     <tr>
+
         <th>
-            @Html.DisplayNameFor(model => model.surveyID)
+            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.description)
+            @Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.DescSortParm })
         </th>
         <th>Actions</th>
     </tr>
@@ -20,9 +24,7 @@
     @foreach (var item in Model.surveyList)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.surveyID)
-            </td>
+            @Html.HiddenFor(m => m.surveyID)
             <td>
                 @Html.DisplayFor(modelItem => item.title)
             </td>
@@ -38,7 +40,7 @@
     }
 
 </table>
-<br/><br /><br /><br />
+<br /><br /><br /><br />
 <div>
     @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
 </div>
