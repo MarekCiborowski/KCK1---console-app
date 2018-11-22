@@ -21,6 +21,7 @@ textarea {
     max-width: 280px;
 }
 
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -30,8 +31,23 @@ textarea {
 body {
     overflow-y: scroll;
     overflow-x: hidden;
-    background: #eeeeee;
-    background-image: url(img/simple.jpg)
+    background-color: #1b1d22;
+    color: #d5d2cd;
+    background-image: none;
+}
+button {
+    background-color: #17181c;
+    border-color: #575757;
+}
+.form-control {
+    background-color: #17181c;
+    color: #c8c5bf;
+    border-color: #3d3d3d;
+}
+.alert-success {
+    background-color: #1e3615;
+    color: #a6d2a7;
+    border-color: #446527;
 }
 
 
@@ -54,13 +70,12 @@ body {
 
 .main {
     overflow: hidden;
-    background-image: url("img/img.jpg");
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
     padding: 50px;
     box-shadow: 0px 10px 45px #10465e;
-    color: #10465e;
+    color: #a0d7ef;
     z-index: 10;
 }
 
@@ -107,11 +122,11 @@ body {
 }
 
 .btn-search {
-    color: #10465e;
-    border: 1px solid #10465e;
+    color: #a0d7ef;
+    border: 1px solid #208bba;
     ;
     padding: 9px;
-    background: #b3c6cd;
+    background: #26353a;
 }
 
     .btn-search:hover {
@@ -123,12 +138,12 @@ table {
     border-collapse: separate;
     border-spacing: 10px 20px;
     border-width:5px;
+    
 }
 
 th {
-    background-color:Highlight;
-    border-radius:10px
-    
+    background-color: #002f61;
+    border-top: none !important;
 }
 
 .column{
