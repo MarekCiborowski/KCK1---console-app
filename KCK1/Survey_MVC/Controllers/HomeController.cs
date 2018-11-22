@@ -214,7 +214,7 @@ namespace Survey_MVC.Controllers
                     {
                         if (question.answers.Count < 2)
                         {
-                            TempData["CreateSurvey"] = "All questions must have 2 or more answers.";
+                            ModelState.AddModelError(string.Format("questions[{0}].questionValue", index), "All questions must have 2 or more answers.");
                             isOk = false;
                         }
                         int i = 0;
