@@ -10,6 +10,7 @@ using System.Web.Security;
 
 namespace Survey_MVC.Controllers
 {
+    [AllowAnonymous]
     public class AuthenticationController : Controller
     {
         private AccountRepository accountRepository= new AccountRepository();
@@ -18,18 +19,7 @@ namespace Survey_MVC.Controllers
         // GET: Authentication
         public ActionResult Login()
         {
-            Account account = (Account)Session["CurrentUser"];
-            if (account != null)
-            {
-                
-                return RedirectToAction("Index", "Home");
-            }
-            if (!string.IsNullOrEmpty(User.Identity.Name) && account == null)
-            {
-                Session.Clear();
-                FormsAuthentication.SignOut();
-            }
-
+            
             return View();
         }
         [HttpPost]
@@ -41,7 +31,7 @@ namespace Survey_MVC.Controllers
                 if ((account = accountRepository.GetAccount(vm.username, vm.password)) != null)
                 {
                     Session["CurrentUser"] = account;
-                    FormsAuthentication.SetAuthCookie(account.nickname, false);
+                    
                     TempData["message"] = "Successfully logged as " + account.nickname;
                     return RedirectToAction("Index", "Home");
                 }
