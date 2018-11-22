@@ -173,7 +173,6 @@
     <Compile Include="ViewModels\Surveys\AnswerVM.cs" />
     <Compile Include="ViewModels\Surveys\CreateSurveyVM.cs" />
     <Compile Include="ViewModels\Surveys\QuestionVM.cs" />
-    <Compile Include="ViewModels\Surveys\SurveyListVM.cs" />
     <Compile Include="ViewModels\Surveys\SurveyToFillVM.cs" />
   </ItemGroup>
   <ItemGroup>

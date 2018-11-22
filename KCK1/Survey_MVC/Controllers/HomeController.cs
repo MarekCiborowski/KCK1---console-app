@@ -41,7 +41,7 @@ namespace Survey_MVC.Controllers
             int pageNumber = (page ?? 1);
             return View(surveyList.ToPagedList(pageNumber, pageSize)); 
         }
-        public ActionResult AuthorSurveys(int authorID, string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult AuthorSurveys(int id, string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.DescSortParm = sortOrder == "Desc" ? "description_desc" : "Desc";
@@ -51,8 +51,8 @@ namespace Survey_MVC.Controllers
             else
                 searchString = currentFilter;
             ViewBag.CurrentFilter = searchString;
-            ViewBag.AuthorID = authorID;
-            List<Survey> surveyList = accountRepository.GetAccountAuthorSurveys(authorID);
+            ViewBag.AuthorID = id;
+            List<Survey> surveyList = accountRepository.GetAccountAuthorSurveys(id);
 
             surveyList = SortSurveys(surveyList, sortOrder, searchString, page);
 

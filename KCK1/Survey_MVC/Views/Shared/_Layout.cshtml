@@ -23,10 +23,14 @@
                 @if (isAuthenticated)
                 {
                     <a class="btn-menu" href="@Url.Action("Index", "Home")">Homepage</a>
-                    <a class="btn-menu" href="">Surveys</a>
+                    <a class="btn-menu" href="@Url.Action("MySurveys","Home")">My surveys</a>
+                    <a class="btn-menu" href="@Url.Action("FilledSurveys","Home")">Completed surveys</a>
                     <a class="btn-menu" href="@Url.Action("Logout","Authentication")">Logout: @account.nickname</a>
                     <a class="btn-menu" href="">Profile</a>
-                    <a class="btn-menu" href="@Url.Action("CreateSurvey","Home")">Create Survey</a>
+                    <a class="btn-menu" href="@Url.Action("CreateSurvey","Home")">Create survey</a>
+                    <a class="btn-menu" href="@Url.Action("Index","Account")">All users</a>
+                    <a class="btn-menu" href="@Url.Action("Followed","Account")">Followed</a>
+                    <a class="btn-menu" href="@Url.Action("Following","Account")">Followers</a>
                 }
 
                 else
@@ -56,6 +60,6 @@
         </footer>
     </div>
 
-    
+
 </body>
 </html>
