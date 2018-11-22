@@ -177,7 +177,7 @@ namespace Survey_MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateSurvey(CreateSurveyVM createSurveyVM, string button)
         {
-            if(button == "AddQuestion")
+            if (button == "AddQuestion")
             {
                 createSurveyVM.questions.Add(createSurveyVM.newQuestion);
                 return View(createSurveyVM);
@@ -213,20 +213,60 @@ namespace Survey_MVC.Controllers
                 }
                 return View(createSurveyVM);
             }
+            else if (button.Contains("Delete"))
+            {
+                string indexI = "", indexJ = "";
+                int i = 0;
+                for (i = 7; i < button.Length; i++)
+                {
+                    string slice = button.Substring(i, 1);
+                    if (string.Equals(slice, " "))
+                        break;
+                    indexI = slice;
+                }
+                indexJ = button.Substring(7 + indexI.Length + 1);
+                i = Int32.Parse(indexI);
+                int j = Int32.Parse(indexJ);
+                createSurveyVM.questions[i].answers.RemoveAt(j);
+                createSurveyVM.questions[i].answersCopy.RemoveAt(j);
+            }
             else
             {
                 int index = Int32.Parse(button);
                 string newAnswerValue = createSurveyVM.questions[index].newAnswer;
+                bool isOk = true;
                 if (string.IsNullOrEmpty(newAnswerValue))
                 {
-
                     ModelState.AddModelError(string.Format("questions[{0}].newAnswer", index), "You can't add empty answer.");
-                   return View(createSurveyVM);
+                    isOk = false;
                 }
-                createSurveyVM.questions[index].answers.Add(newAnswerValue);
-                return View(createSurveyVM);
+                if (isOk)
+                {
+                    createSurveyVM.questions[index].answers.Add(newAnswerValue);
+                    createSurveyVM.questions[index].answersCopy.Add(newAnswerValue);
+                }     
+                isOk = true;
+                int i = 0;
+                foreach (string answer in createSurveyVM.questions[index].answers)
+                {
+                    if (answer == "")
+                    {
+                        ModelState.AddModelError(string.Format("questions[{0}].answers[{1}]", index, i), "You can't add empty answer.");
+                        isOk = false;
+                    }
+                    i++;
+                }
+                if (!isOk)
+                {
+                    createSurveyVM.questions[index].answers.Clear();
+                    createSurveyVM.questions[index].answers.AddRange(createSurveyVM.questions[index].answersCopy);
+                }
+                else
+                {
+                    createSurveyVM.questions[index].answersCopy.Clear();
+                    createSurveyVM.questions[index].answersCopy.AddRange(createSurveyVM.questions[index].answers);
+                }
             }
-            
             return View(createSurveyVM);
         }
 

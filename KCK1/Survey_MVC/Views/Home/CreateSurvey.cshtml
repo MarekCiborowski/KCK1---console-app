@@ -41,7 +41,7 @@
                 @if (Model.questions.Count > 0)
                 {
                     <div>
-                        <center><button value="Confirm" name="button" type="submit" class="btn btn-search">Create Survey</button></center>
+                        <center><button value="Confirm" name="button" type="submit" class="btn btn-search">Save changes and create survey</button></center>
                     </div>
                 }
             </td>
@@ -93,11 +93,14 @@
                 </tr>
                 for (int j = 0; j < @Model.questions[i].answers.Count; j++)
                 {
-                    @Html.HiddenFor(m => m.questions[i].answers[j])
-                    <tr>
+                    @*@Html.HiddenFor(m => m.questions[i].answers[j])*@
+                    @Html.HiddenFor(m => m.questions[i].answersCopy[j])
+                    <tr>                   
                         <td>
-                            @sign) @Model.questions[i].answers[j]
+                             @Html.EditorFor(m => m.questions[i].answers[j], new { htmlAttributes = new { @Value = @Model.questions[i].answers[j], @class = "form-control" } })
+                            <div>@Html.ValidationMessageFor(m => m.questions[i].answers[j], "", new { @class = "text-danger" })</div>
                         </td>
+                        <td><button class="btn-xs" value="Delete @i @j" type="submit" name="button"><i class="fa fa-close"></i></button></td>
                     </tr>
                     { sign++; }
                 }

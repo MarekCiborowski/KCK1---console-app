@@ -38,6 +38,8 @@ namespace Survey_MVC.ViewModels.Surveys
 
             public List<string> answers { get; set; } = new List<string>();
 
+            public List<string> answersCopy { get; set; } = new List<string>();
+
             public string newAnswer { get; set; }
         }
     }
