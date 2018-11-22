@@ -1,0 +1,47 @@
+﻿@model Survey_MVC.ViewModels.Surveys.SurveyListVM
+@{
+    ViewBag.Title = "Selected person surveys";
+}
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table table-striped">
+    <tr>
+
+        <th>
+            @Html.ActionLink("Title", "AuthorSurveys", new { sortOrder = ViewBag.TitleSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Description", "AuthorSurveys", new { sortOrder = ViewBag.DescSortParm })
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model.surveyList)
+    {
+        <tr>
+            @Html.HiddenFor(m => m.surveyID)
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+
+            <td>
+                @Html.ActionLink("Fill survey", "FillSurvey", new { id = item.surveyID }) |
+                @Html.ActionLink("Current results", "SurveyResults", new { id = item.surveyID })
+            </td>
+        </tr>
+    }
+
+</table>
+<br /><br /><br /><br />
+<div>
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("AuthorSurveys", new { page = x,authorID = Model.AuthorID}))
+</div>

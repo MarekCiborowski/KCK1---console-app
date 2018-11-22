@@ -11,5 +11,6 @@ namespace Survey_MVC.ViewModels.Surveys
     {
         public IEnumerable<Survey> surveyList { get; set; }
         public PagingInfo PagingInfo { get; set; }
+        public int? AuthorID { get; set; } = null;
     }
 }

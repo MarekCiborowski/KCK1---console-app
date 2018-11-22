@@ -33,7 +33,20 @@ namespace Survey_MVC.Controllers
             
             return View(surveys);
         }
-        public ActionResult AuthorSurveys(string sortOrder, string searchString, int page = 1)
+        public ActionResult AuthorSurveys(int authorID, string sortOrder, string searchString, int page = 1)
+        {
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.DescSortParm = sortOrder == "Desc" ? "description_desc" : "Desc";
+
+            List<Survey> surveyList = accountRepository.GetAccountAuthorSurveys(authorID);
+
+            SurveyListVM surveys = SortSurveys(surveyList, sortOrder, searchString, page);
+            surveys.AuthorID = authorID;
+
+            return View(surveys);
+        }
+
+        public ActionResult MySurveys(string sortOrder, string searchString, int page = 1)
         {
             Account account = (Account)Session["CurrentUser"];
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
@@ -107,7 +120,7 @@ namespace Survey_MVC.Controllers
             if (accountRepository.DidFillSurvey(account.accountID, id))
             {
                 TempData["message"] = "You have already filled this survey.";
-                return RedirectToAction("Index");
+                Response.Redirect(Request.QueryString["ReturnUrl"].ToString());
             }
 
             Survey survey = surveyRepository.GetSurvey(id);

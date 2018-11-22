@@ -161,8 +161,9 @@
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Account\AccountVM.cs" />
     <Compile Include="ViewModels\Authentication\NewUserVM.cs" />
-    <Compile Include="ViewModels\Surveys\AccountListVM.cs" />
+    <Compile Include="ViewModels\Account\AccountListVM.cs" />
     <Compile Include="ViewModels\Surveys\AnswerVM.cs" />
     <Compile Include="ViewModels\Surveys\CreateSurveyVM.cs" />
     <Compile Include="ViewModels\Surveys\QuestionVM.cs" />
@@ -195,6 +196,12 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Compile Include="ViewModels\Authentication\LoginVM.cs" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Followed.cshtml" />
+    <Content Include="Views\Account\Following.cshtml" />
+    <Content Include="Views\Account\MyProfile.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
+    <Content Include="Views\Account\AccountProfile.cshtml" />
     <None Include="Views\Authentication\Login.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -212,10 +219,12 @@
     <Content Include="Views\Shared\OneSurvey.cshtml" />
     <Content Include="Views\Home\FillSurvey.cshtml" />
     <Content Include="Views\Home\CreateSurvey.cshtml" />
+    <Content Include="Views\Home\AuthorSurveys.cshtml" />
+    <Content Include="Views\Home\MySurveys.cshtml" />
+    <Content Include="Views\Home\FilledSurveys.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Account\" />
     <Folder Include="Views\Surveys\" />
   </ItemGroup>
   <ItemGroup>
