@@ -43,12 +43,16 @@
         {
             <div class="alert alert-success">@TempData["message"]</div>
         }
+        @if (TempData["CreateSurvey"] != null)
+        {
+            <div class="alert alert-danger">@TempData["CreateSurvey"]</div>
+        }
         <div class="main">
             <div class=" container-main">
                 @RenderBody()
             </div>
         </div>
-        <br/>
+        <br />
         <footer>
             <p>&copy; @DateTime.Now.Day.@DateTime.Now.Month.@DateTime.Now.Year</p>
         </footer>

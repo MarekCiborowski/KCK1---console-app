@@ -5,21 +5,35 @@
 
 @{ var iterator = 1; char sign = 'a';}
 <h2>Create new survey</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    @Html.HiddenFor(m => m.title);
-    @Html.HiddenFor(m => m.description);
-    @Html.HiddenFor(m => m.isAnonymous);
 
 
     @Html.ValidationSummary(true, "Error occured while creating new survey", new { @class = "text-danger" })
     <table style="float:left">
         <tr>
             <td>
-                @Html.EditorFor(model => model, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(m => m.title)
+                @Html.EditorFor(m => m.title, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.ValidationMessageFor(m => m.title, "", new { @class = "text-danger" })
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.description)
+                @Html.EditorFor(m => m.description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.description, "", new { @class = "text-danger" })
+
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.isAnonymous)
+                @Html.CheckBoxFor(m => m.isAnonymous, new { htmlAttributes = new { @class = "form-control" } })
             </td>
         </tr>
         <tr>
@@ -27,18 +41,31 @@
                 @if (Model.questions.Count > 0)
                 {
                     <div>
-                        <center><button value="Submit" name="button" type="submit" class="btn btn-search">Create Survey</button></center>
+                        <center><button value="Confirm" name="button" type="submit" class="btn btn-search">Create Survey</button></center>
                     </div>
                 }
             </td>
         </tr>
     </table>
 
-    <table>
+    <table style="float:left">
         <tr>
             <td>
-                @Html.EditorFor(model => model.newQuestion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.newQuestion, "", new { @class = "text-danger" })
+                @Html.LabelFor(m => m.newQuestion.questionValue)
+                @Html.EditorFor(model => model.newQuestion.questionValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.newQuestion.questionValue, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.newQuestion.isSingleChoice)
+                @Html.CheckBoxFor(model => model.newQuestion.isSingleChoice, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.newQuestion.canAddOwnAnswers)
+                @Html.CheckBoxFor(model => model.newQuestion.canAddOwnAnswers, new { htmlAttributes = new { @class = "form-control" } })
             </td>
         </tr>
         <tr>
@@ -57,8 +84,6 @@
                 @Html.HiddenFor(m => m.questions[i].canAddOwnAnswers)
                 @Html.HiddenFor(m => m.questions[i].isSingleChoice)
                 @Html.HiddenFor(m => m.questions[i].questionValue)
-                @Html.HiddenFor(m => m.questions[i].firstAnswerValue)
-                @Html.HiddenFor(m => m.questions[i].secondAnswerValue)
                 <tr>
                     <td>
                         <div>
@@ -76,6 +101,17 @@
                     </tr>
                     { sign++; }
                 }
+                <tr>
+                    <td>
+                        @Html.EditorFor(m => m.questions[i].newAnswer, new { htmlAttributes = new { @Value = "", placeholder = "New answer", @class = "form-control" } })
+                        <div>@Html.ValidationMessageFor(m => m.questions[i].newAnswer, "", new { @class = "text-danger" })</div>
+
+                        <div>
+                            <center><button value="@i" type="submit" name="button" class="btn btn-search"> Add answer </button></center>
+                        </div>
+
+                    </td>
+                </tr>
                 { iterator++; sign = 'a'; }
             }
         }

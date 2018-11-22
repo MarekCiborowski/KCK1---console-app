@@ -38,11 +38,7 @@ namespace Survey_MVC.ViewModels.Surveys
 
             public List<string> answers { get; set; } = new List<string>();
 
-            [Display(Name = "First Answer")]
-            public string firstAnswerValue { get; set; }
-
-            [Display(Name = "Second Answer")]
-            public string secondAnswerValue { get; set; }
+            public string newAnswer { get; set; }
         }
     }
 }

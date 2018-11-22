@@ -179,8 +179,6 @@ namespace Survey_MVC.Controllers
         {
             if(button == "AddQuestion")
             {
-                createSurveyVM.newQuestion.answers.Add(createSurveyVM.newQuestion.firstAnswerValue);
-                createSurveyVM.newQuestion.answers.Add(createSurveyVM.newQuestion.secondAnswerValue);
                 createSurveyVM.questions.Add(createSurveyVM.newQuestion);
                 return View(createSurveyVM);
             }
@@ -188,8 +186,45 @@ namespace Survey_MVC.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
+                    Account account = (Account)Session["CurrentUser"];                 
+                    foreach (CreateSurveyVM.NewQuestion question in createSurveyVM.questions)
+                    {
+                        if (question.answers.Count < 2)
+                        {
+                            TempData["CreateSurvey"] = "All questions must have 2 or more answers.";
+                            return View(createSurveyVM);
+                        }
+                    }
+                    ICollection<Question> questions = new List<Question>();
+                    foreach (CreateSurveyVM.NewQuestion question in createSurveyVM.questions)
+                    {
+                        ICollection<Answer> answers = new List<Answer>();
+                        foreach(string answer in question.answers)
+                        {
+                            Answer answerCreated = answerRepository.CreateAnswer(answer);
+                            answers.Add(answerCreated);
+                        }
+                        Question questionCreated = questionRepository.CreateQuestion(question.questionValue, question.canAddOwnAnswers, question.isSingleChoice, answers);
+                        questions.Add(questionCreated);
+                    }
+                    Survey survey = surveyRepository.CreateSurvey(createSurveyVM.title, createSurveyVM.description, createSurveyVM.isAnonymous, questions);
+                    surveyRepository.AddSurvey(survey, account);
+                    return RedirectToAction("Index", "Home");
                 }
+                return View(createSurveyVM);
+            }
+            else
+            {
+                int index = Int32.Parse(button);
+                string newAnswerValue = createSurveyVM.questions[index].newAnswer;
+                if (string.IsNullOrEmpty(newAnswerValue))
+                {
+
+                    ModelState.AddModelError(string.Format("questions[{0}].newAnswer", index), "You can't add empty answer.");
+                   return View(createSurveyVM);
+                }
+                createSurveyVM.questions[index].answers.Add(newAnswerValue);
+                return View(createSurveyVM);
             }
             
             return View(createSurveyVM);
