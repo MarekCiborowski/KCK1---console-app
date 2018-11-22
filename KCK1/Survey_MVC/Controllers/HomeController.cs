@@ -1,5 +1,6 @@
 ﻿using DataTransferObjects.Models;
 using RepositoryLayer.Repositories;
+using Survey_MVC.Filters;
 using Survey_MVC.Models;
 using Survey_MVC.ViewModels.Surveys;
 using System;
@@ -10,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Survey_MVC.Controllers
 {
-    [Authorize]
+    [AuthorizationFilter]
     public class HomeController : Controller
     {
         private SurveyRepository surveyRepository = new SurveyRepository();

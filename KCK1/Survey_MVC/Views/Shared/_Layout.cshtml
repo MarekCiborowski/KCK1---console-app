@@ -17,12 +17,13 @@
     <div class="navbar navbar-fixed-top">
         <div class="container-box">
             <div class="navbar-header">
-                @{ bool isAuthenticated = !string.IsNullOrEmpty(User.Identity.Name);}
+                @{ Account account = (Account)Session["CurrentUser"];}
+                @{ bool isAuthenticated = account != null;}
                 @if (isAuthenticated)
                 {
                     <a class="btn-menu" href="@Url.Action("Index", "Home")">Homepage</a>
                     <a class="btn-menu" href="">Surveys</a>
-                    <a class="btn-menu" href="@Url.Action("Logout","Authentication")">Logout: @User.Identity.Name</a>
+                    <a class="btn-menu" href="@Url.Action("Logout","Authentication")">Logout: @account.nickname</a>
                     <a class="btn-menu" href="">Profile</a>
                     <a class="btn-menu" href="@Url.Action("CreateSurvey","Home")">Create Survey</a>
                 }
