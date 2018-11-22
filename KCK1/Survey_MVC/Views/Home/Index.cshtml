@@ -1,11 +1,13 @@
-﻿@model Survey_MVC.ViewModels.Surveys.SurveyListVM
+﻿@model PagedList.IPagedList<DataTransferObjects.Models.Survey>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Home Page";
 }
-@using (Html.BeginForm())
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
     <p>
-        Find: @Html.TextBox("SearchString")
+        Find: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
 }
@@ -13,18 +15,18 @@
     <tr>
 
         <th>
-            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm })
+            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.DescSortParm })
+            @Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.DescSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>Actions</th>
     </tr>
 
-    @foreach (var item in Model.surveyList)
+    @foreach (var item in Model)
     {
         <tr>
-            @Html.HiddenFor(m => m.surveyID)
+
             <td>
                 @Html.DisplayFor(modelItem => item.title)
             </td>
@@ -41,6 +43,7 @@
 
 </table>
 <br /><br /><br /><br />
-<div>
-    @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
-</div>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

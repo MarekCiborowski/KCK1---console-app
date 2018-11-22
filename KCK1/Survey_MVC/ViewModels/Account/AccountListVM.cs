@@ -10,6 +10,6 @@ namespace Survey_MVC.ViewModels.Surveys
     public class AccountListVM
     {
         public IEnumerable<DataTransferObjects.Models.Account> accountList { get; set; }
-        public PagingInfo PagingInfo { get; set; }
+       
     }
 }
