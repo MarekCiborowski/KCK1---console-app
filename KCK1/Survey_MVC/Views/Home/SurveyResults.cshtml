@@ -1,7 +1,17 @@
-﻿
+﻿@model Survey_MVC.ViewModels.Surveys.SurveyResultsVM
 @{
     ViewBag.Title = "SurveyResults";
 }
-
-<h2>SurveyResults</h2>
+@{ int questionNumber = 1;}
+<h2>Results of survey: @Model.title</h2>
+<h2>Made by: @Html.ActionLink(Model.authorNickname, "AccountProfile", "Account", new { id = Model.authorID }, null)</h2>
+<h3>Total number of votes: @Model.numberOfVoters</h3>
+<br /><br />
+<ul>
+    @foreach (var item in Model.questions)
+    {
+        <li>@Html.ActionLink(@questionNumber +". "+@item.questionValue, "QuestionResults",new { id = item.questionID })</li>
+        questionNumber++;
+    }
+</ul>
 

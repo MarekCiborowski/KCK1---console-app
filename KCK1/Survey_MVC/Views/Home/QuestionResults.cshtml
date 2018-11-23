@@ -1,7 +1,30 @@
-﻿
+﻿@model Survey_MVC.ViewModels.Surveys.QuestionResultsVM
 @{
     ViewBag.Title = "QuestionResults";
 }
+@{int answerNumber = 1;}
 
-<h2>QuestionResults</h2>
+<h2>Results of question: @Model.questionValue</h2>
+<br /><br />
+@if (Model.isAnonymous)
+{
+    <h3>This survey was anonymous so you can see only number of votes</h3>
+    <ul>
+        @foreach (var item in Model.answers)
+        {
+            <li>@answerNumber. @item.answerValue     Votes: @item.numberOfVotes</li>
+            answerNumber++;
+        }
+    </ul>
+}
+else
+{
+    <ul>
+        @foreach (var item in Model.answers)
+        {
+            <li>@answerNumber. @Html.ActionLink(@item.answerValue,"AnswerVoters",new { id = item.answerID })   Votes: @item.numberOfVotes</li>
+            answerNumber++;
+        }
+    </ul>
+}
 
