@@ -151,7 +151,7 @@ namespace Survey_MVC.Controllers
                     isValid = false;
                 }
 
-            if(account.nickname != myProfileVM.nickname)
+            if (account.nickname != myProfileVM.nickname)
                 if (!accountRepository.IsNicknameCorrect(myProfileVM.nickname))
                 {
                     ModelState.AddModelError("nickname", "This nickname is taken or not correct. Length of nickname is 3-10 characters.");
@@ -179,6 +179,19 @@ namespace Survey_MVC.Controllers
             }
 
             return View(myProfileVM);
+        }
+
+        public ActionResult ChangePassord()
+        {
+            ChangePasswordVM changePasswordVM = new ChangePasswordVM();
+            return View(changePasswordVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassord(ChangePasswordVM changePasswordVM)
+        {
+            return View(changePasswordVM);
         }
         /*
         public ActionResult DeleteAccount(int? id)
