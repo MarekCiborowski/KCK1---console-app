@@ -8,6 +8,7 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.accountID)
 
         <div class="btn badge-danger">
             <input type="submit" value="Usuń" class="btn btn-default" /> |

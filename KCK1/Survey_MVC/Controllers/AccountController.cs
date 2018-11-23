@@ -230,14 +230,14 @@ namespace Survey_MVC.Controllers
             return View(deleteAccountVM);
         }
 
-        [HttpPost, ActionName("DeleteAccount")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(DeleteAccountVM deleteAccountVM)
+        public ActionResult DeleteAccount(DeleteAccountVM deleteAccountVM)
         {
             Account account = (Account)Session["CurrentUser"];
-            accountRepository.RemoveAccount(deleteAccountVM.accountID);
             Session.Clear();
             FormsAuthentication.SignOut();
+            accountRepository.RemoveAccount(deleteAccountVM.accountID);
             TempData["message"] = "Successfully account was deleted!";
             return RedirectToAction("Login","Authentication");
         }
