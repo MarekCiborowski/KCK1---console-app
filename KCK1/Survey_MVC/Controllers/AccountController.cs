@@ -107,8 +107,14 @@ namespace Survey_MVC.Controllers
         {
             return View();
         }
-        public ActionResult AccountProfile()
+        public ActionResult AccountProfile(int id)
         {
+            Account myAccount = (Account)Session["CurrentUser"];
+            if (id == myAccount.accountID)
+                return RedirectToAction("MyProfile");
+
+
+
             return View();
         }
     }
