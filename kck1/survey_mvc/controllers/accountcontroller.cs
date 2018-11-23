@@ -180,6 +180,46 @@ namespace Survey_MVC.Controllers
 
             return View(myProfileVM);
         }
+
+        public ActionResult ChangePassword()
+        {
+            Account account = (Account)Session["CurrentUser"];
+            ChangePasswordVM changePasswordVM = new ChangePasswordVM();
+            return View(changePasswordVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordVM changePasswordVM)
+        {
+            Account account = (Account)Session["CurrentUser"];
+
+            UserSecurityRepository userSecurityRepository = new UserSecurityRepository();
+
+            UserSecurity oldPassword = userSecurityRepository.CreateUserSecurity("", changePasswordVM.oldPassword);
+
+            UserSecurity newPassword = userSecurityRepository.CreateUserSecurity("", changePasswordVM.newPassword);
+
+            UserSecurity repeatPassword = userSecurityRepository.CreateUserSecurity("", changePasswordVM.repeatPassword);
+
+            bool isValid = true;
+            if(oldPassword.password != account.userSecurity.password)
+            {
+                ModelState.AddModelError("oldPassword", "The enter password is different from the old password.");
+                isValid = false;
+            }
+            if(ModelState.IsValid && isValid)
+            {
+                Account editedAccount = accountRepository.GetAccount(account.accountID);
+                editedAccount.userSecurity.password = newPassword.password;
+
+                accountRepository.EditAccount(editedAccount);
+                Session["CurrentUser"] = editedAccount;
+                TempData["message"] = "Successfully password was changed!";
+                return RedirectToAction("MyProfile", "Account");
+            }  
+            return View(changePasswordVM);
+        }
         /*
         public ActionResult DeleteAccount(int? id)
         {
