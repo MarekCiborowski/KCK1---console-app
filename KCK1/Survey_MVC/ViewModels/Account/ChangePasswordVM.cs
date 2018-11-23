@@ -8,12 +8,16 @@ namespace Survey_MVC.ViewModels.Account
 {
     public class ChangePasswordVM
     {
-        [Display(Name = "Password")]
-        [Required(ErrorMessage = "Password required")]
-        public string password { get; set; }
+        [Display(Name = "Old password")]
+        [Required(ErrorMessage = "Old password required")]
+        public string oldPassword { get; set; }
+
+        [Display(Name = "New password")]
+        [Required(ErrorMessage = "New password required")]
+        public string newPassword { get; set; }
 
         [Display(Name = "Repeat password")]
-        [CompareAttribute("password", ErrorMessage = "Passwords are not the same.")]
+        [CompareAttribute("newPassword", ErrorMessage = "Passwords are not the same.")]
         public string repeatPassword { get; set; }
     }
 }
