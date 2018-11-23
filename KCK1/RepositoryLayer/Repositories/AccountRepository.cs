@@ -136,6 +136,8 @@ namespace RepositoryLayer.Repositories
                     //account.followedUsers.Clear();
                     //account.followingUsers.Clear();
                     //EditAccount(account);
+                    db.surveys.RemoveRange(db.surveys.Where(a => db.accountsSurveys.Where
+                    (b => b.accountID == account.accountID && b.isAuthor).Select(c => c.surveyID).Contains(a.surveyID)));
 
                     db.accounts.Remove(account);
                     db.SaveChanges();

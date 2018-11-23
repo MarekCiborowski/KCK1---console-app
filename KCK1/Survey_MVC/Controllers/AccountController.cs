@@ -214,10 +214,17 @@ namespace Survey_MVC.Controllers
             if (id == myAccount.accountID)
                 return RedirectToAction("MyProfile");
 
-
-
-
+            Account account = accountRepository.GetAccount(id);
+            ProfileVM profile = new ProfileVM
+            {
+                accountID = account.accountID,
+                isProfilePublic = account.personData.isProfilePublic,
+                email = account.email,
+                isFollowed = accountRepository.IsFollowed(myAccount.accountID, account.accountID),
+                nickname = account.nickname,
+                followers = accountRepository.GetQuantityOfFollowersByID(id)
             };
+
             if (profile.isProfilePublic)
             {
                 profile.address = account.personData.address;
@@ -227,7 +234,6 @@ namespace Survey_MVC.Controllers
                 profile.country = account.personData.country;
 
             }
-
 
 
             return View(profile);
