@@ -233,6 +233,9 @@
     <Content Include="Views\Home\AuthorSurveys.cshtml" />
     <Content Include="Views\Home\MySurveys.cshtml" />
     <Content Include="Views\Home\FilledSurveys.cshtml" />
+    <Content Include="Views\Home\SurveyResults.cshtml" />
+    <Content Include="Views\Home\AnswerVoters.cshtml" />
+    <Content Include="Views\Home\QuestionResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

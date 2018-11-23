@@ -258,12 +258,7 @@ namespace Survey_MVC.Controllers
                 return View(surveyToFillVM);
             }
         }
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
+      
 
 
 
@@ -426,6 +421,21 @@ namespace Survey_MVC.Controllers
                 }
             }
             return View(createSurveyVM);
+        }
+
+        public ActionResult SurveyResults(int id)
+        {
+            return View();
+        }
+
+        public ActionResult QuestionResults(int id)
+        {
+            return View();
+        }
+
+        public ActionResult AnswerVoters(int id)
+        {
+            return View();
         }
 
     }
