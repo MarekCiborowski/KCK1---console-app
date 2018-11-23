@@ -153,7 +153,7 @@ namespace Survey_MVC.Controllers
                     isValid = false;
                 }
 
-            if(account.nickname != myProfileVM.nickname)
+            if (account.nickname != myProfileVM.nickname)
                 if (!accountRepository.IsNicknameCorrect(myProfileVM.nickname))
                 {
                     ModelState.AddModelError("nickname", "This nickname is taken or not correct. Length of nickname is 3-10 characters.");
@@ -161,7 +161,7 @@ namespace Survey_MVC.Controllers
                 }
 
             if (ModelState.IsValid && isValid)
-            {          
+            {
                 account.personData.address = myProfileVM.address;
                 account.personData.city = myProfileVM.city;
                 account.personData.zipcode = myProfileVM.zipcode;
@@ -212,8 +212,54 @@ namespace Survey_MVC.Controllers
                 return RedirectToAction("MyProfile");
 
 
+            Account account = accountRepository.GetAccount(id);
+            ProfileVM profile = new ProfileVM
+            {
+                nickname = account.nickname,
+                email = account.email,
+                followers = accountRepository.GetQuantityOfFollowersByID(id),
+                isProfilePublic = account.personData.isProfilePublic,
+                isFollowed = accountRepository.IsFollowed(myAccount.accountID, account.accountID),
+                accountID=account.accountID
 
-            return View();
+
+            };
+            if (profile.isProfilePublic)
+            {
+                profile.address = account.personData.address;
+                profile.city = account.personData.city;
+                profile.zipcode = account.personData.zipcode;
+                profile.state = account.personData.state;
+
+            }
+
+
+
+            return View(profile);
+        }
+
+        public ActionResult Follow(int id)
+        {
+            Account myAccount = (Account)Session["CurrentUser"];
+            if (id == myAccount.accountID)
+            {
+                TempData["message"] = "You can't follow your account";
+                return RedirectToAction("MyProfile");
+            }
+            accountRepository.AddFollower(myAccount.accountID, id);
+            return RedirectToAction("AccountProfile", new { id = id });
+        }
+
+        public ActionResult Unfollow(int id)
+        {
+            Account myAccount = (Account)Session["CurrentUser"];
+            if (id == myAccount.accountID)
+            {
+                TempData["message"] = "You can't unfollow your account";
+                return RedirectToAction("MyProfile");
+            }
+            accountRepository.RemoveFollower(myAccount.accountID, id);
+            return RedirectToAction("AccountProfile", new { id = id });
         }
     }
 }
