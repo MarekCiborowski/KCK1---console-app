@@ -106,7 +106,6 @@ namespace Survey_MVC.Controllers
             MyProfileVM myProfileVM = new MyProfileVM
             {
                 login = account.userSecurity.login,
-                password = account.userSecurity.password,
                 email = account.email,
                 nickname = account.nickname,
                 address = account.personData.address,
@@ -127,7 +126,6 @@ namespace Survey_MVC.Controllers
             MyProfileVM myProfileVM = new MyProfileVM
             {
                 login = account.userSecurity.login,
-                password = account.userSecurity.password,
                 email = account.email,
                 nickname = account.nickname,
                 address = account.personData.address,
@@ -161,17 +159,22 @@ namespace Survey_MVC.Controllers
                 }
 
             if (ModelState.IsValid && isValid)
-            {          
-                account.personData.address = myProfileVM.address;
-                account.personData.city = myProfileVM.city;
-                account.personData.zipcode = myProfileVM.zipcode;
-                account.personData.country = myProfileVM.country;
+            {
+                Account editedAccount = accountRepository.GetAccount(account.accountID);
+                editedAccount.personData.address = myProfileVM.address;
+                editedAccount.personData.city = myProfileVM.city;
+                editedAccount.personData.zipcode = myProfileVM.zipcode;
+                editedAccount.personData.country = myProfileVM.country;
 
-                account.email = myProfileVM.email;
-                account.nickname = myProfileVM.nickname;
+                editedAccount.email = myProfileVM.email;
+                editedAccount.nickname = myProfileVM.nickname;
 
-                accountRepository.EditAccount(account);
-                TempData["message"] = "Successfully edited profile: " + account.nickname;
+                editedAccount.personData.isProfilePublic = myProfileVM.isProfilePublic;
+
+                accountRepository.EditAccount(editedAccount);
+
+                Session["CurrentUser"] = editedAccount;
+                TempData["message"] = "Successfully edited profile: " + editedAccount.nickname;
                 return RedirectToAction("MyProfile", "Account");
             }
 
