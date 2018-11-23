@@ -230,6 +230,7 @@ namespace Survey_MVC.Controllers
                 profile.city = account.personData.city;
                 profile.zipcode = account.personData.zipcode;
                 profile.state = account.personData.state;
+                profile.country = account.personData.country;
 
             }
 
