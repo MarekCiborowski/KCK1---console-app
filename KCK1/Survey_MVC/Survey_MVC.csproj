@@ -176,8 +176,11 @@
     <Compile Include="ViewModels\Authentication\NewUserVM.cs" />
     <Compile Include="ViewModels\Account\AccountListVM.cs" />
     <Compile Include="ViewModels\Surveys\AnswerVM.cs" />
+    <Compile Include="ViewModels\Surveys\AnswerVotersVM.cs" />
     <Compile Include="ViewModels\Surveys\CreateSurveyVM.cs" />
+    <Compile Include="ViewModels\Surveys\QuestionResultsVM.cs" />
     <Compile Include="ViewModels\Surveys\QuestionVM.cs" />
+    <Compile Include="ViewModels\Surveys\SurveyResultsVM.cs" />
     <Compile Include="ViewModels\Surveys\SurveyToFillVM.cs" />
   </ItemGroup>
   <ItemGroup>
