@@ -65,12 +65,12 @@ namespace Survey_MVC.Controllers
             }
             if (!accountRepository.IsEmailCorrect(newUser.email))
             {
-                ModelState.AddModelError("email", "Email is busy or not correct.");
+                ModelState.AddModelError("email", "Email is taken or not correct.");
                 isValid = false;
             }
             if(!accountRepository.IsNicknameCorrect(newUser.nickname))
             {
-                ModelState.AddModelError("nickname", "This nickname is busy or not correct. Length of nickname is 3-10 characters.");
+                ModelState.AddModelError("nickname", "This nickname is taken or not correct. Length of nickname is 3-10 characters.");
                 isValid = false;
             }
             
