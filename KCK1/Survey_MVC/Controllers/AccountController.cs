@@ -9,6 +9,7 @@ using PagedList;
 using DataTransferObjects.Models;
 using RepositoryLayer.Repositories;
 using Survey_MVC.ViewModels.Account;
+using System.Web.Security;
 
 namespace Survey_MVC.Controllers
 {
@@ -220,34 +221,27 @@ namespace Survey_MVC.Controllers
             }  
             return View(changePasswordVM);
         }
-        /*
-        public ActionResult DeleteAccount(int? id)
+        
+        public ActionResult DeleteAccount()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            DeleteAdminVM product = new DeleteAdminVM();
-            product.userName = User.Identity.Name;
-            product.product = new ProductBL().GetDetails(id);
-
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(product);
+            Account account = (Account)Session["CurrentUser"];
+            DeleteAccountVM deleteAccountVM = new DeleteAccountVM();
+            deleteAccountVM.accountID = account.accountID;
+            return View(deleteAccountVM);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteAccount")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(DeleteAccountVM deleteAccountVM)
         {
-            new ProductBL().DeleteProduct(id);
+            Account account = (Account)Session["CurrentUser"];
+            accountRepository.RemoveAccount(deleteAccountVM.accountID);
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            TempData["message"] = "Successfully account was deleted!";
+            return RedirectToAction("Login","Authentication");
+        }
 
-            return RedirectToAction("Index");
-        }*/
         public ActionResult AccountProfile(int id)
         {
             Account myAccount = (Account)Session["CurrentUser"];
