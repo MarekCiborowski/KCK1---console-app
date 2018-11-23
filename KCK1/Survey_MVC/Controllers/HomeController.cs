@@ -21,7 +21,7 @@ namespace Survey_MVC.Controllers
         private AnswerRepository answerRepository = new AnswerRepository();
         private AccountSurveyRepository accountSurveyRepository = new AccountSurveyRepository();
 
-        private int pageSize = 1;
+        private int pageSize = 5;
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             Account account = (Account)Session["CurrentUser"];
