@@ -218,11 +218,6 @@ namespace Survey_MVC.Controllers
                 TempData["message"] = "Successfully password was changed!";
                 return RedirectToAction("MyProfile", "Account");
             }  
-            //if (newPassword.password != repeatPassword.password)
-            //{
-            //    ModelState.AddModelError("repeat", "The enter password is different from the old password.");
-            //    isValid = false;
-            //}
             return View(changePasswordVM);
         }
         /*
