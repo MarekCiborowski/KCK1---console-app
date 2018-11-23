@@ -168,6 +168,7 @@
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\AccountVM.cs" />
+    <Compile Include="ViewModels\Account\MyProfileVM.cs" />
     <Compile Include="ViewModels\Authentication\NewUserVM.cs" />
     <Compile Include="ViewModels\Account\AccountListVM.cs" />
     <Compile Include="ViewModels\Surveys\AnswerVM.cs" />
@@ -257,6 +258,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
     <None Include="Views\Authentication\Login.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

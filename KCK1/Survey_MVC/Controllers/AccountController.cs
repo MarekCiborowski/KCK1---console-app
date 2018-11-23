@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using PagedList;
 using DataTransferObjects.Models;
 using RepositoryLayer.Repositories;
+using Survey_MVC.ViewModels.Account;
 
 namespace Survey_MVC.Controllers
 {
@@ -101,12 +102,109 @@ namespace Survey_MVC.Controllers
         }
         public ActionResult MyProfile()
         {
-            return View();
+            Account account = (Account)Session["CurrentUser"];
+            MyProfileVM myProfileVM = new MyProfileVM
+            {
+                login = account.userSecurity.login,
+                password = account.userSecurity.password,
+                email = account.email,
+                nickname = account.nickname,
+                address = account.personData.address,
+                city = account.personData.city,
+                country = account.personData.country,
+                state = account.personData.state,
+                zipcode = account.personData.zipcode,
+                isProfilePublic = account.personData.isProfilePublic,
+            };
+            myProfileVM.followers = accountRepository.GetQuantityOfFollowersByID(account.accountID);
+            myProfileVM.followed = accountRepository.GetFollowedAccounts(account.accountID).Count;
+            return View(myProfileVM);
         }
+
         public ActionResult EditProfile()
         {
-            return View();
+            Account account = (Account)Session["CurrentUser"];
+            MyProfileVM myProfileVM = new MyProfileVM
+            {
+                login = account.userSecurity.login,
+                password = account.userSecurity.password,
+                email = account.email,
+                nickname = account.nickname,
+                address = account.personData.address,
+                city = account.personData.city,
+                country = account.personData.country,
+                state = account.personData.state,
+                zipcode = account.personData.zipcode,
+                isProfilePublic = account.personData.isProfilePublic
+            };
+            return View(myProfileVM);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(MyProfileVM myProfileVM)
+        {
+            Account account = (Account)Session["CurrentUser"];
+            bool isValid = true;
+            if (account.email != myProfileVM.email)
+                if (!accountRepository.IsEmailCorrect(myProfileVM.email))
+                {
+                    ModelState.AddModelError("email", "Email is busy or not correct.");
+                    isValid = false;
+                }
+
+            if(account.nickname != myProfileVM.nickname)
+                if (!accountRepository.IsNicknameCorrect(myProfileVM.nickname))
+                {
+                    ModelState.AddModelError("nickname", "This nickname is busy or not correct. Length of nickname is 3-10 characters.");
+                    isValid = false;
+                }
+
+            if (ModelState.IsValid && isValid)
+            {          
+                account.personData.address = myProfileVM.address;
+                account.personData.city = myProfileVM.city;
+                account.personData.zipcode = myProfileVM.zipcode;
+                account.personData.country = myProfileVM.country;
+
+                account.email = myProfileVM.email;
+                account.nickname = myProfileVM.nickname;
+
+                accountRepository.EditAccount(account);
+                TempData["message"] = "Successfully edited profile: " + account.nickname;
+                return RedirectToAction("MyProfile", "Account");
+            }
+
+            return View(myProfileVM);
+        }
+        /*
+        public ActionResult DeleteAccount(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            DeleteAdminVM product = new DeleteAdminVM();
+            product.userName = User.Identity.Name;
+            product.product = new ProductBL().GetDetails(id);
+
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(product);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            new ProductBL().DeleteProduct(id);
+
+            return RedirectToAction("Index");
+        }*/
         public ActionResult AccountProfile(int id)
         {
             Account myAccount = (Account)Session["CurrentUser"];
