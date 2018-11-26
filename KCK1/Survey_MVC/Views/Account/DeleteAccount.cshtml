@@ -10,11 +10,12 @@
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.accountID)
 
-        <div class="btn badge-danger">
-            <input type="submit" value="Usuń" class="btn btn-default" /> |
-        </div>
-        <div class="btn badge-dark">
+    <div>
+        <input type="submit" value="Usuń" class="btn btn-danger" />
+        <div class="btn btn-default">
             @Html.ActionLink("Powrót do profilu", "MyProfile", "Account")
         </div>
+    </div>
+        
     }
 </div>
