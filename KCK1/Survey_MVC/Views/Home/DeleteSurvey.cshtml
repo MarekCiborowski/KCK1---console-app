@@ -1,7 +1,22 @@
-﻿
+﻿@model Survey_MVC.ViewModels.Surveys.DeleteSurveyVM
 @{
     ViewBag.Title = "DeleteSurvey";
 }
 
-<h2>DeleteSurvey</h2>
+<h3>Are you sure you want to delete survey: @Model.surveyTitle?</h3>
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.surveyID)
+
+        <div>
+            <input type="submit" value="Delete survey" class="btn btn-danger" />
+            <div class="btn btn-default">
+                @Html.ActionLink("Return to your surveys", "MySurveys")
+            </div>
+        </div>
+
+    }
+</div>
 
