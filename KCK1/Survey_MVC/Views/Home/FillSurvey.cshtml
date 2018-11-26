@@ -6,7 +6,7 @@
 
 <h1>Title: @Model.title</h1>
 <h2>Description: @Model.description</h2>
-<h2>Author: @Model.authorNickname</h2>
+<h2>Author: @Html.ActionLink(@Model.authorNickname, "AccountProfile","Account", new { id = Model.accountID }, null)</h2>
 
 @if (Model.isAnonymous)
 {
@@ -20,6 +20,7 @@ else
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken();
+    @Html.HiddenFor(m => m.accountID);
     @Html.HiddenFor(m => m.title);
     @Html.HiddenFor(m => m.description);
     @Html.HiddenFor(m => m.isAnonymous);

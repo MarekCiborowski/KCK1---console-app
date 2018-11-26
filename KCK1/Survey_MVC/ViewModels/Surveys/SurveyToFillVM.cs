@@ -14,6 +14,7 @@ namespace Survey_MVC.ViewModels.Surveys
         public string title { get; set; }
         public string description { get; set; }
         public string authorNickname { get; set; }
+        public int accountID { get; set; }
         public List<QuestionVM> questions { get; set; } = new List<QuestionVM>();
        
     }

@@ -17,7 +17,7 @@ namespace Survey_MVC.Controllers
     public class AccountController : Controller
     {
         AccountRepository accountRepository = new AccountRepository();
-        private int pageSize = 2;
+        private int pageSize = 5;
         // GET: Account
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {

@@ -23,6 +23,7 @@ namespace DataTransferObjects.Models
         public string email { get; set; }
         [Display(Name ="Nickname")]
         [Required(ErrorMessage ="Nickname required")]
+    
         public string nickname { get; set; }
         [Required]
         public virtual UserSecurity userSecurity { get; set; }

@@ -148,13 +148,15 @@ namespace Survey_MVC.Controllers
             }
 
             Survey survey = surveyRepository.GetSurvey(id);
+            Account author = surveyRepository.GetAuthor(id);
             SurveyToFillVM surveyToFill = new SurveyToFillVM
             {
                 surveyID = survey.surveyID,
                 isAnonymous = survey.isAnonymous,
                 title = survey.title,
                 description = survey.description,
-                authorNickname = surveyRepository.GetAuthor(id).nickname
+                authorNickname = author.nickname,
+                accountID = author.accountID
 
             };
 
