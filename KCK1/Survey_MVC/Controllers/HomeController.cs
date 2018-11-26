@@ -534,7 +534,7 @@ namespace Survey_MVC.Controllers
 
             surveyRepository.RemoveSurvey(deleteSurveyVM.surveyID);
             TempData["message"] = "Survey was successfully deleted!";
-            return Redirect(returnURL);
+            return RedirectToAction("MySurveys");
         }
     }
 }
