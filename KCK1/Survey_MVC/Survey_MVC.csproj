@@ -177,6 +177,7 @@
     <Compile Include="ViewModels\Surveys\AnswerVM.cs" />
     <Compile Include="ViewModels\Surveys\AnswerVotersVM.cs" />
     <Compile Include="ViewModels\Surveys\CreateSurveyVM.cs" />
+    <Compile Include="ViewModels\Surveys\DeleteSurveyVM.cs" />
     <Compile Include="ViewModels\Surveys\QuestionResultsVM.cs" />
     <Compile Include="ViewModels\Surveys\QuestionVM.cs" />
     <Compile Include="ViewModels\Surveys\SurveyResultsVM.cs" />
@@ -286,6 +287,7 @@
     <Content Include="Views\Home\SurveyResults.cshtml" />
     <Content Include="Views\Home\AnswerVoters.cshtml" />
     <Content Include="Views\Home\QuestionResults.cshtml" />
+    <Content Include="Views\Home\DeleteSurvey.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

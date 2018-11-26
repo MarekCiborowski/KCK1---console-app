@@ -69,6 +69,7 @@ namespace Survey_MVC.Controllers
 
         public ActionResult MySurveys(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            Session["returnURL"] = Request.UrlReferrer.AbsoluteUri;
             Account account = (Account)Session["CurrentUser"];
             ViewBag.CurrentSort = sortOrder;
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
@@ -504,6 +505,36 @@ namespace Survey_MVC.Controllers
 
             return View(answerVoters);
         }
+        public ActionResult DeleteSurvey(int id)
+        {
+            Survey survey = surveyRepository.GetSurvey(id);
 
+            DeleteSurveyVM deleteSurveyVM = new DeleteSurveyVM
+            {
+                surveyID = id,
+                surveyTitle = survey.title
+
+            };
+            
+            return View(deleteSurveyVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteSurvey(DeleteSurveyVM deleteSurveyVM)
+        {
+            var returnURL = (Session["returnURL"] != null) ? Session["returnURL"].ToString() : Url.Action("Index", "Home");
+            Account account = (Account)Session["CurrentUser"];
+            if (surveyRepository.GetAuthor(deleteSurveyVM.surveyID).accountID != account.accountID)
+            {
+                TempData["message"] = "You cannot delete other users' surveys.";
+                
+                return Redirect(returnURL);
+            }
+
+            surveyRepository.RemoveSurvey(deleteSurveyVM.surveyID);
+            TempData["message"] = "Survey was successfully deleted!";
+            return Redirect(returnURL);
+        }
     }
 }

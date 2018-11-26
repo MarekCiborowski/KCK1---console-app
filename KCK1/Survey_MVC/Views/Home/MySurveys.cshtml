@@ -35,7 +35,8 @@
             </td>
 
             <td>
-                @Html.ActionLink("Current results", "SurveyResults", new { id = item.surveyID })
+                @Html.ActionLink("Current results", "SurveyResults", new { id = item.surveyID }) |
+                @Html.ActionLink("Delete survey", "DeleteSurvey", new { id=item.surveyID})
             </td>
         </tr>
     }
