@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using PagedList;
 using DataTransferObjects.Models;
 using RepositoryLayer.Repositories;
+using Survey_MVC.ViewModels.Account;
+using System.Web.Security;
 
 namespace Survey_MVC.Controllers
 {
@@ -15,7 +17,7 @@ namespace Survey_MVC.Controllers
     public class AccountController : Controller
     {
         AccountRepository accountRepository = new AccountRepository();
-        private int pageSize = 2;
+        private int pageSize = 5;
         // GET: Account
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -101,15 +103,198 @@ namespace Survey_MVC.Controllers
         }
         public ActionResult MyProfile()
         {
-            return View();
+            Account account = (Account)Session["CurrentUser"];
+            MyProfileVM myProfileVM = new MyProfileVM
+            {
+                login = account.userSecurity.login,
+                email = account.email,
+                nickname = account.nickname,
+                address = account.personData.address,
+                city = account.personData.city,
+                country = account.personData.country,
+                state = account.personData.state,
+                zipcode = account.personData.zipcode,
+                isProfilePublic = account.personData.isProfilePublic,
+            };
+            myProfileVM.followers = accountRepository.GetQuantityOfFollowersByID(account.accountID);
+            myProfileVM.followed = accountRepository.GetFollowedAccounts(account.accountID).Count;
+            return View(myProfileVM);
         }
+
         public ActionResult EditProfile()
         {
-            return View();
+            Account account = (Account)Session["CurrentUser"];
+            MyProfileVM myProfileVM = new MyProfileVM
+            {
+                login = account.userSecurity.login,
+                email = account.email,
+                nickname = account.nickname,
+                address = account.personData.address,
+                city = account.personData.city,
+                country = account.personData.country,
+                state = account.personData.state,
+                zipcode = account.personData.zipcode,
+                isProfilePublic = account.personData.isProfilePublic
+            };
+            return View(myProfileVM);
         }
-        public ActionResult AccountProfile()
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(MyProfileVM myProfileVM)
         {
-            return View();
+            Account account = (Account)Session["CurrentUser"];
+            bool isValid = true;
+            if (account.email != myProfileVM.email)
+                if (!accountRepository.IsEmailCorrect(myProfileVM.email))
+                {
+                    ModelState.AddModelError("email", "Email is taken or not correct.");
+                    isValid = false;
+                }
+
+            if(account.nickname != myProfileVM.nickname)
+                if (!accountRepository.IsNicknameCorrect(myProfileVM.nickname))
+                {
+                    ModelState.AddModelError("nickname", "This nickname is taken or not correct. Length of nickname is 3-10 characters.");
+                    isValid = false;
+                }
+
+            if (ModelState.IsValid && isValid)
+            {
+                Account editedAccount = accountRepository.GetAccount(account.accountID);
+                editedAccount.personData.address = myProfileVM.address;
+                editedAccount.personData.city = myProfileVM.city;
+                editedAccount.personData.zipcode = myProfileVM.zipcode;
+                editedAccount.personData.country = myProfileVM.country;
+
+                editedAccount.email = myProfileVM.email;
+                editedAccount.nickname = myProfileVM.nickname;
+
+                editedAccount.personData.isProfilePublic = myProfileVM.isProfilePublic;
+
+                accountRepository.EditAccount(editedAccount);
+
+                Session["CurrentUser"] = editedAccount;
+                TempData["message"] = "Successfully edited profile: " + editedAccount.nickname;
+                return RedirectToAction("MyProfile", "Account");
+            }
+
+            return View(myProfileVM);
+        }
+
+        public ActionResult ChangePassword()
+        {
+            Account account = (Account)Session["CurrentUser"];
+            ChangePasswordVM changePasswordVM = new ChangePasswordVM();
+            return View(changePasswordVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordVM changePasswordVM)
+        {
+            Account account = (Account)Session["CurrentUser"];
+
+            UserSecurityRepository userSecurityRepository = new UserSecurityRepository();
+
+            UserSecurity oldPassword = userSecurityRepository.CreateUserSecurity("", changePasswordVM.oldPassword);
+
+            UserSecurity newPassword = userSecurityRepository.CreateUserSecurity("", changePasswordVM.newPassword);
+
+            UserSecurity repeatPassword = userSecurityRepository.CreateUserSecurity("", changePasswordVM.repeatPassword);
+
+            bool isValid = true;
+            if(oldPassword.password != account.userSecurity.password)
+            {
+                ModelState.AddModelError("oldPassword", "The enter password is different from the old password.");
+                isValid = false;
+            }
+            if(ModelState.IsValid && isValid)
+            {
+                Account editedAccount = accountRepository.GetAccount(account.accountID);
+                editedAccount.userSecurity.password = newPassword.password;
+
+                accountRepository.EditAccount(editedAccount);
+                Session["CurrentUser"] = editedAccount;
+                TempData["message"] = "Successfully password was changed!";
+                return RedirectToAction("MyProfile", "Account");
+            }  
+            return View(changePasswordVM);
+        }
+        
+        public ActionResult DeleteAccount()
+        {
+            Account account = (Account)Session["CurrentUser"];
+            DeleteAccountVM deleteAccountVM = new DeleteAccountVM();
+            deleteAccountVM.accountID = account.accountID;
+            return View(deleteAccountVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteAccount(DeleteAccountVM deleteAccountVM)
+        {
+            Account account = (Account)Session["CurrentUser"];
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            accountRepository.RemoveAccount(deleteAccountVM.accountID);
+            TempData["message"] = "Successfully account was deleted!";
+            return RedirectToAction("Login","Authentication");
+        }
+
+        public ActionResult AccountProfile(int id)
+        {
+            Account myAccount = (Account)Session["CurrentUser"];
+            if (id == myAccount.accountID)
+                return RedirectToAction("MyProfile");
+
+            Account account = accountRepository.GetAccount(id);
+            ProfileVM profile = new ProfileVM
+            {
+                accountID = account.accountID,
+                isProfilePublic = account.personData.isProfilePublic,
+                email = account.email,
+                isFollowed = accountRepository.IsFollowed(myAccount.accountID, account.accountID),
+                nickname = account.nickname,
+                followers = accountRepository.GetQuantityOfFollowersByID(id)
+            };
+
+            if (profile.isProfilePublic)
+            {
+                profile.address = account.personData.address;
+                profile.city = account.personData.city;
+                profile.zipcode = account.personData.zipcode;
+                profile.state = account.personData.state;
+                profile.country = account.personData.country;
+
+            }
+
+
+            return View(profile);
+        }
+
+        public ActionResult Follow(int id)
+        {
+            Account myAccount = (Account)Session["CurrentUser"];
+            if (id == myAccount.accountID)
+            {
+                TempData["message"] = "You can't follow your account";
+                return RedirectToAction("MyProfile");
+            }
+            accountRepository.AddFollower(myAccount.accountID, id);
+            return RedirectToAction("AccountProfile", new { id = id });
+        }
+
+        public ActionResult Unfollow(int id)
+        {
+            Account myAccount = (Account)Session["CurrentUser"];
+            if (id == myAccount.accountID)
+            {
+                TempData["message"] = "You can't unfollow your account";
+                return RedirectToAction("MyProfile");
+            }
+            accountRepository.RemoveFollower(myAccount.accountID, id);
+            return RedirectToAction("AccountProfile", new { id = id });
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Survey_MVC.Controllers
         private AnswerRepository answerRepository = new AnswerRepository();
         private AccountSurveyRepository accountSurveyRepository = new AccountSurveyRepository();
 
-        private int pageSize = 1;
+        private int pageSize = 5;
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             Account account = (Account)Session["CurrentUser"];
@@ -39,7 +39,7 @@ namespace Survey_MVC.Controllers
             surveyList = SortSurveys(surveyList, sortOrder, searchString, page);
 
             int pageNumber = (page ?? 1);
-            return View(surveyList.ToPagedList(pageNumber, pageSize)); 
+            return View(surveyList.ToPagedList(pageNumber, pageSize));
         }
         public ActionResult AuthorSurveys(int id, string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -64,7 +64,7 @@ namespace Survey_MVC.Controllers
 
 
             int pageNumber = (page ?? 1);
-            return View(surveyList.ToPagedList(pageNumber, pageSize)); 
+            return View(surveyList.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult MySurveys(string sortOrder, string currentFilter, string searchString, int? page)
@@ -84,7 +84,7 @@ namespace Survey_MVC.Controllers
             surveyList = SortSurveys(surveyList, sortOrder, searchString, page);
 
             int pageNumber = (page ?? 1);
-            return View(surveyList.ToPagedList(pageNumber, pageSize)); 
+            return View(surveyList.ToPagedList(pageNumber, pageSize));
         }
         public ActionResult FilledSurveys(string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -103,11 +103,11 @@ namespace Survey_MVC.Controllers
             surveyList = SortSurveys(surveyList, sortOrder, searchString, page);
 
             int pageNumber = (page ?? 1);
-            return View(surveyList.ToPagedList(pageNumber, pageSize)); 
+            return View(surveyList.ToPagedList(pageNumber, pageSize));
         }
 
 
-        
+
 
         private List<Survey> SortSurveys(List<Survey> surveyList, string sortOrder, string searchString, int? page)
         {
@@ -132,7 +132,7 @@ namespace Survey_MVC.Controllers
                     break;
             }
 
-            
+
             return surveyList;
         }
 
@@ -258,12 +258,7 @@ namespace Survey_MVC.Controllers
                 return View(surveyToFillVM);
             }
         }
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
-        }
 
 
 
@@ -426,6 +421,86 @@ namespace Survey_MVC.Controllers
                 }
             }
             return View(createSurveyVM);
+        }
+
+        public ActionResult SurveyResults(int id)
+        {
+            Account author = surveyRepository.GetAuthor(id);
+            Survey survey = surveyRepository.GetSurvey(id);
+
+            SurveyResultsVM surveyResults = new SurveyResultsVM
+            {
+                authorNickname = author.nickname,
+                authorID = author.accountID,
+                title = survey.title,
+                numberOfVoters = surveyRepository.GetQuantityOfVoters(id),
+                questions = new List<QuestionResultsVM>()
+            };
+
+            foreach (Question question in surveyRepository.GetQuestions(id))
+            {
+                surveyResults.questions.Add(new QuestionResultsVM
+                {
+                    questionID = question.questionID,
+                    questionValue = question.questionValue
+                });
+            }
+
+            return View(surveyResults);
+        }
+
+        public ActionResult QuestionResults(int id)
+        {
+            Question question = questionRepository.GetQuestion(id);
+            Survey survey = surveyRepository.GetSurvey(question.surveyID);
+            QuestionResultsVM questionResults = new QuestionResultsVM
+            {
+                questionValue = question.questionValue,
+                isAnonymous = surveyRepository.IsAnonymous(survey.surveyID),
+                answers = new List<AnswerVotersVM>()
+            };
+
+            foreach (Answer answer in questionRepository.GetAnswers(id))
+            {
+                questionResults.answers.Add(new AnswerVotersVM
+                {
+                    answerID = answer.answerID,
+                    answerValue = answer.answerValue,
+                    numberOfVotes = answerRepository.GetQuantityOfVotes(answer.answerID),
+                });
+            }
+
+
+            return View(questionResults);
+        }
+
+        public ActionResult AnswerVoters(int id)
+        {
+            Answer answer = answerRepository.GetAnswer(id);
+            //próba wejścia po adresie url
+            if (surveyRepository.GetSurvey(questionRepository.GetQuestion(answer.questionID).surveyID).isAnonymous)
+            {
+                TempData["message"] = "Results of this survey are anonymous.";
+                return RedirectToAction("QuestionResults", new { id = answerRepository.GetAnswer(id).questionID });
+            }
+
+            AnswerVotersVM answerVoters = new AnswerVotersVM
+            {
+                answerValue = answer.answerValue,
+                numberOfVotes = answerRepository.GetQuantityOfVotes(answer.answerID),
+                voters = new List<VoterVM>()
+            };
+            foreach(Account voter in answerRepository.GetAccountsVoters(answer.answerID))
+            {
+                answerVoters.voters.Add(new VoterVM
+                {
+                    voterID = voter.accountID,
+                    email = voter.email,
+                    nickname = voter.nickname
+                });
+            }
+
+            return View(answerVoters);
         }
 
     }

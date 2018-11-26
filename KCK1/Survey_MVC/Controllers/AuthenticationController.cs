@@ -60,15 +60,19 @@ namespace Survey_MVC.Controllers
             bool isValid = true;
             if (!userSecurityRepository.IsLoginFree(newUser.login))
             {
-                ModelState.AddModelError("login", "Login is already in use");
+                ModelState.AddModelError("login", "Login is already in use.");
                 isValid = false;
             }
             if (!accountRepository.IsEmailCorrect(newUser.email))
             {
-                ModelState.AddModelError("email", "Email is not correct");
+                ModelState.AddModelError("email", "Email is taken or not correct.");
                 isValid = false;
             }
-
+            if(!accountRepository.IsNicknameCorrect(newUser.nickname))
+            {
+                ModelState.AddModelError("nickname", "This nickname is taken or not correct. Length of nickname is 3-10 characters.");
+                isValid = false;
+            }
             
             if (ModelState.IsValid && isValid)
             {
