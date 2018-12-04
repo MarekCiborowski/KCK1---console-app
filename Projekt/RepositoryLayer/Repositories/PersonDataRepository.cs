@@ -9,37 +9,42 @@ using System.Threading.Tasks;
 
 namespace RepositoryLayer.Repositories
 {
-    public class QuestionRepository
+    public class PersonDataRepository
     {
         private DatabaseContext db = new DatabaseContext();
-        public Question CreateQuestion(
-            string _questionValue,
-            bool _canAddOwnAnwer,
-            bool _isSingleChoice,
-            ICollection<Answer> _answer)
+
+        public PersonData CreatePersonData(
+            
+            string _address,
+            string _city,
+            string _zipcode,
+            string _state,
+            string _country)
         {
-            return new Question
+            return new PersonData
             {
-                questionValue = _questionValue,
-                canAddOwnAnswer=_canAddOwnAnwer,
-                isSingleChoice=_isSingleChoice,
-                answer = _answer
+                
+                address = _address,
+                city = _city,
+                zipcode = _zipcode,
+                state = _state,
+                country = _country,
             };
         }
-        public Question GetQuestion(int? id)
+        public PersonData GetPersonData(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            return db.questions.Include(t => t.answer).FirstOrDefault(q => q.questionID == id);
+            return db.personDatas.FirstOrDefault(p => p.personDataID == id);
         }
 
-        public void AddQuestion(Question question)
+        public void AddPersonData(PersonData personData)
         {
             using (var dbContextTransaction = db.Database.BeginTransaction())
             {
                 try
                 {
-                    db.questions.Add(question);
+                    db.personDatas.Add(personData);
                     db.SaveChanges();
                     dbContextTransaction.Commit();
                 }
@@ -51,33 +56,13 @@ namespace RepositoryLayer.Repositories
             }
         }
 
-        public void EditQuestion(Question editedQuestion)
+        public void EditPersonData(PersonData editedPersonData)
         {
             using (var dbContextTransaction = db.Database.BeginTransaction())
             {
                 try
                 {
-                    db.Entry(editedQuestion).State = EntityState.Modified;
-                    db.SaveChanges();
-                    dbContextTransaction.Commit();
-                }
-                catch (Exception)
-                {
-                    dbContextTransaction.Rollback();
-                }
-            }
-        }
-
-        public void RemoveQuestion(int? id)
-        {
-            if (id == null)
-                throw new ArgumentNullException("Null argument");
-            using (var dbContextTransaction = db.Database.BeginTransaction())
-            {
-                try
-                {
-                    Question question = db.questions.Find(id);
-                    db.questions.Remove(question);
+                    db.Entry(editedPersonData).State = EntityState.Modified;
                     db.SaveChanges();
                     dbContextTransaction.Commit();
                 }
@@ -89,17 +74,25 @@ namespace RepositoryLayer.Repositories
             }
         }
 
-        public List<Answer> GetAnswers(int? id)
+        public void RemovePersonData(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            Question question = db.questions.Include(t => t.answer).FirstOrDefault(t => t.questionID == id);
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    PersonData personData = db.personDatas.Find(id);
+                    db.personDatas.Remove(personData);
+                    db.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
 
-            return question.answer.ToList();
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
-
-        
-
-       
     }
 }

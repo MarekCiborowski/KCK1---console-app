@@ -1,0 +1,20 @@
+﻿@model Survey_MVC.ViewModels.Surveys.AnswerVotersVM
+@{
+    ViewBag.Title = "Answer voters";
+}
+
+@{int voterNumber = 1;}
+
+<h2>Users who voted for: @Model.answerValue</h2>
+<br /><br />
+
+<ul>
+    @foreach (var item in Model.voters)
+    {
+        <li>@voterNumber. @Html.ActionLink(item.nickname+" "+item.email,"AccountProfile","Account",new { id = item.voterID },null)</li>
+        voterNumber++;
+    }
+</ul>
+
+
+

@@ -21,8 +21,7 @@ namespace RepositoryLayer.Repositories
             return new Question
             {
                 questionValue = _questionValue,
-                canAddOwnAnswer=_canAddOwnAnwer,
-                isSingleChoice=_isSingleChoice,
+                categoryID = GetQuestionCategory(_canAddOwnAnwer, _isSingleChoice),
                 answer = _answer
             };
         }
@@ -30,7 +29,7 @@ namespace RepositoryLayer.Repositories
         {
             if (id == null)
                 throw new ArgumentNullException("Null argument");
-            return db.questions.Include(t => t.answer).FirstOrDefault(q => q.questionID == id);
+            return db.questions.Include(t => t.answer).Include(t => t.category).FirstOrDefault(q => q.questionID == id);
         }
 
         public void AddQuestion(Question question)
@@ -98,8 +97,30 @@ namespace RepositoryLayer.Repositories
             return question.answer.ToList();
         }
 
-        
+        public int GetQuestionCategory(bool canAddOwnAnswer, bool isSingleChoice)
+        {
+            Category category = db.categories.FirstOrDefault(t => t.isSingleChoice == isSingleChoice
+            && t.canAddOwnAnswer == canAddOwnAnswer);
+            if (category == null)
+            {
+                category = new Category
+                {
+                    canAddOwnAnswer = canAddOwnAnswer,
+                    isSingleChoice = isSingleChoice
+                };
+                db.categories.Add(category);
+                db.SaveChanges();
+            }
+                
+            return category.categoryID;
+        }
 
-       
+        public Category GetQuestionCategory(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException("Null argument");
+            return db.questions.Include(t => t.category).FirstOrDefault(t => t.questionID == id).category;
+
+        }
     }
 }

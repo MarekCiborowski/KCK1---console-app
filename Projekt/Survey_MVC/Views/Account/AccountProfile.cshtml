@@ -1,0 +1,95 @@
+﻿@model Survey_MVC.ViewModels.Account.ProfileVM
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2>@Model.nickname's profile</h2>
+
+<table style=" float:left">
+    <tr>
+        <td>
+            @Html.DisplayNameFor(m => m.nickname): @Html.DisplayFor(m => m.nickname)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(m => m.email): @Html.DisplayFor(m => m.email)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(m => m.followers): @Html.DisplayFor(m => m.followers)
+        </td>
+    </tr>
+</table>
+
+<table style=" float:left">
+
+    @if (Model.isProfilePublic == false)
+    {
+        <tr>
+            <td>
+                @Html.DisplayNameFor(m => m.isProfilePublic) Private
+            </td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td>
+                @Html.DisplayNameFor(m => m.address): @Html.DisplayFor(m => m.address)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(m => m.zipcode): @Html.DisplayFor(m => m.zipcode)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(m => m.city): @Html.DisplayFor(m => m.city)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(m => m.state): @Html.DisplayFor(m => m.state)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(m => m.country): @Html.DisplayFor(m => m.country)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(m => m.isProfilePublic) Public
+            </td>
+        </tr>
+    }
+</table>
+
+<table>
+    <tr>
+        <td>
+            <div>
+                <center>
+                    @if (Model.isFollowed)
+                    {
+                        @Html.ActionLink("Unfollow", "Unfollow", new { id = Model.accountID }, new { @class = "btn btn-danger" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Follow", "Follow", new { id = Model.accountID }, new { @class = "btn btn-search" })
+                    }
+                </center>
+            </div>
+        </td>
+        <td>
+            <div>
+                <center>
+                    @Html.ActionLink("See this person's surveys", "AuthorSurveys","Home", new { id = Model.accountID }, new { @class = "btn btn-search" })
+                </center>
+            </div>
+        </td>
+    </tr>
+</table>

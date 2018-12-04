@@ -1,0 +1,51 @@
+﻿@model PagedList.IPagedList<DataTransferObjects.Models.Account>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "All accounts";
+}
+
+@using (Html.BeginForm("Index", "Account", FormMethod.Get))
+{
+    <p>
+        Find: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.ActionLink("Nickname", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.DescSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.nickname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+
+            <td>
+                @Html.ActionLink("Check profile", "AccountProfile", new { id = item.accountID }) |
+                @Html.ActionLink("See surveys", "AuthorSurveys","Home", new { id = item.accountID }, null)
+            </td>
+        </tr>
+    }
+
+</table>
+<br /><br /><br /><br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+

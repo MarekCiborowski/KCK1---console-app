@@ -1,0 +1,87 @@
+﻿@model Survey_MVC.ViewModels.Surveys.SurveyToFillVM
+@{
+    ViewBag.Title = "Fill Survey";
+}
+@{ int questionNumber = 1; }
+
+<h1>Title: @Model.title</h1>
+<h2>Description: @Model.description</h2>
+<h2>Author: @Html.ActionLink(@Model.authorNickname, "AccountProfile","Account", new { id = Model.accountID }, null)</h2>
+
+@if (Model.isAnonymous)
+{
+    <h3>This survey is anonymous.</h3>
+}
+else
+{
+    <h3>This survey is not anonymous.</h3>
+}
+<br /><br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    @Html.HiddenFor(m => m.accountID);
+    @Html.HiddenFor(m => m.title);
+    @Html.HiddenFor(m => m.description);
+    @Html.HiddenFor(m => m.isAnonymous);
+    @Html.HiddenFor(m => m.surveyID);
+    @Html.HiddenFor(m => m.authorNickname);
+
+
+    for (int i = 0; i < Model.questions.Count; i++)
+    {
+
+        @Html.HiddenFor(m => m.questions[i].canAddOwnAnswers);
+        @Html.HiddenFor(m => m.questions[i].isSingleChoice);
+
+        @Html.HiddenFor(m => m.questions[i].questionValue);
+        @Html.HiddenFor(m => m.questions[i].questionID);
+
+
+        <h2>@questionNumber.  @Model.questions[i].questionValue</h2>
+        @Html.ValidationMessageFor(model => model.questions[i].questionValue, "", new { @class = "text-danger" })
+        { questionNumber++; }
+        if (@Model.questions[i].isSingleChoice)
+        {
+            for (int j = 0; j < @Model.questions[i].answers.Count; j++)
+            {
+                @Html.HiddenFor(m => m.questions[i].answers[j].answerID);
+                @Html.HiddenFor(m => m.questions[i].answers[j].value);
+                <div style="display:flex; flex-direction:column">
+
+                    <div>  @Html.RadioButtonFor(m => m.questions[i].selectedAnswersID, Model.questions[i].answers[j].answerID)<label>@Model.questions[i].answers[j].value</label></div>
+                </div>
+            }
+        }
+        else
+        {
+            for (int j = 0; j < @Model.questions[i].answers.Count; j++)
+            {
+                @Html.HiddenFor(m => m.questions[i].answers[j].answerID);
+                @Html.HiddenFor(m => m.questions[i].answers[j].value);
+
+                <div style="display:flex; flex-direction:column">
+
+                    <div> @Html.CheckBoxFor(m => m.questions[i].answers[j].isChecked)<label>@Model.questions[i].answers[j].value</label></div>
+                </div>
+            }
+        }
+        if (@Model.questions[i].canAddOwnAnswers)
+        {
+            @Html.EditorFor(m => m.questions[i].newAnswer, new { htmlAttributes = new { @Value = "", placeholder = "New answer" } })
+            @Html.ValidationMessageFor(model => model.questions[i].newAnswer, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div>
+                    <button value=@Model.questions[i].questionID.ToString() type="submit" name="button" class="btn btn-search"> Add answer </button>
+                </div>
+            </div>
+        }
+    }
+    <div class="form-group">
+        <div>
+            <button value="Submit" name="button" type="submit" class="btn btn-search"> Confirm </button>
+        </div>
+    </div>
+}
+
+

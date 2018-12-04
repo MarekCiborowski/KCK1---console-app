@@ -163,12 +163,12 @@ namespace Survey_MVC.Controllers
 
             foreach (Question question in surveyRepository.GetQuestions(survey.surveyID))
             {
-                
+                Category category = questionRepository.GetQuestionCategory(question.questionID);
                 QuestionVM questionVM = new QuestionVM
                 {
                     questionValue = question.questionValue,
-                    canAddOwnAnswers = question.canAddOwnAnswer,
-                    isSingleChoice = question.isSingleChoice,
+                    canAddOwnAnswers = category.canAddOwnAnswer,
+                    isSingleChoice = category.isSingleChoice,
                     questionID = question.questionID
                 };
 

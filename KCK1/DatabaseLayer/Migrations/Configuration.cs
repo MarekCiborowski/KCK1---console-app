@@ -15,14 +15,7 @@ namespace DatabaseLayer.Migrations
 
         protected override void Seed(DatabaseLayer.DatabaseContext context)
         {
-            Category[] category = new Category[] {
-                new Category() { isSingleChoice = false, canAddOwnAnswer = false },
-                new Category() { isSingleChoice = false, canAddOwnAnswer = true },
-                new Category() { isSingleChoice = true, canAddOwnAnswer = false },
-                new Category() { isSingleChoice = true, canAddOwnAnswer = true }
-            };
-            foreach (Category cat in category)
-                context.categories.AddOrUpdate(t => new { t.canAddOwnAnswer, t.isSingleChoice }, cat);
+           
         }
     }
 }

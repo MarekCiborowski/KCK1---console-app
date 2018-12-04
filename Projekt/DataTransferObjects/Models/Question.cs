@@ -15,9 +15,9 @@ namespace DataTransferObjects.Models
         public int questionID { get; set; }
         [Required]
         public string questionValue { set; get; }
-        
-        public bool canAddOwnAnswer { get; set; }
-        public bool isSingleChoice { get; set; }
+        [ForeignKey("category")]
+        public int categoryID { get; set; }
+        public Category category { get; set; }
 
         [ForeignKey("survey")]
         public int surveyID { get; set; }

@@ -59,7 +59,6 @@
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountSurvey.cs" />
     <Compile Include="Models\Answer.cs" />
-    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\PersonData.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Survey.cs" />

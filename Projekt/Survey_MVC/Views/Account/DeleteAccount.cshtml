@@ -1,0 +1,21 @@
+﻿@model Survey_MVC.ViewModels.Account.DeleteAccountVM
+@{
+    ViewBag.Title = "DeleteAccount";
+}
+
+<h3>Are you sure you want to delete your account?</h3>
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.accountID)
+
+    <div>
+        <input type="submit" value="Delete account" class="btn btn-danger" />
+        <div class="btn btn-default">
+            @Html.ActionLink("Return to profile", "MyProfile", "Account")
+        </div>
+    </div>
+        
+    }
+</div>
